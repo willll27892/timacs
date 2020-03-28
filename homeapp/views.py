@@ -1,0 +1,160 @@
+from django.shortcuts import render,redirect,HttpResponse
+from homeapp.forms import LoginForm,RegisterForm,AddressForm,Membershipform
+from django.contrib.auth import login,logout,authenticate
+from homeapp.models import Membership,Address
+from homeapp.urlredirect import UrlRedirect
+
+from productsdisplay import views
+
+
+
+
+
+    
+
+# home page view
+def index(request):
+    #check if this page is requested by seller
+    if request.user.is_authenticated:
+        if request.user.is_seller :
+            return redirect('homeapp:address')
+        else:
+            return redirect('homeapp:home')
+        # If requested by admin
+        if request.user.is_admin:
+            pass
+    # display 10 random products to visitors
+    tenpds = views.FirstTen(request)
+    context={'tenpds':tenpds}
+    template_name='homeapp/index.html'
+    return render(request,template_name,context)
+
+# view to register sellers 
+def register_seller(request):
+  
+    if request.user.is_authenticated:
+        return redirect('homeapp:home')
+    
+    form          = RegisterForm(request.POST or None,request.FILES or None)
+    if form.is_valid():
+        user      = form.save(commit=False)
+        password  = form.cleaned_data['password']
+        email     = form.cleaned_data['email']
+        fname     = form.cleaned_data['firstname']
+        lname     = form.cleaned_data['lastname']
+        number    = form.cleaned_data['number']
+        gender    = form.cleaned_data['gender']
+        user.set_password(password)
+        user.save()
+        # set user as seller
+        user.seller= True
+        # reference the user to self
+        user.me =user
+        user.save()
+        login(request,user)
+        return redirect('homeapp:address')
+    seller= True
+    context = {'form':form,'seller':seller}
+    template_name="homeapp/register.html"
+    return render(request,template_name,context)
+
+
+
+
+#user address setup
+
+def address_set_up(request):
+
+    # check if view is requested by authenticated user
+    if request.user.is_authenticated:
+        #check if user has already setup an address
+        address_obj = Address.objects.filter(user=request.user).first()
+        if address_obj:
+            return redirect('homeapp:members')
+
+        form=AddressForm(request.POST or None)
+        if form.is_valid():
+            if request.method=="POST":
+                instance=form.save(commit=False)
+                instance.user=request.user
+                instance.save()
+                return redirect('homeapp:members')
+        context={'form':form}
+        template_name="homeapp/addresssetup.html"
+
+        return render(request,template_name,context)
+    else :
+        return redirect('homeapp:home')
+
+
+#membership view
+def membership(request):
+    if request.user.is_authenticated:
+        #check if user is a seller
+        if request.user.is_seller:
+            #check if user has setup membership 
+            membership_obj = Membership.objects.filter(user=request.user).first()
+            if membership_obj:
+                return redirect('homeapp:useradmin')
+            form = Membershipform(request.POST or None)
+            if form.is_valid():
+                if request.method=="POST":
+                    instance = form.save(commit=False)
+                    instance.user= request.user
+                    instance.save()
+                    return redirect('homeapp:useradmin')
+            template_name = "homeapp/membership.html"
+            context       = {'form':form}
+            return render(request,template_name,context)
+        else:
+            return HttpResponse('Bad request')
+    else:
+        return redirect('homeapp:home')
+
+# function for user admin pannel
+
+def UserAdmin(request):
+    # call the url redirect function 
+    # that will do checks and redirect user base on their state
+    if request.user.is_authenticated:
+        if request.user.is_seller:
+            membership_obj = Membership.objects.filter(user=request.user).first()
+            address_obj = Address.objects.filter(user=request.user).first()
+           # check if seller has setup membership or address
+           #if one not setup, user redirect to homeredirect for url checkup
+            if not membership_obj or not address_obj:
+                return redirect('homeapp:homeredirect')
+    else:
+        return redirect('homeapp:homeredirect')
+
+    # redirect the user to admin pannel
+    return redirect('pannel:userpannel')
+
+
+def Logout(request):
+
+    logout(request)
+    return redirect('homeapp:home')
+
+
+#login user 
+# login user in to their account
+def Login(request):
+    if request.user.is_authenticated:
+        return redirect('homeapp:home')
+    form = LoginForm(request.POST or None)
+    if request.method=="POST":
+        
+        if form.is_valid():
+            print('valid')
+            username = form.cleaned_data.get("email")
+            password = form.cleaned_data.get("password")
+            print(username,password)
+            user = authenticate(request,username=username,password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request,user)
+                    return redirect('homeapp:homeredirect')
+    context = {'login':form}
+    template_name="homeapp/login.html"
+    return render(request,template_name,context)

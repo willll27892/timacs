@@ -1,0 +1,47 @@
+{% extends 'adminone/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="post_container ">
+<div class="post_header">
+  <h4>Approved products: {{app.count}}</h4>  
+  
+</div>
+<table id="header-table">
+ <tr>
+  
+   <th>Name</th>
+   <th>Id</th>
+   <th>Status</th>
+   <th>Submited</th>
+  
+ </tr>
+</table>
+
+<div class="table_list">
+<table>
+
+  
+  {% if pending %}
+ {% for post in app %}
+
+ <tr>
+  
+   <td>{{post.productname}} </td>
+   <td>{{post.uniqueid}}</td>
+   <td>{{post.status}}</td>
+   <td>{{post.created}}</td>
+   <td><a href="">Details</a></td>
+ </tr>
+
+ {% endfor %}
+ {% else %}
+ <p> You have no approved products</p>
+ {% endif %}
+
+</table>
+</div>
+ 
+</div>
+
+{% endblock %}

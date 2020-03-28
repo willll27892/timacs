@@ -1,0 +1,66 @@
+{% extends 'homeapp/base.html' %}
+{% block content %}
+{% load staticfiles %}
+<div class="registrationform">
+<div class="page-content">
+    <div class="form-v4-content">
+       
+        <form class="form-detail" action="{% url 'homeapp:seller' %}"  method="POST" id="myform">
+
+            {% csrf_token %}
+ 
+            <h2>Seller Registration Form</h2>
+            <div class="form-group">
+                <div class="form-row form-row-1">
+                    <label for="first_name">First Name</label>
+                    {{form.firstname}}
+                </div>
+                <div class="form-row form-row-1">
+                    <label for="last_name">Last Name</label>
+                   {{form.lastname}}
+                </div>
+            </div>
+
+            <div class="form-group">
+                    <div class="form-row form-row-1">
+                        <label for="first_name">Your Number</label>
+                        {{form.number}}
+                    </div>
+                    <div class="form-row form-row-1">
+                        <label for="last_name">Gender</label>
+                       {{form.gender}}
+                    </div>
+                </div>
+            <div class="form-row">
+                    <h4 style="color:red">{{form.email.errors}}</h4>
+                <label for="your_email">Your Email</label>
+                {{form.email}}
+            </div>
+            <h4 style="color:red">{{form.password2.errors}}</h4>
+            <div class="form-group passwoard_">
+                
+                <div class="form-row form-row-1 ">
+                    <label for="password">Password</label>
+                   {{form.password}}
+                </div>
+                <div class="form-row form-row-1">
+                    <label for="comfirm-password">Comfirm Password</label>
+                    {{form.password2}}
+                </div>
+            </div>
+            <br>
+            <div class="form-checkbox">
+                <label class="container"><p>By creating an account, you agree to the <a href="#" class="text">Terms and Conditions</a></p>
+                     
+      
+                </label>
+            </div>
+            <div class="form-row-last" >
+                <input type="submit" name="register" class="register" value="Register">
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

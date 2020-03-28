@@ -1,0 +1,55 @@
+{% extends 'homeapp/base.html' %}
+{% block content %}
+{% load staticfiles %}
+
+   
+     
+<div class="registrationform">
+     
+<div class="page-content">
+      
+    <div class="form-v4-content">
+     
+        <form class="form-detail" action="{% url 'homeapp:address' %}" method="post" id="myform">
+            
+            {% csrf_token %}
+            <div class="extra_info">
+                <strong>
+                        Welcome {{request.user.firstname}} ,
+                        <br>
+                    </strong>
+                    <p style="margin-left:20px;font-size:12px;margin-bottom: 15px;">
+                            Please setup your address.
+                        </p>
+                        
+                   
+                </div>
+            
+            <div class="form-row">
+                <label for="your_email"> Address</label>
+                 {{form.address1}}
+            </div>
+            <div class="form-row">
+                    <label for="your_email">Address 2 </label>
+                    {{form.address2}}
+                </div>
+            <div class="form-group">
+                <div class="form-row form-row-1 ">
+                    <label for="password">Town</label>
+                    {{form.town}}
+                </div>
+                <div class="form-row form-row-1">
+                    <label for="comfirm-password">Region</label>
+                    {{form.region}}
+                </div>
+            </div>
+   
+            <div class="form-row-last">
+                <input type="submit" name="register" class="register" value="Create">
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

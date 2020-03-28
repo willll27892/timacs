@@ -1,0 +1,49 @@
+{% extends 'homeapp/base.html' %}
+{% block content %}
+{% load staticfiles %}
+
+   
+     
+<div class="registrationform">
+     
+<div class="page-content">
+      
+    <div class="form-v4-content">
+     
+        <form class="form-detail" action="{% url 'homeapp:members' %}" method="POST" id="myform">
+            {% csrf_token %}
+            <div class="extra_info">
+                <strong>
+                        Hello {{request.user.firstname}} ,
+                        <br>
+                    </strong>
+                    <p style="margin-left:20px;font-size:12px;margin-bottom: 15px;">
+                            Your account is almost setup.
+                        </p>
+                        
+                   
+                </div>
+                
+            <div class="form-row">
+                <label for="your_email">Method of payment:</label>
+                {{form.membership}}
+            </div>
+            <div class="form-row">
+                    <label for="your_email">Do you accept affiliate agents?</label>
+                    {{form.affilates}}
+                </div>
+          
+                <div class="form-row">
+                        <label for="your_email">Your business type?</label>
+                        {{form.sellingmethod}}
+                    </div>
+   
+            <div class="form-row-last">
+                <input type="submit" name="register" class="register" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}
