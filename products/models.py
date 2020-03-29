@@ -111,47 +111,96 @@ class Product(models.Model):
         imageTemproary = Image.open(uploadedImage)
         outputIoStream = BytesIO()
         imageTemproaryResized = imageTemproary.resize( (250,300) ) 
-        imageTemproaryResized.save(outputIoStream , format='JPEG', quality=60)
+        imageTemproaryResized.save(outputIoStream , format='JPEG', quality=50)
         outputIoStream.seek(0)
         uploadedImage = InMemoryUploadedFile(outputIoStream,'ImageField', "%s.jpg" % uploadedImage.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
         return uploadedImage
 
 
 """
-Save quantity purchased,
-save price,
-save selling price,
-save if product on sale.
-Perform mathematical calculation to calculate
-actual product cost added to cart.
+save product related product object,
+Save quantity purchased of related product object,
+get the product price of related product object,
+get the product sales price of related product object
+If related product object on salesoff, it caculates the actual price after salesoff with respect to 
+product quantity ordered
+This model is added to user cart, when ever a user add a product to cart
 """
 class CostProcessing(models.Model):
-    product  = models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
-    quantity = models.IntegerField(default=1)
-    cost     = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
-    salesprice    = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
+    user              = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
+    product           = models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
+    quantity          = models.IntegerField(default=1)
+    cost              = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
+    #product cost after sales
+    costaftersales    = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
 
     def __str__(self):
         return str(self.product.productname) 
 
     def save(self,*args,**kwargs):
         qt  = self.quantity
-        pr  = self.product.price
+        pr  = self.product.pdprice
         # get the actual 
         cst = D(qt)*D(pr)
         self.cost= cst
         #calculate price of product after salesoff
-        sales = self.product.ifsales
-        if sales:
-            salesoff        = self.product.sales
-            percentageoff   = D(salesoff/100) 
-            sl              = cst *  percentageoff
-            self.salesprice = cst-sl
+        if self.product.sales>0:
+            salesprice        = self.product.salesprice
+            self.costaftersales = salesprice * qt
             
 
-        return super(calculateprice,self).save(*args,**kwargs)
+        return super(CostProcessing,self).save(*args,**kwargs)
 
+
+# product cart model    
+class Cart(models.Model):
+    owner    = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
+    created  = models.DateTimeField(auto_now_add=True,null=True)
+    products = models.ManyToManyField(CostProcessing,related_name="cpds")
+    active   = models.BooleanField(default=True)
+    pdcount  = models.IntegerField(null=True,blank=True)
+    total    = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
+    def __str__(self):
+        return str("{owner}".format(owner=self.owner))
     
+    def save(self,*args,**kwargs):
+        '''
+        Calculate the total number of products in cart.
+        give the sum amount of all the products in cart.
+        Making sure put  consideration on products on sale
+        and products not on sale.
+        '''
+        # if card has been created
+        if self.id:
+            salesprice    = D(0.00)
+            originalprice = D(0.00)
+            productcount  = 0
+            #now get products from manytomany relationship field
+            cartobj       = self.__class__.objects.filter(id=self.id).first()
+            pdobjs        = cartobj.products.all()
+            # loop through each object and perform mathematical calculations
+            for product in pdobjs:
+                """
+                check all CostProcessing related to products on sales in current cart
+                and sum their sales price amount
+                """
+                if product.product.sales>0:
+                    salesprice +=product.costaftersales
+                """
+                check all CostProcessing related to products not on sales in current cart
+                and sum their sales price amount
+                """
+                if product.product.sales==0:
+                    originalprice +=product.cost
+                productcount +=product.quantity
+            """
+            get the total amount user is suppose to pay for the 
+            products
+            """
+            self.total= D(salesprice) + D(originalprice)
+            self.pdcount = productcount
+        return super(Cart,self).save(*args,**kwargs)
+
 
 
 
