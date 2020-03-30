@@ -186,9 +186,9 @@
                         <li>
                           <figure>
                             {% if not product.picone %}
-                            <a class="aa-product-img" href="#"><img src="{% static 'img/man/t-shirt-1.png' %}" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="{% url 'homeapp:productdetail' slug=product.slug %}"><img src="{% static 'img/man/t-shirt-1.png' %}" alt="polo shirt img"></a>
                             {% else %}
-                            <a class="aa-product-img" href="#"><img src="{{product.picone.url}}" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="{% url 'homeapp:productdetail' slug=product.slug %}"><img src="{{product.picone.url}}" alt="polo shirt img"></a>
                             {% endif %}
                             <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                             <figcaption>
@@ -197,9 +197,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                            <a href="{% url 'homeapp:productdetail' slug=product.slug %}" data-toggle2="tooltip"  title="Quick View" data-toggle="modal" ><span class="fa fa-search"></span></a>
                           </div>
                           <!-- product badge -->
                            <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>

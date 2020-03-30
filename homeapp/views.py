@@ -1,14 +1,22 @@
-from django.shortcuts import render,redirect,HttpResponse
+from django.shortcuts import render,redirect,HttpResponse,get_object_or_404
 from homeapp.forms import LoginForm,RegisterForm,AddressForm,Membershipform
 from django.contrib.auth import login,logout,authenticate
 from homeapp.models import Membership,Address
 from homeapp.urlredirect import UrlRedirect
+from products.models import Product
 
 from productsdisplay import views
 
 
 
+# product detail 
 
+
+def ProductDetail(request,slug):
+    product = get_object_or_404(Product,slug=slug)
+    context={'product':product}
+    template_name="homeapp/productdetail.html"
+    return render(request,template_name,context)
 
     
 

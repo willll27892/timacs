@@ -6,6 +6,7 @@ app_name="homeapp"
 
 urlpatterns=[
     #home page url
+    url(r'^product/detail/(?P<slug>[\w-]+)$',views.ProductDetail,name="productdetail"),
     url(r'^$',views.index,name="home"),
     url(r'^login/$',views.Login,name="login"),
     url(r'^urlredirect/$',views.UrlRedirect,name="homeredirect"),

@@ -79,6 +79,9 @@ class Product(models.Model):
  
     def save(self,*args,**kwargs):
         self.picone = self.compressImage(self.picone)
+        self.pictwo = self.compressImage(self.pictwo)
+        self.picthree = self.compressImage(self.picthree)
+        self.picfour = self.compressImage(self.picfour)
         #check if product has a generated uiqueid
         # unique id has a length of 14 characters starting with 
         # composes of 5 characters of user name, 5 characters of product name, and four random characters
