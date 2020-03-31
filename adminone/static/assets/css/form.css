@@ -15,8 +15,6 @@
  .field{
     width:80%;
 }
-
-
  .field .text-input{
      font-size: 12px;
      margin-top:2px;
@@ -27,8 +25,8 @@
     border-right:none;
     text-align: center;
     color:rgba(0,0,0,0.7);
-
 }
+
   .text-select{
     width:205%;
     padding:4px 4px 4px;
@@ -71,7 +69,6 @@
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
-
 }
 
 .form-button {

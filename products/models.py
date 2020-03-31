@@ -72,7 +72,7 @@ class Product(models.Model):
     state          = models.CharField(max_length=200,null=True,choices=st)
     uniqueid       = models.CharField(max_length=200,null=True,blank=True,unique=True)
     sales          = models.IntegerField(choices=sl,default=0 )
-    pdprice        = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
+    pdprice        = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=False)
     salesprice     = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
     def __str__(self):
         return self.productname
@@ -112,9 +112,16 @@ class Product(models.Model):
 
     def compressImage(self,uploadedImage):
         imageTemproary = Image.open(uploadedImage)
+        width,height=imageTemproary.size
+        
         outputIoStream = BytesIO()
-        imageTemproaryResized = imageTemproary.resize( (250,300) ) 
-        imageTemproaryResized.save(outputIoStream , format='JPEG', quality=50)
+        imageTemproaryResized = imageTemproary.resize( (250,300) )
+        if width>250 and height>300:
+            imageTemproaryResized.save(outputIoStream , format='JPEG', quality=80)
+        if width<250 and height<300:
+            imageTemproaryResized.save(outputIoStream , format='JPEG', quality=90)
+        if width==250 and height==300:
+            imageTemproary.save(outputIoStream , format='JPEG', quality=100)   
         outputIoStream.seek(0)
         uploadedImage = InMemoryUploadedFile(outputIoStream,'ImageField', "%s.jpg" % uploadedImage.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
         return uploadedImage
