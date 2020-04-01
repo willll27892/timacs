@@ -176,6 +176,11 @@ float: left;
 
 @media only screen and (min-width:150px) and (max-width:400px){
 
+	.add-quantity input{
+		left:15%;
+		width: 50%;
+	}
+
 	/* img zoom result */
 .img-zoom-result {
     background-color: white;

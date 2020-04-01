@@ -3,10 +3,7 @@
     {% block content %}
     {% load staticfiles %}           
 
-<!--
-hold product info, such as images and product  detail
--->
-<link href="{% static 'css/productail.css' %}" rel="stylesheet">
+
  
 
 <div class="product-main-container">
@@ -17,29 +14,29 @@ hold product info, such as images and product  detail
 <div class="img-view-container">
   <div class="side-img">
     <div class="img-1">
-    <img src="{{product.picone.url}}"onmouseover="preview(this)" onmouseout="normalImg(this)">
+    <img src="{{product.picone.url}}"onmouseover="preview(this)" >
   </div>
     {% if product.pictwo  %}
     <div class="img-1">
-    <img src="{{product.pictwo.url}}" onmouseover="preview(this)" onmouseout="normalImg(this)">
+    <img src="{{product.pictwo.url}}" onmouseover="preview(this)" >
   </div>
     {% endif %}
 
     {% if product.picthree  %}
     <div class="img-1">
-    <img src="{{product.picthree.url}}" onmouseover="preview(this)" onmouseout="normalImg(this)">
+    <img src="{{product.picthree.url}}" onmouseover="preview(this)" >
   </div>
     {% endif %}
 
     {% if product.picfour  %}
     <div class="img-1">
-    <img src="{{product.picfour.url}}" onmouseover="preview(this)" onmouseout="normalImg(this)">
+    <img src="{{product.picfour.url}}" onmouseover="preview(this)" >
   </div>
     {% endif %}
 
   </div>
 <div class="img-active">
-  <img id="0"src="{{product.picone.url}}"></img>
+  <img id="0"src="{{product.picone.url}}" ontouchmove="tounchscreen()"></img>
 </div>
 </div>
 
@@ -295,6 +292,12 @@ $('.side-img img').hover(function(){
 });
 
 });
+
+   function tounchscreen() {
+    imageZoom("0", "myresult");
+    console.log('fired')
+   }
+ 
 
   function preview(img){
       document.getElementById(0).src=img.src;
