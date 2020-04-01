@@ -173,9 +173,17 @@ float: left;
 	-ms-border-radius: 3px;
 	-o-border-radius: 3px;
 }
+.instruction{
+	font-size: 10px;
+	text-align: center;
+	padding:5px 5px 5px;
+	display: none;
+}
 
 @media only screen and (min-width:150px) and (max-width:400px){
-
+	.instruction{
+		display: inherit;
+	}
 	.add-quantity input{
 		left:15%;
 		width: 50%;
@@ -236,7 +244,9 @@ float: left;
 }
 
 @media only screen and (min-width:400px) and (max-width:500px){
-
+	.instruction{
+		display: inherit;
+	}
 	/* img zoom result */
 .img-zoom-result {
     background-color: white;
@@ -293,7 +303,9 @@ float: left;
 
 
 @media only screen and (min-width:500px) and (max-width:900px){
-
+	.instruction{
+		display: inherit;
+	}
 	/* img zoom result */
 .img-zoom-result {
     background-color: white;

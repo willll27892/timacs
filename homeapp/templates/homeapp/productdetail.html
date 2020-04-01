@@ -36,9 +36,9 @@
 
   </div>
 <div class="img-active">
-  <img id="0"src="{{product.picone.url}}" ontouchmove="touchscreen()" ></img>
+  <img id="0"src="{{product.picone.url}}" ></img>
   <div class="instruction">
-    Click on image to zoom
+    To zoom, click image spot
   </div>
 </div>
 </div>
@@ -296,9 +296,7 @@ $('.side-img img').hover(function(){
 
 });
 
- function touchscreen(){
-  imageZoom("0", "myresult");
- }
+ 
 
   function preview(img){
       document.getElementById(0).src=img.src;
@@ -306,22 +304,17 @@ $('.side-img img').hover(function(){
   }
 
   $(document).ready(function(){
-    windwind=$(window).width();
-    if(windwind>1200){
   $('.img-active ').hover(function(){
     imageZoom("0", "myresult");
     $('.img-zoom-result').css({'visibility':'initial'}); 
 
   },
-    
   function(){
       $('.img-zoom-lens').hide();
       $('.img-zoom-result').css({'visibility':'hidden'});
        
   });
-    }
   });
-
       // Initiate zoom effect:
       
       </script>
