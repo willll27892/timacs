@@ -36,7 +36,7 @@
 
   </div>
 <div class="img-active">
-  <img id="0"src="{{product.picone.url}}" ontouchmove="tounchscreen()"></img>
+  <img id="0"src="{{product.picone.url}}" ontouchmove="tounchscreen(event)"></img>
 </div>
 </div>
 
@@ -293,8 +293,13 @@ $('.side-img img').hover(function(){
 
 });
 
-   function tounchscreen() {
-    imageZoom("0", "myresult");
+imageZoom("0", "myresult");
+
+   function tounchscreen(event) {
+    var x = event.touches[0].clientX;
+    var y = event.touches[0].clientY;
+    
+
     
    }
  
