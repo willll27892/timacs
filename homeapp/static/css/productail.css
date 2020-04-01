@@ -20,12 +20,8 @@
 	height: 150px;
 	z-index: 80px;
 	cursor: pointer;
-	background-color: rgba(225,225,225,0.4);
-	border-radius:50%;
-	-webkit-border-radius:50%;
-	-moz-border-radius:50%;
-	-o-border-radius:50%;
-	-ms-border-radius:50%;
+	background-color: rgba(225,225,225,0.6);
+	
   }
 
 /* img zoom result */
@@ -194,7 +190,7 @@ float: left;
     background-color: white;
   /*set the size of the result div:*/
   width: 90%;
-  height: 250px;
+  height: 200px;
   position: absolute;
   margin-top:95%;
   left:-28%;
@@ -208,8 +204,9 @@ float: left;
 	
 	position: absolute;
 	 /*set the size of the lens:*/
-	 width: 80px;
-	 height: 80px;
+	 width: 100px;
+	 height: 100px;
+	 border-radius:0px;
    }
 	
 	.add-quantity .add-to-cart{
@@ -252,7 +249,7 @@ float: left;
     background-color: white;
   /*set the size of the result div:*/
   width: 80%;
-  height: 250px;
+  height: 200px;
   position: absolute;
   margin-top:85%;
   left:-25%;
@@ -311,7 +308,7 @@ float: left;
     background-color: white;
   /*set the size of the result div:*/
   width: 45%;
-  height: 300px;
+  height: 250px;
   position: absolute;
   top:10px;
   left:18%;
