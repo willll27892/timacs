@@ -305,8 +305,11 @@ $('.side-img img').hover(function(){
 
   $(document).ready(function(){
     $('.img-zoom-result').click(function(){
+      $('.img-zoom-result').css({'visibility':'hidden'}); 
       $('.img-zoom-lens').hide();
     });
+    var windowwidth= $(window).width();
+    if(windowwidth>1200){
   $('.img-active ').hover(function(){
     imageZoom("0", "myresult");
     $('.img-zoom-result').css({'visibility':'initial'}); 
@@ -317,6 +320,13 @@ $('.side-img img').hover(function(){
       $('.img-zoom-result').css({'visibility':'hidden'});
        
   });
+    }
+    if(windowwidth<1200){
+      $('.img-active ').click(function(){
+    imageZoom("0", "myresult");
+    $('.img-zoom-result').css({'visibility':'initial'}); 
+      });
+    }
   });
       // Initiate zoom effect:
       
