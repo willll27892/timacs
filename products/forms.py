@@ -8,8 +8,7 @@ class Productform(forms.ModelForm):
         widgets={
         'descript':forms.Textarea(attrs={'class':'text-input','placeholder':'Product description'}),
         'brand':forms.TextInput(attrs={'class':'text-input','placeholder':'Brand example: Nike, Addidas,Samsung'}),
-        'size':forms.TextInput(attrs={'class':'text-input','placeholder':'Available sizes, example: 12 inches, 32square ft,41'}),
-        'color':forms.TextInput(attrs={'class':'text-input','placeholder':'Available colors, example: red, yellow,blue'}),
+        'size':forms.TextInput(attrs={'class':'text-input','placeholder':'Product size, example: 12 inches, 32square ft,41'}),
         'state':forms.Select(attrs={'class':'text-select'}),
         'category':forms.Select(attrs={'class':'text-select'}),
         'subcategory':forms.Select(attrs={'class':'text-select'}),
@@ -19,4 +18,16 @@ class Productform(forms.ModelForm):
         'pdprice':forms.TextInput(attrs={'class':'text-input','placeholder':'Example "2000" digits only '}),
         }
         exclude=('salesprice','sales','created','slug','user','status')
-        fields =('pdprice','state','location','brand','category','subcategory','productname','picone','pictwo','picthree','picfour','descript','model','size','color')
+        fields =('pdprice','state','location','brand','category','subcategory','productname','picone','pictwo','picthree','picfour','descript','model','size')
+
+# add product sizes
+
+class Productcolors(forms.ModelForm):
+    class Meta:
+        model = Product
+        widgets={
+        'color':forms.TextInput(attrs={'class':'text-input','placeholder':'Brand example: Nike, Addidas,Samsung'}),
+
+        }
+        exclude=('pdprice','state','location','brand','category','subcategory','productname','descript','model','size','salesprice','sales','created','slug','user','status')
+        fields =('picone','pictwo','picthree','picfour','color')

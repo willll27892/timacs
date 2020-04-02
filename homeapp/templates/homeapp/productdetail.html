@@ -305,7 +305,6 @@ $('.side-img img').hover(function(){
 
   $(document).ready(function(){
     $('.img-zoom-result').click(function(){
-      $('.img-zoom-result').css({'visibility':'hidden'}); 
       $('.img-zoom-lens').hide();
     });
     var windowwidth= $(window).width();
@@ -321,11 +320,8 @@ $('.side-img img').hover(function(){
        
   });
     }
-    if(windowwidth<1200){
-      $('.img-active ').click(function(){
-    imageZoom("0", "myresult");
-    $('.img-zoom-result').css({'visibility':'initial'}); 
-      });
+    if(windowwidth>1200){
+ 
     }
   });
       // Initiate zoom effect:

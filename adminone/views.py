@@ -1,7 +1,7 @@
-from django.shortcuts import render,redirect,HttpResponse
+from django.shortcuts import  get_object_or_404, render,redirect,HttpResponse
 from homeapp.models import Membership,Address
 from products import logics 
-from products.forms import Productform
+from products.forms import Productform,Productcolors
 from django.http import JsonResponse
 from products.models import Product
 from django.db.models import Q
@@ -93,6 +93,28 @@ def Approved(request):
         return render(request,template_name,context)
     else:
         return HttpResponse('bad request')
+
+def Addcolor(request,slug):
+    product = get_object_or_404(Product,slug=slug)
+    form    = Productcolors(request.POST or None, request.FILES or None)
+    if request.method=="POST":
+        if form.is_valid:
+            instance= form.save(commit=False)
+            instance.location = product.location
+            instance.user     = request.user
+            instance.status   = product.status
+            instance.state    = product.state
+            instance.sales    = product.sales
+            instance.brand    = product.brand
+            instance.model    = product.model
+            instance.descript = product.descript
+            instance.pdprice  = product.pdprice
+            instance.sales    = product.sales
+            instance.save()
+    context={'product':product,'form':form}
+    template_name="adminone/addcolor.html"
+
+    return render(request,template_name,context)
                 
 
 

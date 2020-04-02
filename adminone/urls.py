@@ -4,6 +4,7 @@ from .import views
 app_name="pannel"
 
 urlpatterns=[
+    url(r'^add/product/colors/(?P<slug>[\w-]+)$',views.Addcolor,name="addcolors"),
     url(r'^seller/$',views.sellerpannel,name="userpannel"),
     # post product
     url(r'^productpost/$',views.productpost,name="ppost"),

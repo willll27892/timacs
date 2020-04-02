@@ -137,6 +137,7 @@ nav{
     position: relative;
     transition: width 2s;
     overflow: hidden;
+    overflow: hidden;
     
 }
 
@@ -373,24 +374,26 @@ position: relative;
     
 }
 .post_container #header-table{
-    width:80%;
+    
     position: relative;
-    left:0%;
     margin-bottom: 20px;
     margin-top:10px;
+    margin-left:3%;
 }
-.post_container #header-table th{
-    width:25px;
+.post_container  td{
+    padding:9px 5px 9px;
 }
-.post_container .table_list table{
-    width:90%;
+
+.post_container .table_list {
+    height:400px;
+    overflow-x: auto;
+}
+.post_container .table_list table {
+   margin-top:22px;
+   margin-left:4px;
     
 }
-.post_container .table_list table td{
-    width:auto;
-    padding:10px 10px 10px;
-    
-}
+
 .post_container p{
 width:100%;
 color:white;
@@ -403,14 +406,7 @@ margin-top:150px;
     color:black;
     
 }
-.post_container .table_list{
- height: 400px;
- overflow-y: auto;
- overflow-x:hidden;
- width:90%;
- position: relative;
- left:5%;
-}
+
 .post_container .table_list td:nth-child(1){
     text-align: left;
 }
@@ -505,12 +501,13 @@ margin-top:150px;
         left:0%;
         width: 100%;
         border-radius: 0px;
+        overflow:hiden;
     } 
     .post_container .table_list table tr {
         display: inline-flex
        }
        .post_container .table_list {
-           width:90%;
+           width:100%;
            height:400px;
            overflow-y:auto;
            overflow-x:auto;
@@ -531,6 +528,7 @@ margin-top:150px;
         left:0%;
         margin-left:0%;
         padding-left:10%;
+
        
     }
     .activities-container .account-status{
@@ -641,7 +639,9 @@ margin-top:150px;
 }
 
 }
-
+.product-addon-container{
+    width:90%;
+}
 @media only screen and (min-width:600px) and (max-width:900px){
     .post_container{
         position: relative;

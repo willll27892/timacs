@@ -28,11 +28,11 @@
 .img-zoom-result {
     background-color: white;
   /*set the size of the result div:*/
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   position:absolute;
- top:30px;
-  margin-left:33%;
+ margin-top:-10px;
+  margin-left:45%;
   box-shadow:-0.5px 1px 4px 1px black;
   -webkit-box-shadow:-0.5px 1px 4px 1px black;
   -ms-box-shadow:-0.5px 1px 4px 1px black;
@@ -45,9 +45,8 @@ visibility: hidden;
 
 .img-view-container{
 	display: inline-block;
-	width:50%;
+	width:60%;
 	overflow: hidden;
-	background-color: gray;
 	padding-top:10px;
 	padding-left:10px;
 	padding-right:10px;
@@ -57,23 +56,24 @@ visibility: hidden;
 .side-img, .img-active{
 float: left;
 }
-.side-img{
-	position: relative;
-	top:15px;
-}
+
 .product-detail-container .side-img{
 	width:auto;
-	margin-right:8px;
+	margin-right:20px;
+	position: relative;
+	top:15px;
 }
 .product-detail-container .side-img img{
 	width:40px;
 	height:40px;
-	border-bottom: solid;
-	border-color:gray;
+	border-width: 1px;
 }
 .product-detail-container .img-active{
 	position: relative;
 	width:80%;
+	border:solid;
+	border-width: 1px;
+	border-color: rgba(225,225,225,0.6);
 }
 .product-detail-container .img-active img{
 	width:100%;
@@ -84,11 +84,15 @@ float: left;
 	padding-bottom: 100px;
 	display: inline-block;
 	width:80%;
-	margin-left:15%;
+	margin-left:5%;
+}
+
+.produt-info-container{
+	width:40%;
 }
 .img-view-container ,.produt-info-container{
 	float: left;
-	width:40%;
+	
 	position: relative;
 
 
@@ -177,6 +181,9 @@ float: left;
 }
 
 @media only screen and (min-width:150px) and (max-width:400px){
+	.product-detail-container .side-img{
+		margin-right:2px;
+	}
 	.instruction{
 		display: inherit;
 	}
@@ -335,7 +342,7 @@ float: left;
 	}
 	.product-detail-container .img-active{
 		position: relative;
-		width:40%;
+		width:70%;
 	}
 	.product-main-container{
 		width:100%;
@@ -393,7 +400,7 @@ float: left;
 	}
 	.product-detail-container .img-active{
 		position: relative;
-		width:40%;
+		width:70%;
 	}
 	.product-main-container{
 		width:100%;

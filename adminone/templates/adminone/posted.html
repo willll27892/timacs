@@ -10,10 +10,7 @@
 <table id="header-table">
  <tr>
   
-   <th>Name</th>
-   <th>Id</th>
-   <th>Status</th>
-   <th>Submited</th>
+   <th>ProductName</th>
   
  </tr>
 </table>
@@ -28,11 +25,9 @@
  <tr>
   
    <td>{{post.productname}} </td>
-   <td>{{post.uniqueid}}</td>
-   <td>{{post.status}}</td>
-   <td>{{post.created}}</td>
-   <td><a href="">Details</a></td>
- </tr>
+   <td><a style="border:solid;padding:5px 5px 5px; border-width: 1px; text-decoration: none;background-color: white; border-radius: 5px;-webkit-border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;" href="{% url 'pannel:addcolors' slug=post.slug %}">Addcolors</a></td>
+   <td><a style="border:solid;padding:5px 5px 5px; border-width: 1px; text-decoration: none;background-color: white; border-radius: 5px;-webkit-border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;" href="">Addsizes</a></td>
+  </tr>
 
  {% endfor %}
  {% else %}

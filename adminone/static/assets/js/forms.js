@@ -80,13 +80,11 @@ $('.form-container .nextstep').click(function(){
     var pdname = $('#id_productname');
     var pdct   = $('#id_category');
     var subct  = $('#id_subcategory');
-    var color  = $('#id_color'); 
     var size   = $('#id_size');
     var model  = $('#id_model');
     var inputone   = pdname.val().replace(/^\s+|\s+$/g, "");
     var inputtwo   = pdct.val().replace(/^\s+|\s+$/g, "");
     var inputthree = subct.val().replace(/^\s+|\s+$/g, "");
-    var inputfour  = color.val().replace(/^\s+|\s+$/g, "");
     var inputfive  = size.val().replace(/^\s+|\s+$/g, "");
     var inputsix   = model.val().replace(/^\s+|\s+$/g, "");
 
@@ -111,12 +109,7 @@ $('.form-container .nextstep').click(function(){
     else {
         subct.css({'border-bottom':'solid','border-width':'1px','border-color':'rgba(0,0,0,0.4)'});
     }
-    if(inputfour.length==0){
-        color.css({'border-bottom':'solid','border-color':'red','border-width':'1px'}); 
-    }
-    else {
-        color.css({'border-bottom':'solid','border-width':'1px','border-color':'rgba(0,0,0,0.4)'});
-    }
+
     if(inputfive.length == 0){
         size.css({'border-bottom':'solid','border-color':'red','border-width':'1px'}); 
     }
@@ -132,7 +125,7 @@ $('.form-container .nextstep').click(function(){
 
 
 // if all field not empty , go to the next form section
-    if(inputone!=0 && inputtwo!=0 && inputthree!=0 && inputfour!=0 && inputfive!=0 && inputsix !=0){
+    if(inputone!=0 && inputtwo!=0 && inputthree!=0  && inputfive!=0 && inputsix !=0){
         $('.form-container .section-one').hide();
         $('.form-container .section-two').show();
 

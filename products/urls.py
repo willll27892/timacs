@@ -3,5 +3,6 @@ from .import views
 
 app_name="product"
 urlpatterns=[
+    
     url(r'^products/$',views.myproduct,name="allproducts"),
 ]
