@@ -49,7 +49,7 @@ class SubCategory(models.Model):
 # product size 
 
 class ProductSize(models.Model):
-    user            = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="pdsize",null=True)
+    user         = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="pdsize",null=True)
     created      = models.DateTimeField(auto_now_add=True,null=True)
     updated      = models.DateTimeField(auto_now=True,null=True)
     size         = models.CharField(max_length=200,null=True)
@@ -58,6 +58,16 @@ class ProductSize(models.Model):
 
     def __str__(self):
         return str(self.size)
+
+# this model will save product copy in a different color
+class ProductColor(models.Model):
+    color           = models.CharField(max_length=50,null=True)
+    picone          = models.ImageField(upload_to="productimage",null=True)
+    pictwo          = models.ImageField(upload_to="productimage",null=True)
+    picthree        = models.ImageField(upload_to="productimage",null=True)
+    picfour         = models.ImageField(upload_to="productimage",null=True)
+    user            = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="userproductcolor",null=True)
+
 
 # product model 
 
@@ -69,10 +79,10 @@ class Product(models.Model):
     category        = models.ForeignKey(Category,on_delete=models.CASCADE,related_name="product_category",null=True)
     subcategory     = models.ForeignKey(SubCategory,on_delete=models.CASCADE,related_name="product_subcategory")
     productname     = models.CharField(max_length=50,null=True)
-    picone          = models.ImageField(upload_to="productimage",null=True,blank=True)
-    pictwo          = models.ImageField(upload_to="productimage",null=True,blank=True)
-    picthree        = models.ImageField(upload_to="productimage",null=True,blank=True)
-    picfour         = models.ImageField(upload_to="productimage",null=True,blank=True)
+    picone          = models.ImageField(upload_to="productimage",null=True)
+    pictwo          = models.ImageField(upload_to="productimage",null=True)
+    picthree        = models.ImageField(upload_to="productimage",null=True)
+    picfour         = models.ImageField(upload_to="productimage",null=True)
     descript        = models.TextField(null=True)
     brand           = models.CharField(max_length=100,null=True)
     model           = models.CharField(max_length=100,null=True)
@@ -87,7 +97,7 @@ class Product(models.Model):
     sales           = models.IntegerField(choices=sl,default=0 )
     pdprice         = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=False)
     salesprice      = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
-    pdcolor         = models.ManyToManyField('self',related_name="color_id",null=True,blank=True)
+    pdcolor         = models.ManyToManyField(ProductColor,related_name="color_id",null=True,blank=True)
     availableseizes = models.ManyToManyField(ProductSize,null=True,related_name="avlprice")
     def __str__(self):
         return self.productname
@@ -104,19 +114,14 @@ class Product(models.Model):
             get all product colors related to 
             this product post
             '''
-            colors = obj.pdcolor.all()
+            colors = obj.availableseizes.all()
 
             # check if product post has any product color related to it
             # loop through available colors 
             if colors:
-                for color in colors:
-                    '''
-                    update all color object status
-                    to  the present status of the 
-                    parent obj
-                    '''
-                    color.post=self.status
-                    color.save()
+                status = self.status
+                colorsave(colors,status)
+
 
         self.picone = self.compressImage(self.picone)
         self.pictwo = self.compressImage(self.pictwo)
@@ -150,6 +155,7 @@ class Product(models.Model):
         
         return super(Product,self).save(*args,**kwargs)
 
+
     def compressImage(self,uploadedImage):
         imageTemproary = Image.open(uploadedImage)
         width,height=imageTemproary.size
@@ -166,7 +172,15 @@ class Product(models.Model):
         uploadedImage = InMemoryUploadedFile(outputIoStream,'ImageField', "%s.jpg" % uploadedImage.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
         return uploadedImage
 
-
+def colorsave(colors,status):
+    for color in colors:
+        '''
+        update all color object status
+        to  the present status of the 
+        parent obj
+        '''
+        color.post=status
+        color.save()
 """
 save product related product object,
 Save quantity purchased of related product object,

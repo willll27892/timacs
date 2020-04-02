@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product,ProductSize
+from .models import Product,ProductSize,ProductColor
 
 
 class Productform(forms.ModelForm):
@@ -12,24 +12,25 @@ class Productform(forms.ModelForm):
         'state':forms.Select(attrs={'class':'text-select'}),
         'category':forms.Select(attrs={'class':'text-select'}),
         'subcategory':forms.Select(attrs={'class':'text-select'}),
+        'color':forms.TextInput(attrs={'class':'text-input','placeholder':'product color,exp red'}),
         'productname':forms.TextInput(attrs={'class':'text-input','placeholder':'Enter product name'}),
         'model':forms.TextInput(attrs={'class':'text-input','placeholder':'Enter product model'}),
         'location':forms.TextInput(attrs={'class':'text-input','placeholder':'Enter product location'}),
         'pdprice':forms.NumberInput(attrs={'class':'text-input','placeholder':'Example "2000" digits only '}),
         }
         exclude=('salesprice','sales','created','slug','user','status')
-        fields =('pdprice','state','location','brand','category','subcategory','productname','picone','pictwo','picthree','picfour','descript','model','size')
+        fields =('color','pdprice','state','location','brand','category','subcategory','productname','picone','pictwo','picthree','picfour','descript','model','size')
 
 # add product sizes
 
 class Productcolors(forms.ModelForm):
     class Meta:
-        model = Product
+        model = ProductColor
         widgets={
         'color':forms.TextInput(attrs={'class':'text-input','placeholder':'example red'}),
 
         }
-        exclude=('pdprice','state','location','brand','category','subcategory','productname','descript','model','size','salesprice','sales','created','slug','user','status')
+        exclude=('user',)
         fields =('picone','pictwo','picthree','picfour','color')
 
 

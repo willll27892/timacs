@@ -3,7 +3,7 @@ from homeapp.models import Membership,Address
 from products import logics 
 from products.forms import ProductSizefm,Productform,Productcolors
 from django.http import JsonResponse
-from products.models import Product
+from products.models import Product,ProductSize,ProductColor
 from django.db.models import Q
 
 
@@ -96,24 +96,13 @@ def Approved(request):
 
 # for sellers to add colors to their product
 def Addcolor(request,slug):
+    if not request.user.is_authenticated:
+        return HttpResponse('bad request')
     product = get_object_or_404(Product,slug=slug)
     form    = Productcolors(request.POST or None, request.FILES or None)
     if request.method=="POST":
         if form.is_valid:
             instance= form.save(commit=False)
-            instance.productname = product.productname
-            instance.location    = product.location
-            instance.category    = product.category
-            instance.subcategory = product.subcategory
-            instance.user        = request.user
-            instance.status      = product.status
-            instance.state       = product.state
-            instance.sales       = product.sales
-            instance.brand       = product.brand
-            instance.model       = product.model
-            instance.descript   = product.descript
-            instance.pdprice    = product.pdprice
-            instance.sales       = product.sales
             instance.save()
             product.pdcolor.add(instance)
             return redirect ('pannel:addcolors',slug=product.slug)
@@ -124,6 +113,8 @@ def Addcolor(request,slug):
 
 # for sellers to sizes to their product
 def Addsize(request,slug):
+    if not request.user.is_authenticated:
+        return HttpResponse('bad request')
     product = get_object_or_404(Product,slug=slug)
     form    = ProductSizefm(request.POST or None, request.FILES or None)
     if request.method=="POST":
@@ -137,6 +128,27 @@ def Addsize(request,slug):
     template_name="adminone/addsizes.html"
 
     return render(request,template_name,context)
+
+# remove product colors
+def Removecolor(request,slug):
+    if not request.user.is_authenticated:
+        return HttpResponse('bad request')
+    product = get_object_or_404(Product,slug=slug)
+    color   = request.GET.get('id')
+    sizeobj = ProductColor.objects.get(id=color)
+    product.pdcolor.remove(sizeobj)
+    return redirect ('pannel:addcolors',slug=product.slug)
+
+# remove product sizes
+def Removesize(request,slug):
+    if not request.user.is_authenticated:
+        return HttpResponse('bad request')
+    product = get_object_or_404(Product,slug=slug)
+    size   = request.GET.get('id')
+    sizeobj = ProductSize.objects.get(id=size)
+    product.availableseizes.remove(sizeobj)
+    return redirect ('pannel:addsizes',slug=product.slug)
+
                 
 
 

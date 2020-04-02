@@ -4,6 +4,8 @@ from .import views
 app_name="pannel"
 
 urlpatterns=[
+    url(r'^romove/product/sizes/(?P<slug>[\w-]+)$',views.Removesize,name="removesize"),
+    url(r'^remove/product/colors/(?P<slug>[\w-]+)$',views.Removecolor,name="removecolor"),
     url(r'^add/product/sizes/(?P<slug>[\w-]+)$',views.Addsize,name="addsizes"),
     url(r'^add/product/colors/(?P<slug>[\w-]+)$',views.Addcolor,name="addcolors"),
     url(r'^seller/$',views.sellerpannel,name="userpannel"),

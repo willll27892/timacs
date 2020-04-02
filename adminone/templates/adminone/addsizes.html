@@ -44,7 +44,12 @@
         <div class="pd-value">
         {% for sizes in product.availableseizes.all %}
         
-      {{sizes.size}} ,
+      <form id action="{% url 'pannel:removesize' slug=product.slug %}">
+            <input name="id" type="hidden" value="{{sizes.id}}">   
+        {{sizes.size}}
+             
+              <button type="submit">Remove</button>
+      </form> 
 {% endfor %}
 </div>
       </div>

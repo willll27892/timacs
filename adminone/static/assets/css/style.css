@@ -570,9 +570,17 @@ margin-top:150px;
    margin-top:4px;
    
 }
-.pd-info-field .pd-value img{
+.pd-img{
+    width: 100%;
+    background-color: gray;
+    padding:10px 10px 10px;
+}
+ .pd-img img{
     width:50px;
     height:50px;
+}
+.pd-img .color_fields-ct{
+    display: inline-block;
 }
 .add_sizes .form-container{
     height:500px;

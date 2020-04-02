@@ -40,15 +40,22 @@
 
       <div class="pd-info-field">
         <div class="pd-lable">
-          Available Colors [{{product.pdcolor.all.count}}]:
+          Available Colors [{{product.pdcolor.all.count}}]
         </div>
-        <div class="pd-value">
+      </div>
+{% if product.pdcolor.all.count > 0 %}
+        <div class="pd-img">
         {% for colors in product.pdcolor.all %}
+        <div class="color_fields-ct">
         
-          <a href="{% url 'homeapp:productdetail' slug=colors.slug %}"><img src="{{colors.picone.url}}"> {{colors.color}}</a> ,
+          <a href="{% url 'homeapp:productdetail' slug=product.slug %}"><img src="{{colors.picone.url}}"> {{colors.color}}</a>      <form id action="{% url 'pannel:removecolor' slug=product.slug %}">
+              <input name="id" type="hidden" value="{{colors.id}}">
+              <button type="submit">Remove</button></form>
+            </div>
 {% endfor %}
 </div>
-      </div>
+{% endif %}
+      
       <!-- endof field-->
       </div>
   </div>  
