@@ -570,6 +570,10 @@ margin-top:150px;
    margin-top:4px;
    
 }
+.pd-info-field .pd-value img{
+    width:50px;
+    height:50px;
+}
 
 @media only screen and (min-width:150px) and (max-width:400px){
     

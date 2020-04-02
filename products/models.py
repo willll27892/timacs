@@ -49,10 +49,11 @@ class SubCategory(models.Model):
 # product size 
 
 class ProductSize(models.Model):
-    created  = models.DateTimeField(auto_now_add=True,null=True)
-    updated  = models.DateTimeField(auto_now=True,null=True)
+    user            = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="pdsize",null=True)
+    created      = models.DateTimeField(auto_now_add=True,null=True)
+    updated      = models.DateTimeField(auto_now=True,null=True)
     size         = models.CharField(max_length=200,null=True)
-    sizeprice    = models.IntegerField(null=True)
+    sizeprice    = models.IntegerField(null=True,blank=True)
     pricechange  = models.BooleanField(default=False)
 
     def __str__(self):
@@ -65,7 +66,7 @@ class Product(models.Model):
     st              = (('Brand New','Brand New'),('Used','Used'))
     sl              = ((0,0),(20,20),(30,30),(35,35),(40,40),(45,45),(50,50),(60,60),(70,70),(80,80))
     created         = models.DateTimeField(auto_now_add=True,null=True)
-    category        = models.ForeignKey(Category,on_delete=models.CASCADE,related_name="product_category")
+    category        = models.ForeignKey(Category,on_delete=models.CASCADE,related_name="product_category",null=True)
     subcategory     = models.ForeignKey(SubCategory,on_delete=models.CASCADE,related_name="product_subcategory")
     productname     = models.CharField(max_length=50,null=True)
     picone          = models.ImageField(upload_to="productimage",null=True,blank=True)
@@ -79,7 +80,7 @@ class Product(models.Model):
     color           = models.CharField(max_length=50,null=True)
     slug            = models.SlugField(null=True,blank=True)
     location        = models.CharField(null=True,max_length=200)
-    user            = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="userproduct")
+    user            = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="userproduct",null=True)
     status          = models.CharField(max_length=200,null=True,choices=stt,default="pending")
     state           = models.CharField(max_length=200,null=True,choices=st)
     uniqueid        = models.CharField(max_length=200,null=True,blank=True,unique=True)

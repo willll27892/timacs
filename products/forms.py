@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product
+from .models import Product,ProductSize
 
 
 class Productform(forms.ModelForm):
@@ -31,3 +31,14 @@ class Productcolors(forms.ModelForm):
         }
         exclude=('pdprice','state','location','brand','category','subcategory','productname','descript','model','size','salesprice','sales','created','slug','user','status')
         fields =('picone','pictwo','picthree','picfour','color')
+
+
+class ProductSizefm(forms.ModelForm):
+    class Meta:
+        model= ProductSize
+        widgets={
+        'sizeprice':forms.TextInput(attrs={'class':'text-input','placeholder':'Enter cost if any'}),
+        'size':forms.TextInput(attrs={'class':'text-input','placeholder':'Enter size'}),
+        }
+        exclude=('user','updated ','created')
+        fields=('pricechange','sizeprice','size')
