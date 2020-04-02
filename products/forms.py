@@ -15,7 +15,7 @@ class Productform(forms.ModelForm):
         'productname':forms.TextInput(attrs={'class':'text-input','placeholder':'Enter product name'}),
         'model':forms.TextInput(attrs={'class':'text-input','placeholder':'Enter product model'}),
         'location':forms.TextInput(attrs={'class':'text-input','placeholder':'Enter product location'}),
-        'pdprice':forms.TextInput(attrs={'class':'text-input','placeholder':'Example "2000" digits only '}),
+        'pdprice':forms.NumberInput(attrs={'class':'text-input','placeholder':'Example "2000" digits only '}),
         }
         exclude=('salesprice','sales','created','slug','user','status')
         fields =('pdprice','state','location','brand','category','subcategory','productname','picone','pictwo','picthree','picfour','descript','model','size')
@@ -37,8 +37,8 @@ class ProductSizefm(forms.ModelForm):
     class Meta:
         model= ProductSize
         widgets={
-        'sizeprice':forms.TextInput(attrs={'class':'text-input','placeholder':'Enter cost if any'}),
-        'size':forms.TextInput(attrs={'class':'text-input','placeholder':'Enter size'}),
+        'sizeprice':forms.NumberInput(attrs={'class':'text-select','placeholder':'product cost for this size if any'}),
+        'size':forms.TextInput(attrs={'class':'text-select','placeholder':'exp XL for cloths, 42 for shoes, 32inches for electronics'}),
         }
         exclude=('user','updated ','created')
         fields=('pricechange','sizeprice','size')

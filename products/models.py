@@ -53,7 +53,7 @@ class ProductSize(models.Model):
     created      = models.DateTimeField(auto_now_add=True,null=True)
     updated      = models.DateTimeField(auto_now=True,null=True)
     size         = models.CharField(max_length=200,null=True)
-    sizeprice    = models.IntegerField(null=True,blank=True)
+    sizeprice    = models.IntegerField(null=True)
     pricechange  = models.BooleanField(default=False)
 
     def __str__(self):

@@ -132,7 +132,7 @@ def Addsize(request,slug):
             instance.user        = request.user
             instance.save()
             product.availableseizes.add(instance)
-            return redirect ('pannel:addcolors',slug=product.slug)
+            return redirect ('pannel:addsizes',slug=product.slug)
     context={'product':product,'form':form}
     template_name="adminone/addsizes.html"
 
