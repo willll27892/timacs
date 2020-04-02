@@ -489,9 +489,129 @@ margin-top:150px;
     border-width: 1px;
     padding-bottom:15px;
 }
+/* add colors and sizes style */
+.pd-addon-container {
+    width:80%;
+    position: relative;
+    margin-left:10%;
+    margin-bottom: 10px;
+    display: inline-block;
+    
+}
+.product-addon-container{
+    width:90%;
+    display: inline-block;
+   
+}
+.add_colors {
+    width:40%;
+    float: left;
+    margin-left:5%;   
+}
+.add_colors .form-container{
+    padding-top:15px;
+    overflow: hidden;
+}
+.add_color_field_name{
+    margin-bottom: 15px;
+}
+.add_color_field_name .text-input{
+    width:50%;
+}
+.add_colors .form-container form{
+    position: relative;
+    left:7%;
+    
+}
+.add_colors .form-container form button{
+    position: relative;
+    left:40%;
+}
+.add_colors .form-button {
+    margin-left:-7%;
+}
+.current-product-info{
+    width:50%;
+    float: left;
+}
+.current-product-info article{
+    width:100%; 
+    border-bottom: solid;
+    border-width: 1px;
+    border-color:rgba(0,0,0,0.3)
+}
+.current-product-info article p {
+    line-height: 1.5;
+    font-size: 18px;
+    color:rgba(0,0,0,0.8);
+}
+.pd-info-field{
+    display: inline-block;
+    width:100%;
+    border-bottom: solid;
+    border-bottom-color: brown;
+    border-bottom-width: 1px;
+    padding:10px 10px 10px;
+    background-color: gainsboro;
+    margin:0px;
+}
+.pd-info-addon h5{
+    text-align: center;
+}
+.pd-info-field .pd-lable{
+    width:auto;
+    float: left;
+    font-size: 18px;
+}
+.pd-info-field .pd-value{
+    width:60%;font-size: 14px;
+    position: relative;
+   left:10px;
+   margin-top:4px;
+   
+}
 
 @media only screen and (min-width:150px) and (max-width:400px){
     
+    .add_colors .form-button {
+        margin-left:-13%;
+    }
+    .add_color_field_name .text-input{
+        width:100%;
+    }
+    .add_colors {
+        width:100%;
+        margin-left:3%;   
+    }
+    .pd-addon-container{
+       width:80%;
+       position: relative;
+       left:-15px;
+   }
+    .pd-info-field .pd-value{
+        width:60%;font-size: 12px;
+        position: relative;
+       left:10px;
+       overflow: hidden;
+       
+    }
+
+    .pd-info-field .pd-lable{
+        width:90px;
+        font-size:14px;
+        border-right:solid;
+        border-width: 1px;
+        border-color: white;
+        
+    }
+    .current-product-info{
+        width:100%;
+        left:0px;
+
+       
+    }
+    /* end of add color and size styling */
+
     .post_container #header-table{
         position: relative;
         left:10%;
@@ -562,6 +682,45 @@ margin-top:150px;
 }
 
 @media only screen and (min-width:400px) and (max-width:600px){
+   
+    .add_colors .form-button {
+        margin-left:-13%;
+    }
+    .add_color_field_name .text-input{
+        width:100%;
+    }
+    .add_colors {
+        width:100%;
+        margin-left:3%;   
+    }
+    .pd-addon-container{
+       width:80%;
+       position: relative;
+       left:-15px;
+   }
+    .pd-info-field .pd-value{
+        width:60%;font-size: 12px;
+        position: relative;
+       left:10px;
+       overflow: hidden;
+       
+    }
+
+    .pd-info-field .pd-lable{
+        width:90px;
+        font-size:14px;
+        border-right:solid;
+        border-width: 1px;
+        border-color: white;
+        
+    }
+    .current-product-info{
+        width:100%;
+        left:0px;
+
+       
+    }
+    /* end of add color and size styling */
     .post_container #header-table{
         position: relative;
         left:10%;
@@ -639,10 +798,47 @@ margin-top:150px;
 }
 
 }
-.product-addon-container{
-    width:90%;
-}
+
 @media only screen and (min-width:600px) and (max-width:900px){
+   
+    .add_colors .form-button {
+        margin-left:-13%;
+    }
+    .add_color_field_name .text-input{
+        width:100%;
+    }
+    .add_colors {
+        width:100%;
+        margin-left:3%;   
+    }
+    .pd-addon-container{
+       width:80%;
+       position: relative;
+       left:-15px;
+   }
+    .pd-info-field .pd-value{
+        width:60%;font-size: 12px;
+        position: relative;
+       left:10px;
+       overflow: hidden;
+       
+    }
+
+    .pd-info-field .pd-lable{
+        width:90px;
+        font-size:14px;
+        border-right:solid;
+        border-width: 1px;
+        border-color: white;
+        
+    }
+    .current-product-info{
+        width:100%;
+        left:0px;
+
+       
+    }
+    /* end of add color and size styling */
     .post_container{
         position: relative;
         left:0%;

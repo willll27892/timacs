@@ -26,7 +26,7 @@ class Productcolors(forms.ModelForm):
     class Meta:
         model = Product
         widgets={
-        'color':forms.TextInput(attrs={'class':'text-input','placeholder':'Brand example: Nike, Addidas,Samsung'}),
+        'color':forms.TextInput(attrs={'class':'text-input','placeholder':'example red'}),
 
         }
         exclude=('pdprice','state','location','brand','category','subcategory','productname','descript','model','size','salesprice','sales','created','slug','user','status')

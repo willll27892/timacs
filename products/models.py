@@ -86,7 +86,7 @@ class Product(models.Model):
     sales           = models.IntegerField(choices=sl,default=0 )
     pdprice         = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=False)
     salesprice      = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
-    pdcolor         = models.ForeignKey('self',on_delete=models.CASCADE,related_name="color_id",null=True,blank=True)
+    pdcolor         = models.ManyToManyField('self',related_name="color_id",null=True,blank=True)
     availableseizes = models.ManyToManyField(ProductSize,null=True,related_name="avlprice")
     def __str__(self):
         return self.productname

@@ -82,12 +82,12 @@
 .section-two,.section-three{
     display: none;
 }
-.section-three .imgpreview img{
+.section-three .imgpreview img,.add_on_section_one .imgpreview img{
     width: 100%;
     height:100%;
 }
 
-.section-three .imgpreview-container{
+.section-three .imgpreview-container,.add_on_section_one .imgpreview-container{
     display: inline-block;
     width: 80%;
     position: relative;
@@ -97,7 +97,7 @@
 .section-three .imguploads-container{
     clear: both;
 }
-.section-three .imgpreview{
+.section-three .imgpreview,.add_on_section_one .imgpreview{
     margin:2px;
     width:40%;
     height:150px;
