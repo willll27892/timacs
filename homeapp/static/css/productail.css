@@ -89,6 +89,7 @@ float: left;
 
 .produt-info-container{
 	width:40%;
+
 }
 .img-view-container ,.produt-info-container{
 	float: left;
@@ -240,7 +241,7 @@ float: left;
 		margin-left:0%;
 	}
 	.img-view-container ,.produt-info-container{
-		width:100%;
+		width:90%;
 	
 	
 	
@@ -298,7 +299,7 @@ float: left;
 		margin-left:0%;
 	}
 	.img-view-container ,.produt-info-container{
-		width:100%;
+		width:90%;
 	
 	
 	
@@ -357,7 +358,7 @@ float: left;
 		margin-left:0%;
 	}
 	.img-view-container ,.produt-info-container{
-		width:100%;
+		width:90%;
 	
 	
 	
@@ -415,7 +416,7 @@ float: left;
 		margin-left:0%;
 	}
 	.img-view-container ,.produt-info-container{
-		width:100%;
+		width:90%;
 	
 	
 	
