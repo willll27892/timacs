@@ -48,7 +48,7 @@
     text-align: center;
 }
  .form-button{
-    margin-top:80px;
+    margin-top:60px;
     clear: both;
     
 }
@@ -229,9 +229,7 @@
     }
 @media only screen and (min-width:150px) and (max-width:400px){
 
-    .lable{
-        width:200px;
-    }
+
     .field .text-input{
         margin-top:2px;
        width:220px;
@@ -252,9 +250,7 @@
 
 
 @media only screen and (min-width:400px) and (max-width:600px){
-    .lable{
-        width:80%;
-    }
+
  .field .text-input{
         margin-top:2px;
        width:200%;

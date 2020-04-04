@@ -9,29 +9,29 @@
 <div class="img-view-container  previewimg-active">
   <div class="side-img">
     <div class="img-1">
-    <img src="{{product.picone.url}}"onmouseover="preview(this)" >
+    <img src="{{color.picone.url}}"onmouseover="preview(this)" >
   </div>
     {% if product.pictwo  %}
     <div class="img-1">
-    <img src="{{product.pictwo.url}}" onmouseover="preview(this)" >
+    <img src="{{color.pictwo.url}}" onmouseover="preview(this)" >
   </div>
     {% endif %}
 
     {% if product.picthree  %}
     <div class="img-1">
-    <img src="{{product.picthree.url}}" onmouseover="preview(this)" >
+    <img src="{{color.picthree.url}}" onmouseover="preview(this)" >
   </div>
     {% endif %}
 
     {% if product.picfour  %}
     <div class="img-1">
-    <img src="{{product.picfour.url}}" onmouseover="preview(this)" >
+    <img src="{{color.picfour.url}}" onmouseover="preview(this)" >
   </div>
     {% endif %}
 
   </div>
 <div class="img-active">
-  <img id="0"src="{{product.picone.url}}" ></img>
+  <img id="0"src="{{color.picone.url}}" ></img>
   <div class="instruction">
     To zoom, click image spot
   </div>
@@ -52,7 +52,7 @@
 <div class="produt-info-container">
 <div class="info-sub-container">
   <div class="category"><a href="">Category: {{product.category}}</a>><a href="">Sub Category: {{product.subcategory}}</a></div>
-  <div class="product-name">{{product.productname}}</div></h3>
+  <div class="product-name">{{product.productname}}<div style="width:10px;height:10px;background-color:{{color.color}};position:relative"></div></div></h3>
   <div class="product-price"><span class="pd-amnt">{{product.pdprice}} CFA</span>
     {% if product.sales > 0 %}
     <span class="pd-sales-off">{{product.sales}}% off</span><br>
@@ -113,11 +113,16 @@
     </div>
 
     <div class="pd_fm_cl_f_">
-      {% for color in product.pdcolor.all %}
+      {% for clr in product.pdcolor.all %}
       <div class="selec-color{{color.id}}}">
         <input type="hidden" value="{{color.id}}">
-        <a href="{% url 'pannel:colorclicked' slug=color.slug colorname=color.color idn=color.id %}">
-      <div class="color-img-op" style="border:solid;border-color:{{color.color}};border-width:1px"><img src="{{color.picone.url}}"></div>
+        <a href="{% url 'pannel:colorclicked' slug=clr.slug colorname=clr.color idn=clr.id %}">
+       {% if clr.id == color.id %} 
+      <div class="color-img-op" style="border:solid;border-color:{{clr.color}};border-width:1px"><img style="opacity: 0.2;"src="{{color.picone.url}}"></div>
+      {% else %}
+   
+      <div class="color-img-op" style="border:solid;border-color:{{clr.color}};border-width:1px"><img src="{{color.picone.url}}"></div>
+      {% endif %}
       </a>
       </div>
       {% endfor %}

@@ -61,6 +61,7 @@ class ProductSize(models.Model):
 
 # this model will save product copy in a different color
 class ProductColor(models.Model):
+    slug            = models.CharField(max_length=250,null=True)
     color           = models.CharField(max_length=50,null=True)
     picone          = models.ImageField(upload_to="productimage",null=True)
     pictwo          = models.ImageField(upload_to="productimage",null=True)

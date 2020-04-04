@@ -4,6 +4,7 @@ from .import views
 app_name="pannel"
 
 urlpatterns=[
+    url(r'^romove/product/color/(?P<slug>[\w-]+)/(?P<colorname>.*)/(?P<idn>[0-9]+)/$',views.ColorClick,name="colorclicked"),
     url(r'^romove/product/sizes/(?P<slug>[\w-]+)$',views.Removesize,name="removesize"),
     url(r'^remove/product/colors/(?P<slug>[\w-]+)$',views.Removecolor,name="removecolor"),
     url(r'^add/product/sizes/(?P<slug>[\w-]+)$',views.Addsize,name="addsizes"),

@@ -6,6 +6,16 @@ from django.http import JsonResponse
 from products.models import Product,ProductSize,ProductColor
 from django.db.models import Q
 
+#display product other color when clicked
+
+def ColorClick(request,slug,colorname,idn):
+    print(idn)
+    product=get_object_or_404(Product,slug=slug)
+    color  =get_object_or_404(ProductColor,id=idn)
+    
+    template_name="homeapp/color.html"
+    context ={'color':color,'product':product}
+    return render(request,template_name,context)
 
 # seller admin pannel
 
@@ -99,10 +109,12 @@ def Addcolor(request,slug):
     if not request.user.is_authenticated:
         return HttpResponse('bad request')
     product = get_object_or_404(Product,slug=slug)
+    print(product.slug)
     form    = Productcolors(request.POST or None, request.FILES or None)
     if request.method=="POST":
         if form.is_valid:
             instance= form.save(commit=False)
+            instance.slug = product.slug
             instance.save()
             product.pdcolor.add(instance)
             return redirect ('pannel:addcolors',slug=product.slug)

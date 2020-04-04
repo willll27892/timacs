@@ -208,6 +208,12 @@ width:100%;
 height: auto;
 
 }
+.color-selected-preview{
+	display: none;
+}
+.active-color{
+
+}
 @media only screen and (min-width:150px) and (max-width:400px){
 	.product-detail-container .side-img{
 		margin-right:2px;
