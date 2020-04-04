@@ -48,7 +48,7 @@
         {% for colors in product.pdcolor.all %}
         <div class="color_fields-ct">
         
-          <a href="{% url 'homeapp:productdetail' slug=product.slug %}"><img src="{{colors.picone.url}}"> {{colors.color}}</a>      <form id action="{% url 'pannel:removecolor' slug=product.slug %}">
+          <a href="{% url 'homeapp:productdetail' slug=product.slug %}"><img style="border:solid;border-color:{{colors.color}};border-width:1px;" src="{{colors.picone.url}}"></a>      <form id action="{% url 'pannel:removecolor' slug=product.slug %}">
               <input name="id" type="hidden" value="{{colors.id}}">
               <button type="submit">Remove</button></form>
             </div>
@@ -67,7 +67,7 @@
   <form  action="{% url 'pannel:addcolors' slug=product.slug %}" method="post" enctype="multipart/form-data" >
    <div class="add_color_field_name">
     <div class="lable">
-        Color Name:
+        Product Color:
         </div>
         <div class="field">
         {{form.color}}

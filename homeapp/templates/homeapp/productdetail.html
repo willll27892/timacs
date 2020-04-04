@@ -113,6 +113,16 @@
     <form action="" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <input name="qt" type="number" value="1">
+    <div class="pd_fm_fields">
+      Colors:
+    </div>
+
+    <div class="pd_fm_cl_f_">
+      {% for color in product.pdcolor.all %}
+      <div class="color-img-op" style="border:solid;border-color:{{color.color}};border-width:1px"><img src="{{color.picone.url}}"></div>
+      
+      {% endfor %}
+    </div>
       <div class="add-to-cart">
         <button type="submit">Add to cart</button>
       </div>

@@ -181,6 +181,34 @@ float: left;
 	display: none;
 }
 
+.pd_fm_cl_f_ {
+  
+	position: relative;
+	left:15%;
+	margin-top:10px;
+	width:80%;
+	height:auto;
+	display: inline-block;
+	padding-bottom: 10px;
+	
+	
+}
+.pd_fm_cl_f_ .color-img-op{
+	margin-left: 5px;
+	float: left;
+	width:40px;
+	height: 50px;
+
+	cursor: pointer;
+	box-shadow: 1px 1px 1px 1px black;
+
+	
+}
+.color-img-op img{
+width:100%;
+height: auto;
+
+}
 @media only screen and (min-width:150px) and (max-width:400px){
 	.product-detail-container .side-img{
 		margin-right:2px;

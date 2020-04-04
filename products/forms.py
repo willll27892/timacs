@@ -27,7 +27,7 @@ class Productcolors(forms.ModelForm):
     class Meta:
         model = ProductColor
         widgets={
-        'color':forms.TextInput(attrs={'class':'text-input','placeholder':'example red'}),
+        'color':forms.TextInput(attrs={'type':'color','class':'text-input','placeholder':'example red'}),
 
         }
         exclude=('user',)
