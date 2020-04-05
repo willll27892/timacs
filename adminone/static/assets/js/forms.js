@@ -1,8 +1,29 @@
 
 
+
+// when user selects a product size
+
+$('.select-size').click(function(){
+ var this_ = $(this);
+ 
+ if (!$('input',this).is(':checked')){
+  $(this,' .selected_value').css({'border':'solid','height':'35px;'})
+  $('input',this).prop('checked',true);
+  
+  
+ }
+ else{
+  
+ }
+
+});
+
+
 // product post form 
 // ajax form submit 
 // reset form process
+
+
 
 function processrest(){
   $('.section-two,.section-three').hide();

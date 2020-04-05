@@ -108,20 +108,47 @@
     <form action="" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <input name="qt" type="number" value="1">
+
+      <!-- extra fields-->
+      {% if product.pdcolor.count > 0 %}
     <div class="pd_fm_fields">
-      Colors:
+      Colors
     </div>
 
     <div class="pd_fm_cl_f_">
       {% for color in product.pdcolor.all %}
-      <div class="selec-color{{color.id}}}">
-        <input type="hidden" value="{{color.id}}">
+      <div class="selec-color">
+        <input type="radio" name="colors" value="{{color.id}}" >
         <a href="{% url 'pannel:colorclicked' slug=color.slug colorname=color.color idn=color.id %}">
       <div class="color-img-op" style="border:solid;border-color:{{color.color}};border-width:1px"><img src="{{color.picone.url}}"></div>
       </a>
       </div>
       {% endfor %}
+      
     </div>
+    {% endif %}
+    <!-- end of  extral fields-->
+
+      <!-- extra fields-->
+      {% if product.availableseizes.count > 0 %}
+    <div class="pd_fm_fields">
+      Sizes
+    </div>
+
+    <div class="pd_fm_cl_f_">
+      {% for sizes in product.availableseizes.all %}
+      <div class="select-size">
+        <input class="radiosize" type="radio" name="sizes"value="{{sizes.id}}" required>
+        <div class="selected_value">
+        {{sizes.size}}
+      </div>
+      </div>
+      {% endfor %}
+      
+    </div>
+    {% endif %}
+    <!-- end of  extral fields-->
+
       <div class="add-to-cart">
         <button type="submit">Add to cart</button>
       </div>

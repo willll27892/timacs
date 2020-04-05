@@ -53,7 +53,7 @@ class ProductSize(models.Model):
     created      = models.DateTimeField(auto_now_add=True,null=True)
     updated      = models.DateTimeField(auto_now=True,null=True)
     size         = models.CharField(max_length=200,null=True)
-    sizeprice    = models.IntegerField(null=True)
+    sizeprice    = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
     pricechange  = models.BooleanField(default=False)
 
     def __str__(self):
@@ -194,6 +194,8 @@ This model is added to user cart, when ever a user add a product to cart
 class CostProcessing(models.Model):
     user              = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
     product           = models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
+    color             = models.ForeignKey(ProductColor,on_delete=models.CASCADE,null=True)
+    size              = models.ForeignKey(ProductSize,on_delete=models.CASCADE,null=True)
     quantity          = models.IntegerField(default=1)
     cost              = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
     #product cost after sales
@@ -203,16 +205,36 @@ class CostProcessing(models.Model):
         return str(self.product.productname) 
 
     def save(self,*args,**kwargs):
+
         qt  = self.quantity
         pr  = self.product.pdprice
-        # get the actual 
-        cst = D(qt)*D(pr)
-        self.cost= cst
-        #calculate price of product after salesoff
-        if self.product.sales>0:
-            salesprice        = self.product.salesprice
-            self.costaftersales = salesprice * qt
-            
+        pricechange = self.size.pricechange
+        sizecost    = self.size.sizeprice
+        # calculate product price, when prices does not depend on 
+        # the size of product selected by user.
+        if pricechange is False:
+            # get the actual 
+            cst = D(qt)*D(pr)
+            self.cost= cst
+            #calculate price of product after salesoff
+            if self.product.sales>0:
+                salesprice        = self.product.salesprice
+                self.costaftersales = D(salesprice) * D(qt)
+        
+        # calculate product price when product price 
+        # is base on the size selected by user
+
+        if pricechange is True:
+            #calculate product price base on product size selected
+            cst = D(qt)*D(sizecost)
+            self.cost= cst
+            # calculate product price when product on sale
+            if  self.product.sales>0:
+                salespercentage = self.product.sales
+                salesoff         = D(sizecost) *(salespercentage/100)
+                priceaftersale   = D(sizecost)- D(salesoff)
+                self.costaftersales = priceaftersale * D(qt)
+
 
         return super(CostProcessing,self).save(*args,**kwargs)
 

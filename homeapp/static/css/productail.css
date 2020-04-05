@@ -185,7 +185,7 @@ float: left;
   
 	position: relative;
 	left:15%;
-	margin-top:10px;
+	margin-top:-20px;
 	width:80%;
 	height:auto;
 	display: inline-block;
@@ -193,27 +193,55 @@ float: left;
 	
 	
 }
-.pd_fm_cl_f_ .color-img-op{
+.pd_fm_cl_f_ .selec-color{
+	margin-top:0px;
 	margin-left: 5px;
 	float: left;
-	width:40px;
-	height: 50px;
-	cursor: pointer;
-	box-shadow: 1px 1px 1px 1px black;
+
 
 	
 }
-.color-img-op img{
+.selec-color .color-img-op{
+	width:30px;
+	height: 40px;
+	cursor: pointer;
+	box-shadow: 1px 1px 3px 1px  rgba(0,0,0,0.5);
+}
+.pd_fm_fields{
+	margin-top:10px;
+}
+
+.pd_fm_cl_f_ .select-size{
+	float: left;
+
+}
+.select-size .selected_value{
+	position: relative;
+	width: auto;
+	height:35px;
+	margin-top:-18px;
+	margin-bottom: 10px;
+	margin-left:2px;
+	border:solid;
+	padding:4px 3px 4px;
+	border-width: 1px;
+	cursor: pointer;
+}
+.activesize{
+background-color: red;
+color:white;
+}
+
+.selec-color img{
 width:100%;
 height: auto;
 
 }
+
 .color-selected-preview{
 	display: none;
 }
-.active-color{
 
-}
 @media only screen and (min-width:150px) and (max-width:400px){
 	.product-detail-container .side-img{
 		margin-right:2px;
