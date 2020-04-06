@@ -5,16 +5,14 @@
 
 $('.select-size').click(function(){
  var this_ = $(this);
- 
+ $('.selected_value').css({'border-color':'black','background-color':'white','color':'black'})
  if (!$('input',this).is(':checked')){
-  $(this,' .selected_value').css({'border':'solid','height':'35px;'})
+  $('.selected_value',this).css({'border-color':'red','background-color':'red','color':'white'});
   $('input',this).prop('checked',true);
   
   
  }
- else{
-  
- }
+
 
 });
 

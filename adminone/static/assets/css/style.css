@@ -601,6 +601,7 @@ margin-top:150px;
     -moz-box-shadow: 1px 1px 1px 1px black;
     -o-box-shadow: 1px 1px 1px 1px black;
 }
+
 @media only screen and (min-width:150px) and (max-width:400px){
     
     .add_colors .form-button {
