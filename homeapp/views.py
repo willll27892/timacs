@@ -3,15 +3,56 @@ from homeapp.forms import LoginForm,RegisterForm,AddressForm,Membershipform
 from django.contrib.auth import login,logout,authenticate
 from homeapp.models import Membership,Address
 from homeapp.urlredirect import UrlRedirect
-from products.models import Product
+from products.models import CostProcessing,Product,ProductSize,ProductColor
 
 from productsdisplay import views
 
 
 
+# adding product to cart 
+
+def AddToCart(request,slug):
+    product  = get_object_or_404(Product,slug=slug)
+    sizeobj  = None
+    colorobj = None
+    colorid  = request.GET.get('colors')
+    sizeid   = request.GET.get('sizes')
+    quantity = request.GET.get('qt')
+    colorid =int(colorid)
+    sizeid = int(sizeid)
+    quantity=int(quantity)
+    # check to make sure product quantity is greater than 0
+    # before performing  actions.
+    if quantity >=0:
+        # check to make sure sizeid has a value
+        if sizeid > 0:
+            #get product size object
+            sizeobj = ProductSize.objects.get(id=sizeid)
+            # check to make sure colorid has a value 
+        if colorid > 0:
+            colorobj = ProductColor.objects.get(id=colorid)
+
+            #retrieve, update , create cost processing object for product
+        pobj = CostProcessing.objects.filter(product=product)
+        if pobj:
+            instance = pobj.first()
+            #update
+            instance.color    = colorobj
+            instance.size     = sizeobj
+            instance.quantity = quantity
+            instance.save()
+            pobj =instance
+        else:
+            # create
+            pobj= CostProcessing.objects.create(product=product,color=colorobj,size=sizeobj,quantity=quantity)
+    else:
+        print('value of quantity is <=0')
+    context       = {}
+    template_name = ""
+    return render(request,template_name,context)
+
+
 # product detail 
-
-
 def ProductDetail(request,slug):
     product = get_object_or_404(Product,slug=slug)
     context={'product':product}

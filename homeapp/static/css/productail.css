@@ -6,10 +6,8 @@
 	left:10%;
 }
 
-.activeimg{
-	border:solid;
-	border-color: red;
-	
+.select-size input{
+	visibility: hidden;
 }
 /* img zoom lens */
 
@@ -158,16 +156,17 @@ float: left;
 }
 
 .add-quantity .add-to-cart{
-	margin-top:20px;
+	margin-top:10px;
 	position: relative;
-	left:35%;
+	left:15%;
 	padding:10px 10px 10px;
 }
 .add-quantity .add-to-cart button{
+	width:60%;
 	padding:5px 10px 5px;
 	font-size: 18px;
 	border:none;
-	background-color:  green;
+	background-color: yellowgreen;
 	color:white;
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -200,6 +199,25 @@ float: left;
 	float: left;
 
 
+	
+}
+.pd_fm_cl_f_ .selec-color input{
+	visibility: hidden;
+}
+.price_display {
+	position: absolute;
+	top:-23px;
+	width: auto;
+	left:0px;
+	background-color: gray;
+	padding:2px 4px 2px;
+	color:white;
+	font-size: 14px;
+	display: none;
+	border-radius: 3px;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	-o-border-radius:3px;
 	
 }
 .selec-color .color-img-op{

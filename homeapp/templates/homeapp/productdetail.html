@@ -105,7 +105,7 @@
   </div>
   <div class="add-quantity">
     <span>Quantity:</span>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form id="add-product-cart" action="{% url 'homeapp:addtocart' slug=product.slug %}" method="get" enctype="multipart/form-data">
       {% csrf_token %}
       <input name="qt" type="number" value="1">
 
@@ -116,9 +116,10 @@
     </div>
 
     <div class="pd_fm_cl_f_">
+      <input class="radiosize" style="display: none" value="0" type="radio" name="colors" checked="checked">
       {% for color in product.pdcolor.all %}
       <div class="selec-color">
-        <input type="radio" name="colors" value="{{color.id}}" >
+        <input class="color-select"  type="radio" name="colors" value="{{color.id}}" >
         <a href="{% url 'pannel:colorclicked' slug=color.slug colorname=color.color idn=color.id %}">
       <div class="color-img-op" style="border:solid;border-color:{{color.color}};border-width:1px"><img src="{{color.picone.url}}"></div>
       </a>
@@ -126,6 +127,8 @@
       {% endfor %}
       
     </div>
+    {% else %}
+    <input class="color-select" style="display: none" value="0" type="radio" name="colors" checked="checked">
     {% endif %}
     <!-- end of  extral fields-->
 
@@ -138,6 +141,14 @@
     <div class="pd_fm_cl_f_">
       {% for sizes in product.availableseizes.all %}
       <div class="select-size">
+        {% if sizes.pricechange %}
+        <div class="price_display">
+         Price: {{sizes.sizeprice}} CFA  
+         {% if product.sales > 0 %}
+         <span style="color:green;font-size: 12px;position: relative;margin-left:10px;background-color: white;padding:3px 3px 3px;top:-0.5px;">{{product.sales}}% off</span>
+         {% endif %}
+        </div>
+        {% endif %}
         <input class="radiosize" type="radio" name="sizes"value="{{sizes.id}}" required>
         <div class="selected_value">
         {{sizes.size}}
@@ -146,7 +157,10 @@
       {% endfor %}
       
     </div>
+    {% else %}
+    <input  style="display: none" value="0" type="hidden" name="sizes" >
     {% endif %}
+    
     <!-- end of  extral fields-->
 
       <div class="add-to-cart">

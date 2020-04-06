@@ -192,7 +192,7 @@ product quantity ordered
 This model is added to user cart, when ever a user add a product to cart
 """
 class CostProcessing(models.Model):
-    user              = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
+    owner             = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
     product           = models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
     color             = models.ForeignKey(ProductColor,on_delete=models.CASCADE,null=True)
     size              = models.ForeignKey(ProductSize,on_delete=models.CASCADE,null=True)
@@ -205,14 +205,15 @@ class CostProcessing(models.Model):
         return str(self.product.productname) 
 
     def save(self,*args,**kwargs):
-
-        qt  = self.quantity
-        pr  = self.product.pdprice
-        pricechange = self.size.pricechange
-        sizecost    = self.size.sizeprice
+        self.owner   = self.product.user
+        qt           = self.quantity
+        pr           = self.product.pdprice
+        pricechange  = None
+        sizecost     = None
         # calculate product price, when prices does not depend on 
         # the size of product selected by user.
-        if pricechange is False:
+        # product has no sizes related to it
+        if self.size is None:
             # get the actual 
             cst = D(qt)*D(pr)
             self.cost= cst
@@ -223,15 +224,17 @@ class CostProcessing(models.Model):
         
         # calculate product price when product price 
         # is base on the size selected by user
-
-        if pricechange is True:
-            #calculate product price base on product size selected
-            cst = D(qt)*D(sizecost)
-            self.cost= cst
-            # calculate product price when product on sale
+        if self.size:
+            pricechange = self.size.pricechange
+            sizecost    = self.size.sizeprice
+            if pricechange is True:
+                #calculate product price base on product size selected
+                cst = D(qt)*D(sizecost)
+                self.cost= cst
+                # calculate product price when product on sale
             if  self.product.sales>0:
                 salespercentage = self.product.sales
-                salesoff         = D(sizecost) *(salespercentage/100)
+                salesoff         = D(sizecost) * D(salespercentage/100)
                 priceaftersale   = D(sizecost)- D(salesoff)
                 self.costaftersales = priceaftersale * D(qt)
 

@@ -31,7 +31,7 @@
    <td>{{post.uniqueid}}</td>
    <td>{{post.status}}</td>
    <td>{{post.created}}</td>
-   <td><a href="">Details</a></td>
+   <td><a href="{% url 'homeapp:productdetail' slug=post.slug %}">Details</a></td>
  </tr>
 
  {% endfor %}

@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from products.models import Product,ProductSize,ProductColor
 from django.db.models import Q
 
-#display product other color when clicked
+#when user clicks product colors
 
 def ColorClick(request,slug,colorname,idn):
     print(idn)

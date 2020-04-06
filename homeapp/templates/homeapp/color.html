@@ -52,7 +52,7 @@
 <div class="produt-info-container">
 <div class="info-sub-container">
   <div class="category"><a href="">Category: {{product.category}}</a>><a href="">Sub Category: {{product.subcategory}}</a></div>
-  <div class="product-name">{{product.productname}}<div style="width:10px;height:10px;background-color:{{color.color}};position:relative"></div></div></h3>
+  <div class="product-name">{{product.productname}}</div></h3>
   <div class="product-price"><span class="pd-amnt">{{product.pdprice}} CFA</span>
     {% if product.sales > 0 %}
     <span class="pd-sales-off">{{product.sales}}% off</span><br>
@@ -105,31 +105,68 @@
   </div>
   <div class="add-quantity">
     <span>Quantity:</span>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form id="add-product-cart" action="{% url 'homeapp:addtocart' slug=product.slug %}" method="get" enctype="multipart/form-data">
       {% csrf_token %}
       <input name="qt" type="number" value="1">
-    <div class="pd_fm_fields">
-      Colors:
-    </div>
+      <div class="selected-color">
+        Selected Color: <div style="border:solid;border-width:1px;width:100px;height:10px;background-color:{{color.color}};position:relative;left:35%;"></div>
+      </div>
+        {% if product.pdcolor.count > 0 %}
+      <div class="pd_fm_fields">
+        Colors
+      </div>
+  
+      <div class="pd_fm_cl_f_">
+        {% for subcolor in product.pdcolor.all %}
+        <div class="selec-color">
+          {% if subcolor.id == color.id %}
+          <input class="color-select" type="radio" name="colors" value="{{subcolor.id}}" checked="checked">
+          <a href="{% url 'pannel:colorclicked' slug=subcolor.slug colorname=subcolor.color idn=subcolor.id %}">
+              <div class="color-img-op" style="border:solid;border-color:{{subcolor.color}};border-width:1px"><img src="{{subcolor.picone.url}}"></div>
+              </a>
+          {% else %}
+          <input class="color-select" type="radio" name="colors" value="{{subcolor.id}}" >
+          <a href="{% url 'pannel:colorclicked' slug=subcolor.slug colorname=subcolor.color idn=subcolor.id %}">
+              <div class="color-img-op" style="border:solid;border-color:{{subcolor.color}};border-width:1px"><img src="{{subcolor.picone.url}}"></div>
+              </a>
+          {% endif %}
 
-    <div class="pd_fm_cl_f_">
-      {% for clr in product.pdcolor.all %}
-      <div class="selec-color{{color.id}}}">
-        <input type="hidden" value="{{color.id}}">
-        <a href="{% url 'pannel:colorclicked' slug=clr.slug colorname=clr.color idn=clr.id %}">
-       {% if clr.id == color.id %} 
-      <div class="color-img-op" style="border:solid;border-color:{{clr.color}};border-width:1px"><img style="opacity: 0.2;"src="{{color.picone.url}}"></div>
-      {% else %}
-   
-      <div class="color-img-op" style="border:solid;border-color:{{clr.color}};border-width:1px"><img src="{{color.picone.url}}"></div>
+        </div>
+        {% endfor %}
+        
+      </div>
       {% endif %}
-      </a>
+      <!-- end of  extral fields-->
+  
+        <!-- extra fields-->
+        {% if product.availableseizes.count > 0 %}
+      <div class="pd_fm_fields">
+        Sizes
       </div>
-      {% endfor %}
-    </div>
+  
+      <div class="pd_fm_cl_f_">
+        {% for sizes in product.availableseizes.all %}
+        <div class="select-size">
+          {% if sizes.pricechange %}
+          <div class="price_display">
+           Price: {{sizes.sizeprice}} CFA
+          </div>
+          {% endif %}
+          <input class="radiosize" type="radio" name="sizes"value="{{sizes.id}}" required>
+          <div class="selected_value">
+          {{sizes.size}}
+        </div>
+        </div>
+        {% endfor %}
+        
+      </div>
+      {% else %}
+      <input class="radiosize" style="display: none" type="radio" name="sizes" checked="checked">
+      {% endif %}
+    
       <div class="add-to-cart">
-        <button type="submit">Add to cart</button>
-      </div>
+          <button type="submit">Add to cart</button>
+        </div>
     </form>
   </div>
 </div>

@@ -1,20 +1,35 @@
 
 
+// when adding products to cart
+$(document).ready(function(){
+$('.add-to-cart button').click(function(){
+  if (!$('#add-product-cart .radiosize ').is(':checked')){
 
+    alert('Size not selected')
+  }
+ 
+ 
+});
 // when user selects a product size
 
 $('.select-size').click(function(){
- var this_ = $(this);
- $('.selected_value').css({'border-color':'black','background-color':'white','color':'black'})
- if (!$('input',this).is(':checked')){
-  $('.selected_value',this).css({'border-color':'red','background-color':'red','color':'white'});
-  $('input',this).prop('checked',true);
-  
-  
- }
-
-
+  var this_ = $(this);
+  $('.price_display').hide();
+  $('.selected_value').css({'border-color':'black','background-color':'white','color':'black'})
+  if (!$('input',this).is(':checked')){
+    console.log($('input',this).val())
+   $('.selected_value',this).css({'border-color':'red','background-color':'red','color':'white'});
+   $('input',this).prop('checked',true);
+   $('.price_display',this).show();
+   
+   
+  }
+ 
+ 
+ });
 });
+
+
 
 
 // product post form 
