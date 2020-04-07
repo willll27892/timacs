@@ -4,8 +4,8 @@ from django.contrib.auth import login,logout,authenticate
 from homeapp.models import Membership,Address
 from homeapp.urlredirect import UrlRedirect
 from products.models import CostProcessing,Product,ProductSize,ProductColor
-
 from productsdisplay import views
+from homeapp.session import session_cart_create
 
 
 
@@ -47,8 +47,12 @@ def AddToCart(request,slug):
             pobj= CostProcessing.objects.create(product=product,color=colorobj,size=sizeobj,quantity=quantity)
     else:
         print('value of quantity is <=0')
-    context       = {}
-    template_name = ""
+    # call the create cart function
+    cart = session_cart_create(request)
+    cart.products.add(pobj)
+    cart.save()
+    context       = {'cart':cart}
+    template_name = "homeapp/cart.html"
     return render(request,template_name,context)
 
 

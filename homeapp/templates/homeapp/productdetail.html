@@ -149,7 +149,7 @@
          {% endif %}
         </div>
         {% endif %}
-        <input class="radiosize" type="radio" name="sizes"value="{{sizes.id}}" required>
+        <input class="radiosize_d" type="radio" name="sizes"value="{{sizes.id}}" required >
         <div class="selected_value">
         {{sizes.size}}
       </div>
@@ -158,7 +158,7 @@
       
     </div>
     {% else %}
-    <input  style="display: none" value="0" type="hidden" name="sizes" >
+    <input class="" style="display: none" value="-1"type="radio" name="sizes" checked="checked">
     {% endif %}
     
     <!-- end of  extral fields-->

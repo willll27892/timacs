@@ -150,9 +150,12 @@
           {% if sizes.pricechange %}
           <div class="price_display">
            Price: {{sizes.sizeprice}} CFA
+           {% if product.sales > 0 %}
+         <span style="color:green;font-size: 12px;position: relative;margin-left:10px;background-color: white;padding:3px 3px 3px;top:-0.5px;">{{product.sales}}% off</span>
+         {% endif %}
           </div>
           {% endif %}
-          <input class="radiosize" type="radio" name="sizes"value="{{sizes.id}}" required>
+          <input class="radiosize_d" type="radio" name="sizes"value="{{sizes.id}}" required>
           <div class="selected_value">
           {{sizes.size}}
         </div>
@@ -161,7 +164,7 @@
         
       </div>
       {% else %}
-      <input class="radiosize" style="display: none" type="radio" name="sizes" checked="checked">
+      <input class="" style="display: none" type="radio" name="sizes" checked="checked">
       {% endif %}
     
       <div class="add-to-cart">
