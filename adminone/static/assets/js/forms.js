@@ -3,10 +3,6 @@
 // when adding products to cart
 $(document).ready(function(){
 
-  
- 
- 
-});
 // when user selects a product size
 
 $('.select-size').click(function(){
