@@ -51,15 +51,19 @@ def AddToCart(request,slug):
     cart = session_cart_create(request)
     cart.products.add(pobj)
     cart.save()
-    context       = {'cart':cart}
-    template_name = "homeapp/cart.html"
-    return render(request,template_name,context)
+    return redirect('homeapp:shopmore')
+
+
+# show more products to user 
+def Shopmore(request):
+    pass
 
 
 # product detail 
 def ProductDetail(request,slug):
+    cartdisply=True
     product = get_object_or_404(Product,slug=slug)
-    context={'product':product}
+    context={'product':product,'cartdisply':cartdisply}
     template_name="homeapp/productdetail.html"
     return render(request,template_name,context)
 

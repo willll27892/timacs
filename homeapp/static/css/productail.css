@@ -7,7 +7,7 @@
 }
 
 .select-size input{
-	visibility: hidden;
+	opacity: 0;
 }
 /* img zoom lens */
 

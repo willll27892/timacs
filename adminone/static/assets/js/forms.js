@@ -2,14 +2,7 @@
 
 // when adding products to cart
 $(document).ready(function(){
-$('.add-to-cart button').click(function(){
 
-    if (!$('#add-product-cart  .radiosize_d').is('checkde','checked')){
-
-    alert('Size not selected')
-    console.log('called')
-    
-  }
   
  
  
