@@ -3,7 +3,7 @@ from homeapp.slug import Generate_slug
 from .productid import Productid
 from homeapp.models import CustomUser
 from decimal  import Decimal as D
-
+from django.contrib.contenttypes.fields import GenericRelation
 import sys
 from django.db import models
 from PIL import Image
@@ -191,6 +191,7 @@ If related product object on salesoff, it caculates the actual price after sales
 product quantity ordered
 This model is added to user cart, when ever a user add a product to cart
 """
+
 class CostProcessing(models.Model):
     owner             = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
     product           = models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
@@ -293,8 +294,14 @@ class Cart(models.Model):
         return super(Cart,self).save(*args,**kwargs)
 
 
-
-
-
+# this class will be created base on user session.
+class Tracker(models.Model):
+    session        = models.CharField(max_length=200,null=True)
+    created        = models.DateTimeField(auto_now_add=True)
+    viewed         = models.BooleanField(default=False)
+    productdisplay = models.ForeignKey(Product, on_delete=models.CASCADE,related_name='display',null=True)
+    
+    def __str__(self):
+        return str(self.productdisplay.productname)
 
 

@@ -185,22 +185,33 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            {% if not product.picone %}
-                            <a class="aa-product-img" href="{% url 'homeapp:productdetail' slug=product.slug %}"><img src="{% static 'img/man/t-shirt-1.png' %}" alt="polo shirt img"></a>
+                            {% if not product.productdisplay.picone %}
+                            <a class="aa-product-img" href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}"><img src="{% static 'img/man/t-shirt-1.png' %}" alt="polo shirt img"></a>
                             {% else %}
-                            <a class="aa-product-img" href="{% url 'homeapp:productdetail' slug=product.slug %}"><img src="{{product.picone.url}}" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}"><img src="{{product.productdisplay.picone.url}}" alt="polo shirt img"></a>
                             {% endif %}
                             <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">T-Shirt</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">{{product.productdisplay.productname}}</a></h4>
+                              
+                              {% if product.productdisplay.sales > 0 %}
+                              <span class="aa-product-price">CFA  {{product.productdisplay.salesprice}} </span>
+                              <span class="aa-product-price"><del>CFA  {{product.productdisplay.pdprice}} </del></span>
+                              {% else %}
+                              <span class="aa-product-price">CFA  {{product.productdisplay.pdprice}} </span>
+                              {% endif %}
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="{% url 'homeapp:productdetail' slug=product.slug %}" data-toggle2="tooltip"  title="Quick View" data-toggle="modal" ><span class="fa fa-search"></span></a>
+                            <a href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}" data-toggle2="tooltip"  title="Quick View" data-toggle="modal" ><span class="fa fa-search"></span></a>
                           </div>
                           <!-- product badge -->
+                          {% if product.productdisplay.status == "sold" %}
                            <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                           {% endif %}
+                           {% if product.productdisplay.sales > 0 %}
+                           <span class="aa-badge aa-sale" href="#">{{product.productdisplay.sales}}% off</span>
+                           {% endif %}
                         </li> 
                         
                         {% endfor %}
@@ -214,9 +225,10 @@
                     </div>
                    
                    
-                  </div>
+                  
                   {% else %}
                   <p style="text-align: center"> No products posted</p>
+                </div>
                   {% endif %}
                                 
               </div>

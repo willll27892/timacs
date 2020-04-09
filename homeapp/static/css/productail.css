@@ -260,7 +260,61 @@ height: auto;
 .color-selected-preview{
 	display: none;
 }
-
+/* styling div  to show other products to users, when 
+a product added to cart */
+.display_product_trending {
+	display: inline-block;
+	width:100%;
+}
+.display_product_trending .product_dply{
+	display: inline-block;
+	width:70%;
+}
+.display_product_trending .trending_pd_container{
+	float:left;
+	width:30%;
+	height:350px;
+	overflow: hidden;
+	margin-left:5px;
+}
+.display_product_trending .trending_pd_container:hover{
+	cursor: pointer;
+}
+.display_product_trending .trending_pd_container:nth-child(2),.display_product_trending .trending_pd_container:nth-child(5){
+	transform: scale(0.8);
+}
+.display_product_trending .trending_pd_container:nth-child(2):hover,.display_product_trending .trending_pd_container:nth-child(5):hover{
+	transform: scale(1);
+}
+.display_product_trending .trending_pd_container:nth-child(4):hover,.display_product_trending .trending_pd_container:nth-child(3):hover,.display_product_trending .trending_pd_container:nth-child(1):hover,.display_product_trending .trending_pd_container:nth-child(6):hover
+{
+	transform: scale(1.2);
+}
+.display_product_trending .trending_pd_container img{
+	width:100%;
+	margin:2px;
+}
+.display_product_trending .added_to_cart_info{
+	width:30%;
+}
+.display_product_trending .trd_pd_make{
+	padding-top:15px;
+	border-top:solid;
+	border-color:rgba(0,0,0,0.1);
+	border-width: 1px;
+	font-size: 10px;
+	color:rgba(0,0,0,0.5);
+	text-align: left;
+}
+.display_product_trending .trd_pd_name{
+	font-size: 14px;
+	width:100%;
+	text-align: left;
+	font-size: 13px;
+}
+.display_product_trending .trd_pd_price{
+	font-size: 11px;
+}
 @media only screen and (min-width:150px) and (max-width:400px){
 	.product-detail-container .side-img{
 		margin-right:2px;

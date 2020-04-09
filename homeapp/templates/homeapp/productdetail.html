@@ -175,6 +175,43 @@
 
  </div>
 
+   <!-- display these products, when shopper successfully 
+   add a product to  cart-->
+   <div class="display_product_trending">
+     <div class="product_dply">
+     {% for products in trending %}
+     <div class="trending_pd_container">
+       <img src="{{products.productdisplay.picone.url}}" alt="">
+       <div class="trd_pd_info">
+         <div class="trd_pd_make">
+            {{products.productdisplay.brand}}
+         </div>
+         <div class="trd_pd_name">
+            {{products.productdisplay.productname|truncatechars:20}}
+         </div>
+         <div class="trd_pd_price">
+          
+          {% if products.productdisplay.sales > 0 %}
+          <span>CFA</span>  <span>{{products.productdisplay.salesprice}}</span>
+
+   <span style="text-decoration:line-through">CFA {{products.productdisplay.pdprice}}</span>
+          <span style="color:green">{{products.productdisplay.sales}}% off</span>
+          {% else %}
+          <span>CFA</span>  <span>{{products.productdisplay.pdprice}}</span>
+          {% endif %}
+         </div>
+       </div>
+     </div>
+     {% endfor %}
+
+     <div class="added_to_cart_info">
+
+     </div>
+    </div>
+
+   </div>
+
+
 
  <!-- endof product info container  -->
               

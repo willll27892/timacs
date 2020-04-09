@@ -5,6 +5,7 @@ import string
 from django.utils.text import slugify
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 from .slug import Generate_slug
+from django.contrib.contenttypes.models import ContentType
 
 
 class UserManger(BaseUserManager):
@@ -150,5 +151,6 @@ class  Premium(models.Model):
             pass
 
         return super(Premium,self).save(*args,**kwargs)
+
 
 

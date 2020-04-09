@@ -3,9 +3,10 @@ from homeapp.forms import LoginForm,RegisterForm,AddressForm,Membershipform
 from django.contrib.auth import login,logout,authenticate
 from homeapp.models import Membership,Address
 from homeapp.urlredirect import UrlRedirect
-from products.models import CostProcessing,Product,ProductSize,ProductColor
+from products.models import CostProcessing,Product,ProductSize,ProductColor,Tracker
 from productsdisplay import views
 from homeapp.session import session_cart_create
+from django.core.exceptions import ObjectDoesNotExist
 
 
 
@@ -61,9 +62,25 @@ def Shopmore(request):
 
 # product detail 
 def ProductDetail(request,slug):
+
     cartdisply=True
+    '''
+    call the tracker object for this product
+    and update the tracker to viewed
+    '''
     product = get_object_or_404(Product,slug=slug)
-    context={'product':product,'cartdisply':cartdisply}
+    if product:
+        try:
+            #update tracker object for this product
+            track = Tracker.objects.get(productdisplay=product)
+            track.viewed=True
+            track.save()
+        except ObjectDoesNotExist:
+            return redirect('homeapp:home')
+    # display six popular products to shopper, after they have added a product to cart
+    mstpp = views.Popular(request)
+
+    context={'trending':mstpp,'product':product,'cartdisply':cartdisply}
     template_name="homeapp/productdetail.html"
     return render(request,template_name,context)
 
