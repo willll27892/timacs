@@ -288,7 +288,7 @@ a product added to cart */
 }
 .display_product_trending .trending_pd_container:nth-child(4):hover,.display_product_trending .trending_pd_container:nth-child(3):hover,.display_product_trending .trending_pd_container:nth-child(1):hover,.display_product_trending .trending_pd_container:nth-child(6):hover
 {
-	transform: scale(1.2);
+	transform: scale(1.08);
 }
 .display_product_trending .trending_pd_container img{
 	width:100%;
