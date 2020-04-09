@@ -190,7 +190,7 @@
                             {% else %}
                             <a class="aa-product-img" href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}"><img src="{{product.productdisplay.picone.url}}" alt="polo shirt img"></a>
                             {% endif %}
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                            <a class="aa-add-card-btn" href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}"><span class="fa "></span>Add To Cart</a>
                             <figcaption>
                               <h4 class="aa-product-title"><a href="#">{{product.productdisplay.productname}}</a></h4>
                               
