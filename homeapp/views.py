@@ -72,7 +72,7 @@ def ProductDetail(request,slug):
     if product:
         try:
             #update tracker object for this product
-            track = Tracker.objects.get(productdisplay=product)
+            track = Tracker.objects.filter(productdisplay=product).first()
             track.viewed=True
             track.save()
         except ObjectDoesNotExist:
