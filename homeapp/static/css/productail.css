@@ -161,6 +161,37 @@ float: left;
 	left:15%;
 	padding:10px 10px 10px;
 }
+
+.add-to-cart svg{
+	width:20px;
+	height:20px;
+	position: relative;
+	top:4px;
+	
+}
+.add-to-cart button svg{
+	margin-left:-15px;
+	left:-10px;
+}
+.add-to-cart a svg{
+	position: relative;
+	margin-left:-10px;
+	left:-10px;	
+}
+
+.add-to-cart a{
+	font-size: 12px;
+	padding:6px 30px 5px;
+	border:solid;
+	border-width: 1px;
+	position: relative;
+	margin-left:22px;
+	margin-top:10px;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-o-border-radius:5px;
+}
 .add-quantity .add-to-cart button{
 	width:60%;
 	padding:5px 10px 5px;
@@ -266,9 +297,16 @@ a product added to cart */
 	display: inline-block;
 	width:100%;
 }
-.display_product_trending .product_dply{
+.display_product_trending .product_dply_sub{
 	display: inline-block;
+	border-right:solid;
+	border-right-width:1px;
+	border-right-color:rgba(0,0,0,0.2);
+	
+}
+.display_product_trending .product_dply{	
 	width:70%;
+	float: left;
 }
 .display_product_trending .trending_pd_container{
 	float:left;
@@ -295,7 +333,28 @@ a product added to cart */
 	margin:2px;
 }
 .display_product_trending .added_to_cart_info{
-	width:30%;
+	width:20%;
+	float: left;
+padding-left:40px;
+}
+.display_product_trending .added_to_cart_info   img{
+width:150px;
+height:150px;
+}
+.display_product_trending .added_pd_info p{
+	font-size: 12px;
+	color:green;
+}
+.display_product_trending .added_pd_info_name{
+	font-size: 14px;
+	color:rgba(70, 15, 170, 0.7);
+}
+.display_product_trending .added_product{
+	box-shadow: -0.4px 1px 2px 1px rgba(0,0,0,0.5);
+	-webkit-box-shadow: -0.4px 1px 2px 1px rgba(0,0,0,0.5);
+	-moz-box-shadow: -0.4px 1px 2px 1px rgba(0,0,0,0.5);
+	-o-box-shadow: -0.4px 1px 2px 1px rgba(0,0,0,0.5);
+	padding:10px 10px 10px;
 }
 .display_product_trending .trd_pd_make{
 	padding-top:15px;
@@ -315,7 +374,61 @@ a product added to cart */
 .display_product_trending .trd_pd_price{
 	font-size: 11px;
 }
+.clear_related {
+	clear: both;
+}
 @media only screen and (min-width:150px) and (max-width:400px){
+
+	
+	.display_product_trending .added_to_cart_info{
+		font-size: 10px;
+		
+	}
+	.display_product_trending .product_dply{	
+		width:60%;
+	}
+	.display_product_trending .trd_pd_name{
+		font-size: 11px;
+	}
+	.display_product_trending .trd_pd_price{
+		font-size: 10px;
+	}
+	.display_product_trending .trending_pd_container{
+		width:50%;
+		margin-left:0px;
+		height:200px;
+		padding-left:10px;
+		padding-right:10px;
+	}
+	.display_product_trending .added_to_cart_info{
+		width:35%;
+		
+	padding-left:0px;
+	}
+	.add-to-cart button svg{
+		margin-left:0px;
+		left:0px;
+	}
+	.add-to-cart a svg{
+		width:15px;
+		height:15px;
+		left:0px;
+	}
+	.add-to-cart a{
+		text-align: center;
+		font-size: 12px;
+		padding:4px 10px 4px;
+		border:solid;
+		border-width: 1px;
+		position: relative;
+		margin-left:15%;
+	
+	}
+	.display_product_trending .added_to_cart_info   img{
+		width:100%;
+		height:100px;
+		}
+	
 	.product-detail-container .side-img{
 		margin-right:2px;
 	}
@@ -357,8 +470,9 @@ a product added to cart */
 		position: relative;
 		left:20%;
 		padding:10px 10px 10px;
-		width: 70%;
+		width: 100%;
 	}
+	
 	.product-detail-container .img-active{
 		position: relative;
 		width:80%;
@@ -384,6 +498,57 @@ a product added to cart */
 }
 
 @media only screen and (min-width:400px) and (max-width:500px){
+	.display_product_trending .added_to_cart_info{
+		font-size: 10px;
+		
+	}
+	.display_product_trending .product_dply{	
+		width:60%;
+	}
+	.display_product_trending .trd_pd_name{
+		font-size: 11px;
+	}
+	.display_product_trending .trd_pd_price{
+		font-size: 10px;
+	}
+	.display_product_trending .trending_pd_container{
+		width:50%;
+		margin-left:0px;
+		height:200px;
+		padding-left:10px;
+		padding-right:10px;
+	}
+	.display_product_trending .added_to_cart_info{
+		width:35%;
+		
+	padding-left:0px;
+	}
+	.add-to-cart button svg{
+		margin-left:0px;
+		left:0px;
+	}
+	.add-to-cart a svg{
+		width:15px;
+		height:15px;
+		left:0px;
+	}
+	.add-to-cart a{
+		text-align: center;
+		font-size: 12px;
+		padding:4px 10px 4px;
+		border:solid;
+		border-width: 1px;
+		position: relative;
+		margin-left:30%;
+	
+	}
+	.display_product_trending .added_to_cart_info   img{
+		width:100%;
+		height:100px;
+		}
+	
+
+
 	.instruction{
 		display: inherit;
 	}
@@ -410,13 +575,17 @@ a product added to cart */
 	 height: 100px;
    }
 	
-	.add-quantity .add-to-cart{
-		margin-top:20px;
-		position: relative;
-		left:20%;
-		padding:10px 10px 10px;
-		width: 70%;
-	}
+   .add-quantity .add-to-cart{
+	margin-top:20px;
+	position: relative;
+	left:20%;
+	padding:10px 10px 10px;
+	width: 100%;
+}
+.add-to-cart button svg{
+	margin-left:0px;
+	left:0px;
+}
 	.product-detail-container .img-active{
 		position: relative;
 		width:70%;
@@ -443,6 +612,55 @@ a product added to cart */
 
 
 @media only screen and (min-width:500px) and (max-width:900px){
+	.display_product_trending .added_to_cart_info{
+		font-size: 10px;
+		
+	}
+	.display_product_trending .product_dply{	
+		width:60%;
+	}
+	.display_product_trending .trd_pd_name{
+		font-size: 11px;
+	}
+	.display_product_trending .trd_pd_price{
+		font-size: 10px;
+	}
+	.display_product_trending .trending_pd_container{
+		width:50%;
+		margin-left:0px;
+		height:300px;
+		padding-left:10px;
+		padding-right:10px;
+	}
+	.display_product_trending .added_to_cart_info{
+		width:35%;
+		
+	padding-left:0px;
+	}
+	.add-to-cart button svg{
+		margin-left:0px;
+		left:0px;
+	}
+	.add-to-cart a svg{
+		width:15px;
+		height:15px;
+		left:0px;
+	}
+	.add-to-cart a{
+		text-align: center;
+		font-size: 12px;
+		padding:4px 10px 4px;
+		border:solid;
+		border-width: 1px;
+		position: relative;
+		margin-left:30%;
+	
+	}
+	.display_product_trending .added_to_cart_info   img{
+		width:100%;
+		height:150px;
+		}
+	
 	.instruction{
 		display: inherit;
 	}
@@ -469,13 +687,17 @@ a product added to cart */
 	 height: 120px;
    }
 	
-	.add-quantity .add-to-cart{
-		margin-top:20px;
-		position: relative;
-		left:40%;
-		padding:10px 10px 10px;
-		width: 50%;
-	}
+   .add-quantity .add-to-cart{
+	margin-top:20px;
+	position: relative;
+	left:20%;
+	padding:10px 10px 10px;
+	width: 100%;
+}
+.add-to-cart button svg{
+	margin-left:0px;
+	left:0px;
+}
 	.product-detail-container .img-active{
 		position: relative;
 		width:70%;

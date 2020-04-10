@@ -6,6 +6,7 @@ from homeapp.urlredirect import UrlRedirect
 from products.models import CostProcessing,Product,ProductSize,ProductColor,Tracker
 from productsdisplay import views
 from homeapp.session import session_cart_create
+from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -13,22 +14,24 @@ from django.core.exceptions import ObjectDoesNotExist
 # adding product to cart 
 
 def AddToCart(request,slug):
+
     product  = get_object_or_404(Product,slug=slug)
     sizeobj  = None
     colorobj = None
-    colorid  = request.GET.get('colors')
-    sizeid   = request.GET.get('sizes')
-    quantity = request.GET.get('qt')
-    colorid =int(colorid)
-    sizeid = int(sizeid)
-    quantity=int(quantity)
-    # check to make sure product quantity is greater than 0
-    # before performing  actions.
-    if quantity >=0:
-        # check to make sure sizeid has a value
-        if sizeid > 0:
-            #get product size object
-            sizeobj = ProductSize.objects.get(id=sizeid)
+    if request.is_ajax():
+        colorid  = request.GET.get('colors')
+        sizeid   = request.GET.get('sizes')
+        quantity = request.GET.get('qt')
+        colorid =int(colorid)
+        sizeid = int(sizeid)
+        quantity=int(quantity)
+        # check to make sure product quantity is greater than 0
+        # before performing  actions.
+        if quantity >=0:
+            # check to make sure sizeid has a value
+            if sizeid > 0:
+                #get product size object
+                sizeobj = ProductSize.objects.get(id=sizeid)
             # check to make sure colorid has a value 
         if colorid > 0:
             colorobj = ProductColor.objects.get(id=colorid)
@@ -52,7 +55,8 @@ def AddToCart(request,slug):
     cart = session_cart_create(request)
     cart.products.add(pobj)
     cart.save()
-    return redirect('homeapp:shopmore')
+    data=""
+    return JsonResponse()
 
 
 # show more products to user 

@@ -1,5 +1,24 @@
 
 
+// add product to cart 
+$(document).ready(function(){
+$('#add-product-cart').submit(function(e){
+e.preventDefault();
+var method_ = $(this).attr('method');
+var url_    = $(this).attr('action');
+var data_   = $(this).serialize();
+$.ajax({
+  url:url_,
+  method:method_,
+  data:data_,
+  success:function(data){
+  },
+  error:function(){}
+});
+});
+});
+
+
 // when adding products to cart
 $(document).ready(function(){
 
