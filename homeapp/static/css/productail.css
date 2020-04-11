@@ -511,6 +511,11 @@ height:180px;
 		} 
 
 @media only screen and (min-width:150px) and (max-width:400px){
+	
+	.img-view-container{
+		position: relative;
+		left:5%;
+	}
 	.loader_ .img_loader{
 		width:30px;
 		height:30px;
@@ -608,7 +613,7 @@ height:180px;
 	.add-quantity .add-to-cart{
 		margin-top:20px;
 		position: relative;
-		left:20%;
+		left:30%;
 		padding:10px 10px 10px;
 		width: 100%;
 	}
@@ -639,7 +644,10 @@ height:180px;
 }
 
 @media only screen and (min-width:400px) and (max-width:500px){
-	
+	.img-view-container{
+		position: relative;
+		left:7%;
+	}
 	.instruction{
 		display: inherit
 	}
@@ -763,6 +771,10 @@ height:180px;
 
 
 @media only screen and (min-width:500px) and (max-width:900px){
+	.img-view-container{
+		position: relative;
+		left:10%;
+	}
 	.instruction{
 		display: inherit
 	}
@@ -893,7 +905,10 @@ height:180px;
 
 
 @media only screen and (min-width:900px) and (max-width:1200px){
-	
+	.img-view-container{
+		position: relative;
+		left:10%;
+	}
 	.instruction{
 		display: inherit
 	}
