@@ -20,14 +20,17 @@ $.ajax({
     $('.loader_').hide();
     $('.mainbody').css({'overflow':'initial','height':'initial'});
     $('.product-detail-container').hide();
+    $('html, body').animate({ scrollTop: $('.product-detail-container').offset().top }, 'slow');
     $('#hidde_div').css({'display':'inherit'})
     $('.added_product').addClass('pulse');
     $('.product_dply').addClass('fadeInLeft');
   },
   error:function(){
-    
-    $('.loader_').hide();
-    
+    setTimeout(function(){
+      $('.loader_').hide();
+      $('.instruction_').show(); 
+      ; }, 3000);
+
   }
 });
 });

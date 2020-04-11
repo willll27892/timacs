@@ -4,17 +4,30 @@ from products import logics
 from products.forms import ProductSizefm,Productform,Productcolors
 from django.http import JsonResponse
 from products.models import Product,ProductSize,ProductColor
+from products.models import CostProcessing,Product,ProductSize,ProductColor,Tracker
+from homeapp.session import session_cart_create,ProductInCart
 from django.db.models import Q
+from productsdisplay import views
 
 #when user clicks product colors
 
 def ColorClick(request,slug,colorname,idn):
+    
     print(idn)
     product=get_object_or_404(Product,slug=slug)
+    added=ProductInCart(request,product)
     color  =get_object_or_404(ProductColor,id=idn)
-    
+    if product:
+        try:
+            #update tracker object for this product
+            track = Tracker.objects.filter(productdisplay=product).first()
+            track.viewed=True
+            track.save()
+        except ObjectDoesNotExist:
+            return redirect('homeapp:home')
+    mstpp = views.Popular(request)
     template_name="homeapp/color.html"
-    context ={'color':color,'product':product}
+    context ={'trending':mstpp,'added':added,'color':color,'product':product}
     return render(request,template_name,context)
 
 # seller admin pannel
