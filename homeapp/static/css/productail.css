@@ -85,6 +85,7 @@ float: left;
 	display: inline-block;
 	width:80%;
 	margin-left:5%;
+	overflow: hidden;
 }
 
 .produt-info-container{
@@ -549,7 +550,7 @@ height:180px;
 		}
 	
 	.product-detail-container .side-img{
-		margin-right:2px;
+		margin-right:2%;
 	}
 	.instruction{
 		display: inherit;
@@ -604,8 +605,9 @@ height:180px;
 		padding-top:0px;
 		padding-bottom: 10px;
 		display: inline-block;
-		width:100%;
+		width:90%;
 		margin-left:0%;
+		overflow: hidden;
 	}
 	.img-view-container ,.produt-info-container{
 		width:90%;
@@ -816,7 +818,7 @@ height:180px;
   width: 60%;
   height: 250px;
   position: absolute;
-  top:580px;
+  top:50px;
   left:-30%;
  
 
@@ -848,9 +850,8 @@ height:180px;
 		width:70%;
 	}
 	.product-main-container{
-		width:80%;
+		width:100%;
 		left:0%;
-		overflow: hidden;
 	}
 	.product-detail-container{
 	
