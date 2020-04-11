@@ -37,3 +37,19 @@ def session_cart_create(request):
             cart=usercart.first()
     return cart
 
+
+#check if product has been added to card 
+
+def ProductInCart(request,product):
+    cart = session_cart_create(request)
+    pobjs = cart.products.all()
+    product_added_to_cart=False
+    # if product is in cart, function will return true
+    for processors in pobjs:
+        if product.id == processors.product.id:
+            product_added_to_cart= True
+            print("true")
+        else:
+            product_added_to_cart= False
+    return product_added_to_cart
+

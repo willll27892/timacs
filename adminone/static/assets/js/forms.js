@@ -2,8 +2,13 @@
 
 // add product to cart 
 $(document).ready(function(){
+ 
 $('#add-product-cart').submit(function(e){
+ 
 e.preventDefault();
+$('.mainbody').css({'overflow':'hidden','height':'400px'});
+$('.loader_').show();
+
 var method_ = $(this).attr('method');
 var url_    = $(this).attr('action');
 var data_   = $(this).serialize();
@@ -12,8 +17,16 @@ $.ajax({
   method:method_,
   data:data_,
   success:function(data){
+    $('.loader_').hide();
+    $('.mainbody').css({'overflow':'initial','height':'initial'});
+    $('.product-detail-container').hide();
+    $('#hidde_div').css({'display':'inherit'})
+    $('.added_product').addClass('pulse');
+    $('.product_dply').addClass('fadeInLeft');
   },
-  error:function(){}
+  error:function(){
+    console.log('erro')
+  }
 });
 });
 });
