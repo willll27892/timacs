@@ -848,8 +848,9 @@ height:180px;
 		width:70%;
 	}
 	.product-main-container{
-		width:100%;
+		width:80%;
 		left:0%;
+		overflow: hidden;
 	}
 	.product-detail-container{
 	
