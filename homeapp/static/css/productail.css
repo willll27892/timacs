@@ -563,12 +563,11 @@ height:180px;
 .img-zoom-result {
     background-color: white;
   /*set the size of the result div:*/
-  width: 90%;
+  width: 80%;
   height: 200px;
   position: absolute;
   margin-top:95%;
-  left:-28%;
-  display: none;
+  left:-35%;
  
 
 }
@@ -689,7 +688,7 @@ height:180px;
   height: 200px;
   position: absolute;
   margin-top:85%;
-  left:-25%;
+  left:-35%;
  
 
 }
@@ -814,11 +813,11 @@ height:180px;
 .img-zoom-result {
     background-color: white;
   /*set the size of the result div:*/
-  width: 45%;
+  width: 60%;
   height: 250px;
   position: absolute;
-  top:10px;
-  left:18%;
+  top:580px;
+  left:-30%;
  
 
 }
@@ -899,8 +898,8 @@ height:180px;
   width: 45%;
   height: 440px;
   position: absolute;
-  top:10px;
-  left:18%;
+  top:800px;
+  left:-18%;
  
 
 }

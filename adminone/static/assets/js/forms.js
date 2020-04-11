@@ -6,7 +6,7 @@ $(document).ready(function(){
 $('#add-product-cart').submit(function(e){
  
 e.preventDefault();
-$('.mainbody').css({'overflow':'hidden','height':'400px'});
+
 $('.loader_').show();
 
 var method_ = $(this).attr('method');
@@ -25,7 +25,9 @@ $.ajax({
     $('.product_dply').addClass('fadeInLeft');
   },
   error:function(){
-    console.log('erro')
+    
+    $('.loader_').hide();
+    
   }
 });
 });

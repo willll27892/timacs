@@ -648,7 +648,7 @@ $('.side-img img').hover(function(){
       $('.img-zoom-lens').hide();
     });
     var windowwidth= $(window).width();
-    if(windowwidth>1200){
+    if(windowwidth<1200){
   $('.img-active ').hover(function(){
     imageZoom("0", "myresult");
     $('.img-zoom-result').css({'visibility':'initial'}); 
