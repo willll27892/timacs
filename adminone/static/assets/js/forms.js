@@ -17,6 +17,7 @@ $.ajax({
   method:method_,
   data:data_,
   success:function(data){
+    $('#cart').text(data.cart);
     $('.loader_').hide();
     $('.mainbody').css({'overflow':'initial','height':'initial'});
     $('.product-detail-container').hide();

@@ -250,7 +250,7 @@ class Cart(models.Model):
     updated  = models.DateTimeField(auto_now=True,null=True)
     products = models.ManyToManyField(CostProcessing,related_name="cpds")
     active   = models.BooleanField(default=True)
-    pdcount  = models.IntegerField(null=True,blank=True)
+    pdcount  = models.IntegerField(default="0")
     total    = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
     def __str__(self):
         return str("{owner}".format(owner=self.owner))

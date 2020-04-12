@@ -14,7 +14,7 @@ def session_cart_create(request):
         if not cart:
             cart = Cart.objects.create()
             request.session['session_id']= cart.id
-
+        return cart
     # when user has login, check if there is an active cart object
     if request.user.is_authenticated and cart:
         usercart        = Cart.objects.filter(owner=request.user)
@@ -28,6 +28,7 @@ def session_cart_create(request):
         if  usercart:
             cart.delete()
             cart = usercart.first()
+        return cart
 
     if request.user.is_authenticated and not cart:
         usercart        = Cart.objects.filter(owner=request.user)
@@ -35,7 +36,7 @@ def session_cart_create(request):
             cart = Cart.objects.create(owner=request.user)
         if usercart:
             cart=usercart.first()
-    return cart
+        return cart
 
 
 #check if product has been added to card 

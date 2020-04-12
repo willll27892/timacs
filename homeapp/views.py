@@ -18,6 +18,7 @@ def AddToCart(request,slug):
     product  = get_object_or_404(Product,slug=slug)
     sizeobj  = None
     colorobj = None
+    cart = session_cart_create(request)
     if request.is_ajax():
         colorid  = request.GET.get('colors')
         sizeid   = request.GET.get('sizes')
@@ -39,6 +40,7 @@ def AddToCart(request,slug):
             #retrieve, update , create cost processing object for product
         pobj = CostProcessing.objects.filter(product=product)
         if pobj:
+            print('callled')
             instance = pobj.first()
             #update
             instance.color    = colorobj
@@ -46,16 +48,19 @@ def AddToCart(request,slug):
             instance.quantity = quantity
             instance.save()
             pobj =instance
+            cart.products.add(pobj)
+            cart.save()
         else:
             # create
             pobj= CostProcessing.objects.create(product=product,color=colorobj,size=sizeobj,quantity=quantity)
+            cart.products.add(pobj)
+            cart.save()
     else:
         print('value of quantity is <=0')
     # call the create cart function
-    cart = session_cart_create(request)
-    cart.products.add(pobj)
-    cart.save()
-    data={}
+   
+
+    data={'cart':cart.pdcount}
     return JsonResponse(data)
 
 
@@ -65,7 +70,7 @@ def Shopmore(request):
 
 # product detail 
 def ProductDetail(request,slug):
-
+    cart = session_cart_create(request)
     cartdisply=True
     '''
     call the tracker object for this product
@@ -88,7 +93,7 @@ def ProductDetail(request,slug):
     # display six popular products to shopper, after they have added a product to cart
     mstpp = views.Popular(request)
 
-    context={'added':added,'trending':mstpp,'product':product,'cartdisply':cartdisply}
+    context={'cart':cart.pdcount,'added':added,'trending':mstpp,'product':product,'cartdisply':cartdisply}
     template_name="homeapp/productdetail.html"
     return render(request,template_name,context)
 
@@ -96,6 +101,8 @@ def ProductDetail(request,slug):
 
 # home page view
 def index(request):
+    cartdisply=True
+    cart = session_cart_create(request)
     #check if this page is requested by seller
     if request.user.is_authenticated:
         if request.user.is_seller :
@@ -107,7 +114,7 @@ def index(request):
             pass
     # display 10 random products to visitors
     tenpds = views.FirstTen(request)
-    context={'tenpds':tenpds}
+    context={'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':tenpds}
     template_name='homeapp/index.html'
     return render(request,template_name,context)
 
