@@ -3,7 +3,7 @@
     {% block content %}
     {% load staticfiles %}           
 <!-- check if product is in cart -->
-{% if added is False %}
+{% if not added %}
 <div class="loader_">
   <div class="img_loader">
     <img src="{% static 'img/load.gif' %}">
@@ -242,10 +242,11 @@
 <!-- end of info container-->
 
  </div>
+</div>
 
  <!-- display these products, when shopper successfully 
    add a product to  cart-->
-   <div id="hidde_div"class="display_product_trending ">
+   <div id="hidde_div_color"class="display_product_trending ">
       <div class="product_dply">
         <div class="product_dply_sub">
       {% for products in trending %}

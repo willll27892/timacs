@@ -49,8 +49,11 @@ def ProductInCart(request,product):
     for processors in pobjs:
         if product.id == processors.product.id:
             product_added_to_cart= True
-            print("true")
+            print('is in cart')
+            return product_added_to_cart
         else:
+            print('is not in cart')
             product_added_to_cart= False
-    return product_added_to_cart
+            return product_added_to_cart
+    
 

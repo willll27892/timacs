@@ -296,6 +296,7 @@ class Cart(models.Model):
 
 # this class will be created base on user session.
 class Tracker(models.Model):
+    productincart    = models.BooleanField(default=False)
     session        = models.CharField(max_length=200,null=True)
     created        = models.DateTimeField(auto_now_add=True)
     viewed         = models.BooleanField(default=False)

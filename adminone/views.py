@@ -7,27 +7,35 @@ from products.models import Product,ProductSize,ProductColor
 from products.models import CostProcessing,Product,ProductSize,ProductColor,Tracker
 from homeapp.session import session_cart_create,ProductInCart
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 from productsdisplay import views
 
 #when user clicks product colors
 
 def ColorClick(request,slug,colorname,idn):
     
+    cartdisply=True
+    mstpp = None
     print(idn)
-    product=get_object_or_404(Product,slug=slug)
-    added=ProductInCart(request,product)
-    color  =get_object_or_404(ProductColor,id=idn)
+    product = get_object_or_404(Product,slug=slug)
+    added   = ProductInCart(request,product)
+    color   =  get_object_or_404(ProductColor,id=idn)
     if product:
+        cart = session_cart_create(request)
         try:
             #update tracker object for this product
             track = Tracker.objects.filter(productdisplay=product).first()
-            track.viewed=True
-            track.save()
+            if track:
+                mstpp = views.Popular(request)
+                track.viewed=True
+                track.save()
         except ObjectDoesNotExist:
             return redirect('homeapp:home')
-    mstpp = views.Popular(request)
+    
+    
+        
     template_name="homeapp/color.html"
-    context ={'trending':mstpp,'added':added,'color':color,'product':product}
+    context ={'cart':cart.pdcount,'cartdisply':cartdisply,'trending':mstpp,'added':added,'color':color,'product':product}
     return render(request,template_name,context)
 
 # seller admin pannel

@@ -6,7 +6,7 @@
 
 
 <!-- check if product is in cart -->
-{% if added is False %}
+{% if not added %}
 <div class="loader_">
   <div class="img_loader">
     <img src="{% static 'img/load.gif' %}">
@@ -171,7 +171,7 @@
       
     </div>
     {% else %}
-    <input class="" style="display: none" value="-1"type="radio" name="sizes" checked="checked">
+    <input class="" style="display: none" value="0"type="radio" name="sizes" checked="checked">
     {% endif %}
     
     <!-- end of  extral fields-->

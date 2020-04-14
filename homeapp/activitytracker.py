@@ -14,17 +14,18 @@ class Activity(models.Model):
     session         = models.CharField(max_length=200,null=True)
     display         = models.ManyToManyField(Tracker,related_name="display")
     products        = models.ManyToManyField(Product,related_name="products")
+    pdnotincart     = models.ManyToManyField(Product,related_name='pdcart')
 
 '''
 activtiy function
 this function  creates a tracker object for approved products.
 This is very important to monitor which products users have 
 viewed in a particular session id. To aviod same viewed
-products repeating being displayed  to the user.
+products repeating themselves   to the user.
 '''
 def Activity_function(request):
     # this should filter approved products
-    products = Product.objects.all()
+    products   = Product.objects.all()
     #call session activity function 
     # get session id by calling session id function
     session    = session_cart_create(request)
@@ -74,3 +75,29 @@ def  trackproducts(productobj,sessionid):
     activity =Activity.objects.filter(session=sessionid).first()
     return activity
 
+def CheckIfProductNotIncart(request,objs):
+    session    = session_cart_create(request)
+    sessionid = session.id
+    #get all products in cart intance of current user
+    activity = Activity.objects.filter(session=sessionid).first()
+    products = session.products.all()
+
+    print(products.count())
+    print(objs.count())
+    for  obj in objs:
+        # loop through cart product objects
+        for product in products:
+            # check if track product is in card 
+            if not product.product == obj.productdisplay:
+                # add all  track products not in cart in a activity
+                # list
+                activity.pdnotincart.add(obj.productdisplay)
+            # if product is in cart, update product tracker object
+            if product.product == obj.productdisplay:
+                obj.productincart =True
+                obj.save()
+    # return activity object
+    activity = Activity.objects.filter(session=sessionid).first()
+
+    return activity 
+    #check if 

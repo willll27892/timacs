@@ -21,6 +21,7 @@ def AddToCart(request,slug):
     cart = session_cart_create(request)
     if request.is_ajax():
         colorid  = request.GET.get('colors')
+        print(colorid)
         sizeid   = request.GET.get('sizes')
         quantity = request.GET.get('qt')
         colorid =int(colorid)
@@ -70,7 +71,7 @@ def Shopmore(request):
 
 # product detail 
 def ProductDetail(request,slug):
-    cart = session_cart_create(request)
+    
     cartdisply=True
     '''
     call the tracker object for this product
@@ -81,17 +82,23 @@ def ProductDetail(request,slug):
     # has been added to cart. This function is found
     # in \homeapp\session.py 
     added=ProductInCart(request,product)
+    mstpp= None
 
     if product:
+        cart = session_cart_create(request)
         try:
+            
             #update tracker object for this product
             track = Tracker.objects.filter(productdisplay=product).first()
-            track.viewed=True
-            track.save()
+            if track:
+                mstpp = views.Popular(request)
+                track.viewed=True
+                track.save()
+            
         except ObjectDoesNotExist:
             return redirect('homeapp:home')
     # display six popular products to shopper, after they have added a product to cart
-    mstpp = views.Popular(request)
+    
 
     context={'cart':cart.pdcount,'added':added,'trending':mstpp,'product':product,'cartdisply':cartdisply}
     template_name="homeapp/productdetail.html"

@@ -3,7 +3,7 @@
 from products.models import Product,Tracker
 from django.db.models import Q
 from homeapp.session import session_cart_create
-from homeapp.activitytracker import Activity_function
+from homeapp.activitytracker import CheckIfProductNotIncart,Activity_function
 
 
 """
@@ -13,6 +13,7 @@ in home page
 
 # display  first ten  radom products to a visitor
 def  FirstTen(request):
+
     '''
     Activity_function(request)
     this function call is very important.
@@ -32,20 +33,56 @@ def  FirstTen(request):
     Tracker objects are created when activity_function(request)
     called.
     '''
-    products = Tracker.objects.filter(Q(viewed=False) |Q(id=session.id))[:12]
+    products = Tracker.objects.filter(Q(viewed=False) & Q(session=session.id))[:12]
+    '''
+        at this point, the user has viewed all products in the database.
+        Now we have to repeat viewed products display back to user,
+        but not products already added in user's cart.
+        calling CheckIfProductNotIncart() function will 
+        perform a logic to check and add all products not in 
+        user cart in an activity obj. We can retrieve these
+        products when ever needed to avoid showing products
+        a user has added to their cart
+    '''
+    CheckIfProductNotIncart(request,products)
+    if not products:
+        products = Tracker.objects.filter(Q(viewed=False) & Q(session=session.id))[:12]
+
+    # if user has viewed all products in the data base
+    # start repeating back the same viewd products to user
+
+    if not products:
+        products = Tracker.objects.filter(Q(pdnotincart=False) & Q(session=session.id))[:12]
+        
     return products
 
 
 # popular products
 def Popular(request):
     session = session_cart_create(request)
+
     #get the first 10 random approved products.
     '''
     Tracker object is related to product objects.
     Tracker objects are created when activity_function(request)
     called.
     '''
-    products = Tracker.objects.filter(Q(viewed=False) |Q(id=session.id))[:6]
+    products = Tracker.objects.filter(Q(viewed=False) & Q(session=session.id))[:6]
+    '''
+        at this point, the user has viewed all products in the database.
+        Now we have to repeat viewed products display back to user,
+        but not products already added in user's cart.
+        calling CheckIfProductNotIncart() function will 
+        perform a logic to check and add all products not in 
+        user cart in an activity obj. We can retrieve these
+        products when ever needed to avoid showing products
+        a user has added to their cart
+    '''
+    CheckIfProductNotIncart(request,products)
+    if not  products:
+        print('called not products')
+        products = Tracker.objects.filter(Q(pdnotincart=False) & Q(session=session.id))[:6]
+        
     return products
 
 # display products of similar category
