@@ -1,7 +1,25 @@
 from products.models import Product,Cart
+from django.http import HttpRequest
+
+
+#get user ip 
+
+def userIP(request):
+    client_address= request.META.get('HTTP_X_FORWARDED_FOR')
+    if client_address:
+        ip = client_address.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
 # get and create user session
 
+
 def session_cart_create(request):
+    ip=userIP(request)
+    print(ip)
+    #get users ip
     session_id =  request.session.get('session_id',None)
     cart  =   Cart.objects.filter(id=session_id)
     '''
