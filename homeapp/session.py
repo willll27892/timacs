@@ -1,4 +1,5 @@
 from products.models import Product,Cart
+from homeapp.models import Sessionlog
 from django.http import HttpRequest
 
 
@@ -18,59 +19,83 @@ def userIP(request):
 
 def session_cart_create(request):
     ip=userIP(request)
-    print(ip)
     #get users ip
-    session_id =  request.session.get('session_id',None)
-    cart  =   Cart.objects.filter(id=session_id)
-    '''
-    create a new cart id for this session
-    or retrieve the cart obj for this session if one already exist
-    '''
+    
+    # call the create retrieve session function
+    session=Create_get_session(request,ip=ip)
+    cart = Create_Crud_cart(request,sessionObj=session)
+    return cart,session
+
+"""
+function which creates and retrieve session 
+object
+"""
+def Create_get_session(request,ip):
+    session_id =  request.session.get('session_id',None) 
+    session = None
+    sessionobj = Sessionlog.objects.filter(id=session_id)
+    if not sessionobj:
+        session=Sessionlog.objects.create(ip=ip)
+        request.session['session_id']= session.id
+        print('create called')
+        
+        return session
+
+    if not request.user.is_authenticated and sessionobj:
+        #get sessionlog for this session
+        session = Sessionlog.objects.get(id=session_id)
+
+        return session
+       
+    if request.user.is_authenticated and sessionobj:
+        sessioninstance      = Sessionlog.objects.get(id=session_id)
+        authsession          = Sessionlog.objects.filter(user=request.user)
+        #update the sessionlog with the currently login user
+        if not authsession:
+            sessioninstance.user = request.user
+            sessioninstance.save()
+        session = Sessionlog.objects.get(user=request.user)
+        return session
+
+# function to get create update cart 
+def Create_Crud_cart(request,sessionObj):
+    cart = None
+    cartobj = Cart.objects.filter(session=sessionObj,active=True)
     if not request.user.is_authenticated:
-        if cart:
-            cart = Cart.objects.first()
-        if not cart:
-            cart = Cart.objects.create()
-            request.session['session_id']= cart.id
-        return cart
-    # when user has login, check if there is an active cart object
-    if request.user.is_authenticated and cart:
-        usercart        = Cart.objects.filter(owner=request.user)
-        cartinstanceone = cart.first()
-        # check if user does not have an existing cart
-        # and set the current cart to the present login user
-        if not usercart:
-            cartinstanceone.owner = request.user
-            cartinstanceone.save()
-            cart = cartinstanceone
-        if  usercart:
-            cart.delete()
-            cart = usercart.first()
+        if not cartobj:
+            cart = Cart.objects.create(session=sessionObj)
+        if cartobj:
+            cart = cartobj.first()
+        return cart 
+
+    if request.user.is_authenticated:
+        cartobtwo = Cart.objects.filter(session=sessionObj,active=True,owner=request.user)
+        if cartobj and not cartobtwo:
+            cartinstance       = cartobj.first()
+            cartinstance.owner = request.user
+            cartinstance.save()
+            cart = cartinstance
+        if  cartobtwo:
+            cart = cartobtwo.first()
         return cart
 
-    if request.user.is_authenticated and not cart:
-        usercart        = Cart.objects.filter(owner=request.user)
-        if not usercart:
-            cart = Cart.objects.create(owner=request.user)
-        if usercart:
-            cart=usercart.first()
-        return cart
+    
 
 
-#check if product has been added to card 
+#check if product has been added to cart 
 
 def ProductInCart(request,product):
-    cart = session_cart_create(request)
+    cart,session = session_cart_create(request)
     pobjs = cart.products.all()
     product_added_to_cart=False
     # if product is in cart, function will return true
     for processors in pobjs:
         if product.id == processors.product.id:
             product_added_to_cart= True
-            print('is in cart')
+
             return product_added_to_cart
         else:
-            print('is not in cart')
+      
             product_added_to_cart= False
             return product_added_to_cart
     

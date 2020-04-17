@@ -26,7 +26,8 @@ def  FirstTen(request):
     # calling the activity function
     Activity_function(request)
     
-    session = session_cart_create(request)
+    cart,session = session_cart_create(request)
+    print('this is session'f'{session}-{cart}'.format(session,cart))
     #get the first 10 random approved products.
     '''
     Tracker object is related to product objects.
@@ -34,6 +35,7 @@ def  FirstTen(request):
     called.
     '''
     products = Tracker.objects.filter(Q(viewed=False) & Q(session=session.id))[:12]
+    
     '''
         at this point, the user has viewed all products in the database.
         Now we have to repeat viewed products display back to user,
@@ -52,14 +54,14 @@ def  FirstTen(request):
     # start repeating back the same viewd products to user
 
     if not products:
-        products = Tracker.objects.filter(Q(pdnotincart=False) & Q(session=session.id))[:12]
+        products = Tracker.objects.filter(Q(productincart=False) & Q(session=session.id))[:12]
         
     return products
 
 
 # popular products
 def Popular(request):
-    session = session_cart_create(request)
+    cart,session= session_cart_create(request)
 
     #get the first 10 random approved products.
     '''
@@ -81,7 +83,7 @@ def Popular(request):
     CheckIfProductNotIncart(request,products)
     if not  products:
         print('called not products')
-        products = Tracker.objects.filter(Q(pdnotincart=False) & Q(session=session.id))[:6]
+        products = Tracker.objects.filter(Q(productincart=False) & Q(session=session.id))[:6]
         
     return products
 

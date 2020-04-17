@@ -28,7 +28,7 @@ def Activity_function(request):
     products   = Product.objects.all()
     #call session activity function 
     # get session id by calling session id function
-    session    = session_cart_create(request)
+    cart,session = session_cart_create(request)
     sessionid  = session.id
     productobj = products 
     activity   = trackproducts(productobj,sessionid)
@@ -76,11 +76,11 @@ def  trackproducts(productobj,sessionid):
     return activity
 
 def CheckIfProductNotIncart(request,objs):
-    session    = session_cart_create(request)
+    cart,session    = session_cart_create(request)
     sessionid = session.id
     #get all products in cart intance of current user
     activity = Activity.objects.filter(session=sessionid).first()
-    products = session.products.all()
+    products = cart.products.all()
 
     print(products.count())
     print(objs.count())

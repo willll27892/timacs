@@ -18,7 +18,7 @@ def AddToCart(request,slug):
     product  = get_object_or_404(Product,slug=slug)
     sizeobj  = None
     colorobj = None
-    cart = session_cart_create(request)
+    cart,session = session_cart_create(request)
     if request.is_ajax():
         colorid  = request.GET.get('colors')
         print(colorid)
@@ -85,7 +85,7 @@ def ProductDetail(request,slug):
     mstpp= None
 
     if product:
-        cart = session_cart_create(request)
+        cart,session = session_cart_create(request)
         try:
             
             #update tracker object for this product
@@ -109,7 +109,7 @@ def ProductDetail(request,slug):
 # home page view
 def index(request):
     cartdisply=True
-    cart = session_cart_create(request)
+    cart,session = session_cart_create(request)
     #check if this page is requested by seller
     if request.user.is_authenticated:
         if request.user.is_seller :

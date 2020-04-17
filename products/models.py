@@ -9,7 +9,7 @@ from django.db import models
 from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
-
+from homeapp.models import Sessionlog
 #category model 
 
 class Category(models.Model):
@@ -245,6 +245,8 @@ class CostProcessing(models.Model):
 
 # product cart model    
 class Cart(models.Model):
+    ordered  = models.BooleanField(default=True)
+    session  = models.ForeignKey(Sessionlog,on_delete=models.CASCADE,null=True)
     owner    = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
     created  = models.DateTimeField(auto_now_add=True,null=True)
     updated  = models.DateTimeField(auto_now=True,null=True)

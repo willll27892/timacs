@@ -21,7 +21,7 @@ def ColorClick(request,slug,colorname,idn):
     added   = ProductInCart(request,product)
     color   =  get_object_or_404(ProductColor,id=idn)
     if product:
-        cart = session_cart_create(request)
+        cart,session = session_cart_create(request)
         try:
             #update tracker object for this product
             track = Tracker.objects.filter(productdisplay=product).first()

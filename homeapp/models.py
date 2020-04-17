@@ -152,5 +152,13 @@ class  Premium(models.Model):
 
         return super(Premium,self).save(*args,**kwargs)
 
+"""
+user session log
+"""
+class Sessionlog(models.Model):
+    user    = models.ForeignKey(CustomUser,related_name="ipuser",null=True,on_delete=models.CASCADE)
+    ip      = models.CharField(null=True,max_length=200)
+    created = models.DateTimeField(auto_now_add=True,null=True)
+    updated = models.DateTimeField(auto_now=True,null=True)
 
 
