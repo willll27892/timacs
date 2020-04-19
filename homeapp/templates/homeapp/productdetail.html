@@ -19,7 +19,7 @@
 <div class="img-view-container  previewimg-active">
   <div class="side-img">
     <div class="img-1">
-    <img src="{{product.picone.url}}"onmouseover="preview(this)" >
+    <img class="active_side" src="{{product.picone.url}}"onmouseover="preview(this)" >
   </div>
     {% if product.pictwo  %}
     <div class="img-1">
@@ -29,7 +29,7 @@
 
     {% if product.picthree  %}
     <div class="img-1">
-    <img src="{{product.picthree.url}}" onmouseover="preview(this)" >
+    <img  src="{{product.picthree.url}}" onmouseover="preview(this)" >
   </div>
     {% endif %}
 
@@ -657,6 +657,8 @@ $('.side-img img').hover(function(){
  }
 
   function preview(img){
+    $(img).css({'border':'solid','border-color':'black','border-width':'1px','transform':'scale(0.9)'})
+    $("img").not(img).css({'border':'none','transform':'scale(1)'})
       document.getElementById(0).src=img.src;
    $('.img-zoom-lens').css({'border':'none'});  
   }
