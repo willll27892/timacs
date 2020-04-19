@@ -22,8 +22,8 @@ $.ajax({
     $('.mainbody').css({'overflow':'initial','height':'initial'});
     $('.product-detail-container').hide();
     $('html, body').animate({ scrollTop: $('.product-detail-container').offset().top }, 'slow');
-    $('#hidde_div').css({'display':'inherit'})
-    $('#hidde_div_color').css({'display':'inherit'})
+    $('#hidde_div').css({'display':'inherit'});
+    $('#hidde_div_color').css({'display':'inherit'});
     $('.added_product').addClass('pulse');
     $('.product_dply').addClass('fadeInLeft');
   },
