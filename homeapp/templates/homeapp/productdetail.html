@@ -473,6 +473,73 @@
    </div>
 {% endif %}
 
+<div class="product_detail">
+<h3>Product Description</h3>
+<div class="pddescription">
+<table>
+   <tr>
+     <th>Name</th>
+     <th>Info</th>
+   </tr>
+   <tr>
+     <td>
+       ProductName
+     </td>
+     <td>
+       {{product.productname}}
+     </td>
+    </tr>
+     <tr>
+     <td>
+       Brand
+     </td>
+     <td>{{product.brand}}</td>
+    </tr>
+    <tr>
+      <td>Model</td>
+      <td>
+        {{product.model}}
+      </td>
+    </tr>
+    <tr>
+      <td>Size</td>
+      <td>{{product.size}}</td>
+    </tr>
+
+    <tr>
+      <td>
+        Color
+      </td>
+      <td>
+        {{product.color}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Detail
+      </td>
+      <td>
+        {{product.descript}}
+      </td>
+
+    </tr>
+{% if product.availableseizes.count > 0 %}
+<tr>
+  
+  <td>
+      Available sizes
+  </td>
+  <td>
+  {% for size in product.availableseizes.all %}
+  
+    {{size.size}},
+  {% endfor %}
+</td>
+</tr>
+{% endif %}   
+</table>
+</div>
+</div>
 
 
 
@@ -481,7 +548,8 @@
 
 
           <!-- Related product -->
-          <div class="aa-product-related-item clear_related">
+
+          <div class="aa-product-related-item clear_related ">
             <h3>Related Products</h3>
             <ul class="aa-product-catg aa-related-item-slider">
               <!-- start single product item -->
@@ -639,6 +707,7 @@
 
 $(document).ready(function(){
 $('.side-img img').hover(function(){
+  
  $(this).addClass("activeimg");
 },function(){
   $(this).removeClass("activeimg");
@@ -664,8 +733,12 @@ $('.side-img img').hover(function(){
   function preview(img){
     $(img).css({'border':'solid','border-color':'black','border-width':'1px','transform':'scale(0.9)'})
     $("img").not(img).css({'border':'none','transform':'scale(1)'})
-      document.getElementById(0).src=img.src;
-   $('.img-zoom-lens').css({'border':'none'});  
+    $('.img-zoom-lens').show();
+    imageZoom("0", "myresult");  
+    document.getElementById(0).src=img.src;
+        
+      
+      
   }
 
   $(document).ready(function(){

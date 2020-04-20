@@ -1,3 +1,11 @@
+
+
+$(window).scroll(function(){
+	if($(window).scrollTop()>200){
+	
+	}
+	  });
+
 function imageZoom(imgID, resultID) {
     var img, lens, result, cx, cy;
     img = document.getElementById(imgID);

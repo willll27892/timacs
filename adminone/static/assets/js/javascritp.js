@@ -1,4 +1,8 @@
+
+
+
 $(document).ready(function(){
+ 
  var winwindth=$(window).width()
     // menu button click handling first and second clicked
     
