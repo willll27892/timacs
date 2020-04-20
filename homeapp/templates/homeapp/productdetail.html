@@ -651,7 +651,8 @@ $('.side-img img').hover(function(){
    var $window = $(window).width();
    if ($window <1000){
     $('.zoom-container').show();
-    $('.zoom-container').show();
+    $('.zoom-container').addClass('zoomIn')
+    
    $('.zoom-container svg').click(function(){
     $('.zoom-container').hide();
    });
