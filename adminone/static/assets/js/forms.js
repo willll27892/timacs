@@ -26,6 +26,7 @@ $.ajax({
     $('#hidde_div_color').css({'display':'inherit'});
     $('.added_product').addClass('pulse');
     $('.product_dply').addClass('fadeInLeft');
+    $('.product_detail').hide();
   },
   error:function(){
     setTimeout(function(){

@@ -6,7 +6,7 @@
 
 
 <!-- check if product is in cart -->
-{% if not added %}
+{% if incart is False %}
 <div class="loader_">
   <div class="img_loader">
     <img src="{% static 'img/load.gif' %}">
@@ -359,6 +359,76 @@
        </div>
      </div>
     </div>
+
+
+    <div class="product_detail">
+        <h3>Product Description</h3>
+        <div class="pddescription">
+        <table>
+           <tr>
+             <th>Name</th>
+             <th>Info</th>
+           </tr>
+           <tr>
+             <td>
+               ProductName
+             </td>
+             <td>
+               {{product.productname}}
+             </td>
+            </tr>
+             <tr>
+             <td>
+               Brand
+             </td>
+             <td>{{product.brand}}</td>
+            </tr>
+            <tr>
+              <td>Model</td>
+              <td>
+                {{product.model}}
+              </td>
+            </tr>
+            <tr>
+              <td>Size</td>
+              <td>{{product.size}}</td>
+            </tr>
+        
+            <tr>
+              <td>
+                Color
+              </td>
+              <td>
+                {{product.color}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Detail
+              </td>
+              <td>
+                {{product.descript}}
+              </td>
+        
+            </tr>
+        {% if product.availableseizes.count > 0 %}
+        <tr>
+          
+          <td>
+              Available sizes
+          </td>
+          <td>
+          {% for size in product.availableseizes.all %}
+          
+            {{size.size}},
+          {% endfor %}
+        </td>
+        </tr>
+        {% endif %}   
+        </table>
+        </div>
+        </div>
+
 {% else %}
    <!-- display these products, when shopper successfully 
    add a product to  cart-->
@@ -473,73 +543,7 @@
    </div>
 {% endif %}
 
-<div class="product_detail">
-<h3>Product Description</h3>
-<div class="pddescription">
-<table>
-   <tr>
-     <th>Name</th>
-     <th>Info</th>
-   </tr>
-   <tr>
-     <td>
-       ProductName
-     </td>
-     <td>
-       {{product.productname}}
-     </td>
-    </tr>
-     <tr>
-     <td>
-       Brand
-     </td>
-     <td>{{product.brand}}</td>
-    </tr>
-    <tr>
-      <td>Model</td>
-      <td>
-        {{product.model}}
-      </td>
-    </tr>
-    <tr>
-      <td>Size</td>
-      <td>{{product.size}}</td>
-    </tr>
 
-    <tr>
-      <td>
-        Color
-      </td>
-      <td>
-        {{product.color}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Detail
-      </td>
-      <td>
-        {{product.descript}}
-      </td>
-
-    </tr>
-{% if product.availableseizes.count > 0 %}
-<tr>
-  
-  <td>
-      Available sizes
-  </td>
-  <td>
-  {% for size in product.availableseizes.all %}
-  
-    {{size.size}},
-  {% endfor %}
-</td>
-</tr>
-{% endif %}   
-</table>
-</div>
-</div>
 
 
 

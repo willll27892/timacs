@@ -5,10 +5,11 @@ from products.forms import ProductSizefm,Productform,Productcolors
 from django.http import JsonResponse
 from products.models import Product,ProductSize,ProductColor
 from products.models import CostProcessing,Product,ProductSize,ProductColor,Tracker
-from homeapp.session import session_cart_create,ProductInCart
+from homeapp.session import session_cart_create
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from productsdisplay import views
+from homeapp.activitytracker import CheckIfProductNotIncart,Activity_function,ProductInCart
 
 #when user clicks product colors
 

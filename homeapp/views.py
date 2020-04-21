@@ -5,17 +5,18 @@ from homeapp.models import Membership,Address
 from homeapp.urlredirect import UrlRedirect
 from products.models import CostProcessing,Product,ProductSize,ProductColor,Tracker
 from productsdisplay import views
-from homeapp.session import session_cart_create,ProductInCart
+from homeapp.session import session_cart_create
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
-
+from homeapp.activitytracker import CheckIfProductNotIncart,Activity_function,ProductInCart
 
 
 # adding product to cart 
 
 def AddToCart(request,slug):
-
     product  = get_object_or_404(Product,slug=slug)
+    tracker  = Tracker.objects.filter(productdisplay=product).first()
+    activity = Activity_function(request)
     sizeobj  = None
     colorobj = None
     cart,session = session_cart_create(request)
@@ -41,7 +42,6 @@ def AddToCart(request,slug):
             #retrieve, update , create cost processing object for product
         pobj = CostProcessing.objects.filter(product=product)
         if pobj:
-            print('callled')
             instance = pobj.first()
             #update
             instance.color    = colorobj
@@ -56,11 +56,11 @@ def AddToCart(request,slug):
             pobj= CostProcessing.objects.create(product=product,color=colorobj,size=sizeobj,quantity=quantity)
             cart.products.add(pobj)
             cart.save()
-    else:
-        print('value of quantity is <=0')
-    # call the create cart function
-   
+        #update product tracker object
+        tracker.productincart=True
+        tracker.save()  
 
+    CheckIfProductNotIncart(request)
     data={'cart':cart.pdcount}
     return JsonResponse(data)
 
@@ -81,7 +81,7 @@ def ProductDetail(request,slug):
     # call a function to check if this product 
     # has been added to cart. This function is found
     # in \homeapp\session.py 
-    added=ProductInCart(request,product)
+    incart=ProductInCart(request,product)
     mstpp= None
 
     if product:
@@ -100,7 +100,7 @@ def ProductDetail(request,slug):
     # display six popular products to shopper, after they have added a product to cart
     
 
-    context={'cart':cart.pdcount,'added':added,'trending':mstpp,'product':product,'cartdisply':cartdisply}
+    context={'cart':cart.pdcount,'incart':incart,'trending':mstpp,'product':product,'cartdisply':cartdisply}
     template_name="homeapp/productdetail.html"
     return render(request,template_name,context)
 

@@ -27,7 +27,6 @@ def  FirstTen(request):
     Activity_function(request)
     
     cart,session = session_cart_create(request)
-    print('this is session'f'{session}-{cart}'.format(session,cart))
     #get the first 10 random approved products.
     '''
     Tracker object is related to product objects.
@@ -46,7 +45,6 @@ def  FirstTen(request):
         products when ever needed to avoid showing products
         a user has added to their cart
     '''
-    CheckIfProductNotIncart(request,products)
     if not products:
         products = Tracker.objects.filter(Q(viewed=False) & Q(session=session.id))[:12]
 
@@ -80,7 +78,6 @@ def Popular(request):
         products when ever needed to avoid showing products
         a user has added to their cart
     '''
-    CheckIfProductNotIncart(request,products)
     if not  products:
         print('called not products')
         products = Tracker.objects.filter(Q(productincart=False) & Q(session=session.id))[:6]

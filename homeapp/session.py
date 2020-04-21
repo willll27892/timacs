@@ -3,6 +3,7 @@ from homeapp.models import Sessionlog
 from django.http import HttpRequest
 
 
+
 #get user ip 
 
 def userIP(request):
@@ -59,6 +60,7 @@ def Create_get_session(request,ip):
 
 # function to get create update cart 
 def Create_Crud_cart(request,sessionObj):
+    print(sessionObj)
     cart = None
     cartobj = Cart.objects.filter(session=sessionObj,active=True)
     if not request.user.is_authenticated:
@@ -69,8 +71,10 @@ def Create_Crud_cart(request,sessionObj):
         return cart 
 
     if request.user.is_authenticated:
+        print('cart auth')
         cartobtwo = Cart.objects.filter(session=sessionObj,active=True,owner=request.user)
         if cartobj and not cartobtwo:
+            print('True')
             cartinstance       = cartobj.first()
             cartinstance.owner = request.user
             cartinstance.save()
@@ -82,21 +86,6 @@ def Create_Crud_cart(request,sessionObj):
     
 
 
-#check if product has been added to cart 
 
-def ProductInCart(request,product):
-    cart,session = session_cart_create(request)
-    pobjs = cart.products.all()
-    product_added_to_cart=False
-    # if product is in cart, function will return true
-    for processors in pobjs:
-        if product.id == processors.product.id:
-            product_added_to_cart= True
-
-            return product_added_to_cart
-        else:
-      
-            product_added_to_cart= False
-            return product_added_to_cart
     
 

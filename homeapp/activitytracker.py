@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from products.models import Product,Tracker
 from homeapp.session import session_cart_create
-
+from homeapp.models import CustomUser
 
 
 """
@@ -11,10 +11,11 @@ track all the products user has visited
 using the session id
 """
 class Activity(models.Model):
-    session         = models.CharField(max_length=200,null=True)
-    display         = models.ManyToManyField(Tracker,related_name="display")
-    products        = models.ManyToManyField(Product,related_name="products")
-    pdnotincart     = models.ManyToManyField(Product,related_name='pdcart')
+    user           = models.ForeignKey(CustomUser,null=True,related_name='actuser',on_delete=models.CASCADE)
+    session        = models.CharField(max_length=200,null=True)
+    incart         = models.ManyToManyField(Tracker,related_name="display")
+    products       = models.ManyToManyField(Product,related_name="products")
+    pdincart       = models.ManyToManyField(Product,related_name='pdcart')
 
 '''
 activtiy function
@@ -30,8 +31,10 @@ def Activity_function(request):
     # get session id by calling session id function
     cart,session = session_cart_create(request)
     sessionid  = session.id
-    productobj = products 
-    activity   = trackproducts(productobj,sessionid)
+    pdobjs = products 
+    user = request.user
+    #call activity tracker object
+    activity   = trackproducts(user,pdobjs,sessionid)
     return activity
  
 
@@ -44,60 +47,100 @@ registered session id. Knowing what product
 the user has viewed and making sure viewed products
 do not repeat themselves to themsame user.
 '''
-def  trackproducts(productobj,sessionid):
+def  trackproducts(user,pdobjs,sessionid):
+    '''
+    pdobjs = Products.object.all()
+    '''
     '''
     Activity object is called. This object stores product objects
     and tracker objects
     '''
     activity = Activity.objects.filter(session=sessionid)
     #check if activity object for this session id has been created
-    if activity:
-        # assumming this is the 1 + call to this function
-        # get the first Activity object
-        activity = Activity.objects.filter(session=sessionid).first()
-        #get all the products in Activity object
-        productlogs = activity.products.all()
-        for product in productobj:
-            #check if product has been tracked before creating a tracker object for it
-            if not product in productlogs:
-                Tracker.objects.create(productdisplay=product,session=sessionid) 
+    if not user.is_authenticated:
+        if activity:
+            # assumming this is the 1 + call to this function
+            # get the first Activity object
+            activity = Activity.objects.filter(session=sessionid).first()
+            #get all the products in Activity object
+            productlogs = activity.products.all()
+            for product in pdobjs:
+                #check if tracker object has been created for product
+                if not product in productlogs:
+                    Tracker.objects.create(productdisplay=product,session=sessionid) 
+    
+        if not activity:
+            activity = Activity.objects.create(session=sessionid)
+            # create product tracker objects  for this session id
+            for product in pdobjs:
+                Tracker.objects.create(productdisplay=product,session=sessionid)
+        
+        for product in pdobjs:
+            activity.products.add(product)
+        activity =Activity.objects.filter(session=sessionid).first()
+        return activity
 
-    if not activity:
-        activity = Activity.objects.create(session=sessionid)
-        # create product tracker objects  for this session id
-        for product in productobj:
-            Tracker.objects.create(productdisplay=product,session=sessionid)
 
-            
-            
-    for product in productobj:
-        activity.products.add(product)
-    activity =Activity.objects.filter(session=sessionid).first()
-    return activity
+    if user.is_authenticated:
+        authactivity = Activity.objects.filter(session=sessionid,user=user)
+        if authactivity:
+            # assumming this is the 1 + call to this function
+            # get the first Activity object
+            activity = authactivity.first()
+            #get all the products in Activity object
+            productlogs = activity.products.all()
+            for product in pdobjs:
+                #check if tracker object has been created for product
+                if not product in productlogs:
+                    Tracker.objects.create(productdisplay=product,session=sessionid)
+        
+        if activity and not authactivity:
+            sesactivity =activity.first()
+            sesactivity.user=user
+            sesactivity.save()
+            activity = sesactivity
 
-def CheckIfProductNotIncart(request,objs):
+        if not activity and not  authactivity:
+            activity = Activity.objects.create(session=sessionid,user=user)
+            # create product tracker objects  for this session id
+            for product in pdobjs:
+                Tracker.objects.create(productdisplay=product,session=sessionid)
+        
+        for product in pdobjs:
+            activity.products.add(product)
+        activity =Activity.objects.filter(session=sessionid,user=user).first()
+        return activity
+
+
+'''
+track all products user put in cart
+'''
+        
+def CheckIfProductNotIncart(request):
     cart,session    = session_cart_create(request)
-    sessionid = session.id
-    #get all products in cart intance of current user
-    activity = Activity.objects.filter(session=sessionid).first()
+    #get current active activity object
+    activity = Activity_function(request)
     products = cart.products.all()
-
-    print(products.count())
-    print(objs.count())
-    for  obj in objs:
-        # loop through cart product objects
-        for product in products:
-            # check if track product is in card 
-            if not product.product == obj.productdisplay:
-                # add all  track products not in cart in a activity
-                # list
-                activity.pdnotincart.add(obj.productdisplay)
-            # if product is in cart, update product tracker object
-            if product.product == obj.productdisplay:
-                obj.productincart =True
-                obj.save()
-    # return activity object
-    activity = Activity.objects.filter(session=sessionid).first()
-
+    # track all products user has added to active cart
+    for product in products:
+        activity.pdincart.add(product.product) 
+    activity = Activity_function(request)        
+    # return activity object   
     return activity 
     #check if 
+
+'''
+check if current product 
+has been added to current active 
+cart
+'''
+def ProductInCart(request,product):
+    cart,session = session_cart_create(request)
+    activity=Activity_function(request)
+    products = activity.pdincart.all()
+    print(products.count())
+
+    if product in products:
+        return True
+    else:
+        return False
