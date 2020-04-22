@@ -100,6 +100,7 @@ class Product(models.Model):
     salesprice      = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
     pdcolor         = models.ManyToManyField(ProductColor,related_name="color_id",null=True,blank=True)
     availableseizes = models.ManyToManyField(ProductSize,null=True,related_name="avlprice")
+    views           = models.IntegerField(default=0)
     def __str__(self):
         return self.productname
  

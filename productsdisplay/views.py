@@ -4,7 +4,7 @@ from products.models import Product,Tracker
 from django.db.models import Q
 from homeapp.session import session_cart_create
 from homeapp.activitytracker import CheckIfProductNotIncart,Activity_function
-
+from products.models import Product
 
 """
 Query and return products to be displayed 
@@ -33,7 +33,7 @@ def  FirstTen(request):
     Tracker objects are created when activity_function(request)
     called.
     '''
-    products = Tracker.objects.filter(Q(viewed=False) & Q(session=session.id))[:12]
+    products = Tracker.objects.filter(Q(viewed=False) & Q(session=session.id) & Q(productincart=False))[:12]
     
     '''
         at this point, the user has viewed all products in the database.
@@ -45,14 +45,10 @@ def  FirstTen(request):
         products when ever needed to avoid showing products
         a user has added to their cart
     '''
-    if not products:
-        products = Tracker.objects.filter(Q(viewed=False) & Q(session=session.id))[:12]
+    if  products.count() <= 4:
+        
+        products = Tracker.objects.filter(Q(viewed=True) & Q(session=session.id) & Q(productincart=False))[:12]
 
-    # if user has viewed all products in the data base
-    # start repeating back the same viewd products to user
-
-    if not products:
-        products = Tracker.objects.filter(Q(productincart=False) & Q(session=session.id))[:12]
         
     return products
 
@@ -67,30 +63,21 @@ def Popular(request):
     Tracker objects are created when activity_function(request)
     called.
     '''
-    products = Tracker.objects.filter(Q(viewed=False) & Q(session=session.id))[:6]
-    '''
-        at this point, the user has viewed all products in the database.
-        Now we have to repeat viewed products display back to user,
-        but not products already added in user's cart.
-        calling CheckIfProductNotIncart() function will 
-        perform a logic to check and add all products not in 
-        user cart in an activity obj. We can retrieve these
-        products when ever needed to avoid showing products
-        a user has added to their cart
-    '''
-    if not  products:
-        print('called not products')
-        products = Tracker.objects.filter(Q(productincart=False) & Q(session=session.id))[:6]
+    products = Tracker.objects.filter(Q(productdisplay__views__gte=2,productincart=False))[:6]
         
     return products
 
 # display products of similar category
+def SimilarPd(request,productobj):
+    pdName   = productobj.productname
+    pdCat    = productobj.category
+    pdSubCat = productobj.subcategory
+    pdBrand  = productobj.brand
+    products = Product.objects.filter(Q(brand=pdBrand) | Q(productname=pdName) | Q(category=pdCat) | Q(subcategory=pdSubCat)).exclude(id=productobj.id)[:12]
+    return products
 
-def SimilarPd(request):
-    pass
-
+    
 # Suggest Products to user base on user activities
-
 def Suggestion(request):
     pass 
 

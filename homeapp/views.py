@@ -81,26 +81,28 @@ def ProductDetail(request,slug):
     # call a function to check if this product 
     # has been added to cart. This function is found
     # in \homeapp\session.py 
+    simpd=views.SimilarPd(request,productobj=product)
     incart=ProductInCart(request,product)
-    mstpp= None
+    mstpp = views.Popular(request)
 
     if product:
         cart,session = session_cart_create(request)
         try:
             
             #update tracker object for this product
-            track = Tracker.objects.filter(productdisplay=product).first()
+            track = Tracker.objects.filter(productdisplay=product,viewed=False).first()
             if track:
-                mstpp = views.Popular(request)
+                #increament product view
+                product.views +=1
+                product.save()
+                
                 track.viewed=True
                 track.save()
             
         except ObjectDoesNotExist:
             return redirect('homeapp:home')
     # display six popular products to shopper, after they have added a product to cart
-    
-
-    context={'cart':cart.pdcount,'incart':incart,'trending':mstpp,'product':product,'cartdisply':cartdisply}
+    context={'mstpp':mstpp,'simpd':simpd,'cart':cart.pdcount,'incart':incart,'trending':mstpp,'product':product,'cartdisply':cartdisply}
     template_name="homeapp/productdetail.html"
     return render(request,template_name,context)
 
@@ -110,6 +112,7 @@ def ProductDetail(request,slug):
 def index(request):
     cartdisply=True
     cart,session = session_cart_create(request)
+    mstpp = views.Popular(request)
     #check if this page is requested by seller
     if request.user.is_authenticated:
         if request.user.is_seller :
@@ -121,7 +124,7 @@ def index(request):
             pass
     # display 10 random products to visitors
     tenpds = views.FirstTen(request)
-    context={'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':tenpds}
+    context={'mstpp':mstpp,'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':tenpds}
     template_name='homeapp/index.html'
     return render(request,template_name,context)
 

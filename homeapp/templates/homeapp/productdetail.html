@@ -6,14 +6,14 @@
 
 
 <!-- check if product is in cart -->
-{% if incart is False %}
+
 <div class="loader_">
   <div class="img_loader">
     <img src="{% static 'img/load.gif' %}">
   </div>
   </div>
 <div class="product-main-container">
-
+  {% if incart is False %}
 <div class= "product-detail-container">
 
 <div class="img-view-container  previewimg-active">
@@ -541,7 +541,43 @@
       </div>
     </div>
    </div>
+   {% endif %}
+
+             <!-- Related product -->
+{% if simpd %}
+<div class="aa-product-related-item clear_related ">
+  <h3>Related Products</h3>
+  <ul class="aa-product-catg aa-related-item-slider">
+    <!-- start single product item -->
+    {% for simproduct in simpd %}
+    <li>
+      <figure>
+        <a class="aa-product-img" href="{% url 'homeapp:productdetail' slug=simproduct.slug %}"><img src="{{simproduct.picone.url}}" alt="polo shirt img"></a>
+         <figcaption>
+          <h4 class="aa-product-title"><a href="#">{{simproduct.productname}}</a></h4>
+        </figcaption>
+      </figure>                     
+      <div class="aa-product-hvr-content">
+        <a href="{% url 'homeapp:productdetail' slug=simproduct.slug %}"   title="Quick View" data-toggle="modal" ><span class="fa fa-search"></span></a>                            
+      </div>
+      <!-- product badge -->
+      {% if simproduct.sales  > 0 %}
+      <span class="aa-badge aa-sale" href="#">SALE!</span>
+      {% endif %}
+    </li>     
+    {% endfor %}                                                                              
+  </ul>
+  
+</div>  
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
 {% endif %}
+</div>
+
 
 
 
@@ -551,160 +587,7 @@
               
 
 
-          <!-- Related product -->
 
-          <div class="aa-product-related-item clear_related ">
-            <h3>Related Products</h3>
-            <ul class="aa-product-catg aa-related-item-slider">
-              <!-- start single product item -->
-              <li>
-                <figure>
-                  <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-2.png" alt="polo shirt img"></a>
-                  <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                   <figcaption>
-                    <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
-                    <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
-                  </figcaption>
-                </figure>                     
-                <div class="aa-product-hvr-content">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                  <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
-                </div>
-                <!-- product badge -->
-                <span class="aa-badge aa-sale" href="#">SALE!</span>
-              </li>
-               <!-- start single product item -->
-              <li>
-                <figure>
-                  <a class="aa-product-img" href="#"><img src="img/women/girl-2.png" alt="polo shirt img"></a>
-                  <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                  <figcaption>
-                    <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
-                    <span class="aa-product-price">$45.50</span>
-                  </figcaption>
-                </figure>                      
-                <div class="aa-product-hvr-content">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                  <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                </div>
-                <!-- product badge -->
-                 <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
-              </li>
-              <!-- start single product item -->
-              <li>
-                <figure>
-                  <a class="aa-product-img" href="#"><img src="img/man/t-shirt-1.png" alt="polo shirt img"></a>
-                  <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                </figure>
-                <figcaption>
-                  <h4 class="aa-product-title"><a href="#">T-Shirt</a></h4>
-                  <span class="aa-product-price">$45.50</span>
-                </figcaption>
-                <div class="aa-product-hvr-content">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                  <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                </div>
-                <!-- product badge -->
-                 <span class="aa-badge aa-hot" href="#">HOT!</span>
-              </li>
-              <!-- start single product item -->
-              <li>
-                <figure>
-                  <a class="aa-product-img" href="#"><img src="img/women/girl-3.png" alt="polo shirt img"></a>
-                  <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                   <figcaption>
-                    <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
-                    <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
-                  </figcaption>
-                </figure>                     
-                <div class="aa-product-hvr-content">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                  <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                </div>
-              </li>
-              <!-- start single product item -->
-              <li>
-                <figure>
-                  <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-1.png" alt="polo shirt img"></a>
-                  <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                  <figcaption>
-                    <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
-                    <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
-                  </figcaption>
-                </figure>                      
-                <div class="aa-product-hvr-content">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                  <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                </div>
-              </li>
-              <!-- start single product item -->
-              <li>
-                <figure>
-                  <a class="aa-product-img" href="#"><img src="img/women/girl-4.png" alt="polo shirt img"></a>
-                  <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                  <figcaption>
-                    <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
-                    <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
-                  </figcaption>
-                </figure>                     
-                <div class="aa-product-hvr-content">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                  <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                </div>
-                <!-- product badge -->
-                <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
-              </li>    
-              <!-- start single product item -->
-              <li>
-                <figure>
-                  <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-4.png" alt="polo shirt img"></a>
-                  <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                   <figcaption>
-                    <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
-                    <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
-                  </figcaption>
-                </figure>                     
-                <div class="aa-product-hvr-content">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                  <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                </div>
-                <!-- product badge -->
-                <span class="aa-badge aa-hot" href="#">HOT!</span>
-              </li> 
-              <!-- start single product item -->
-              <li>
-                <figure>
-                  <a class="aa-product-img" href="#"><img src="img/women/girl-1.png" alt="polo shirt img"></a>
-                  <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                   <figcaption>
-                    <h4 class="aa-product-title"><a href="#">This is Title</a></h4>
-                    <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
-                  </figcaption>
-                </figure>                     
-                <div class="aa-product-hvr-content">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                  <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
-                </div>
-                <!-- product badge -->
-                <span class="aa-badge aa-sale" href="#">SALE!</span>
-              </li>                                                                                   
-            </ul>
-            
-          </div>  
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-</div>
 <!-- call the zoom image script-->
 <script src="{% static 'js/imagezoom.js' %}"></script>
 <script>

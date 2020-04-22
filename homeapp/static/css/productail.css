@@ -157,7 +157,12 @@ float: left;
 	border-bottom-color: rgba(0,0,0,0.2);
 	border-bottom-width: 1px;
 }
-
+.clear_related h3{
+	padding-bottom: 14px;
+	border-bottom: solid;
+	border-color: black;
+	border-width: 1px;
+}
 .add-quantity .add-to-cart{
 	margin-top:10px;
 	position: relative;
