@@ -249,6 +249,7 @@
 
   
   <!-- popular section -->
+  {% if mstpp %}
   <section id="aa-popular-category">
     <div class="container">
       <div class="row">
@@ -263,7 +264,7 @@
               <div class="tab-content">
                 <!-- Start men popular category -->
                 <div class="tab-pane fade in active" id="popular">
-                  {% if mstpp %}
+                  
                   <ul class="aa-product-catg aa-popular-slider">
                     {% for mspd in mstpp %}
                     <!-- start single product item -->
@@ -296,7 +297,7 @@
                     {% endfor %}
                                                                                                        
                   </ul>
-                  {% endif %}
+                  
                   <a class="aa-browse-btn" href="#">More Products <span class="fa fa-long-arrow-right"></span></a>
                 </div>
                 
@@ -309,6 +310,7 @@
       </div>
     </div>
   </section>
+  {% endif %}
   <!-- / popular section -->
   <!-- Support section -->
   <section id="aa-support">
