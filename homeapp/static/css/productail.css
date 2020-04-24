@@ -803,10 +803,10 @@ max-width:50%;
 	.place-order a{
 		position: relative;
 		top:-30px;
-		left:30%;
+		margin-left:35%;
 		font-size: 14px;
 		border:solid;
-		padding:1em 2em 1em 2em;
+		padding:3px;
 	}
 .cart-container-pd{
 
