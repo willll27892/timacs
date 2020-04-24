@@ -1,4 +1,31 @@
 
+// submit form when Qt change in cart 
+
+function QuantityUpdate(form){
+   var $this= $(this)
+  $.ajax({
+    url:$(form).attr('action'),
+    method:$(form).attr('method'),
+    data:$(form).serialize(),
+    success:function(data){
+      if (data){
+        var salesprice =Math.round(data.objs.sale)+".00"
+        var cost       = Math.round(data.objs.cost) + ".00"
+       if(salesprice){
+        $(".c-sales",form).text(salesprice+" " +'CFA')
+       }
+       if(cost){
+        $(".c-cost",form).text(cost+" " +'CFA')}
+      }
+      $('.pd-count').text(data.objs.pdcount);
+      $('.p-sum').text('CFA' +" "+data.objs.sum);
+    },
+    error:function(){
+      
+    }
+  });
+}
+
 
 // add product to cart 
 $(document).ready(function(){

@@ -201,7 +201,7 @@ class CostProcessing(models.Model):
     quantity          = models.IntegerField(default=1)
     cost              = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
     #product cost after sales
-    costaftersales    = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
+    costaftersales    = models.DecimalField(max_digits=19,decimal_places=1,null=True,blank=True)
 
     def __str__(self):
         return str(self.product.productname) 

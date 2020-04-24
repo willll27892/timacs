@@ -11,6 +11,16 @@ from django.core.exceptions import ObjectDoesNotExist
 from homeapp.activitytracker import CheckIfProductNotIncart,Activity_function,ProductInCart
 
 
+
+
+def cart(request):
+    cartdisply=True
+    cart,session = session_cart_create(request)
+    pds  = cart.products.all()
+    context={'products':pds,'cart':cart}
+    template_name="homeapp/cart.html"
+    return render(request,template_name,context)
+
 # adding product to cart 
 
 def AddToCart(request,slug):
@@ -64,6 +74,54 @@ def AddToCart(request,slug):
     data={'cart':cart.pdcount}
     return JsonResponse(data)
 
+
+# remove product from cart
+def RemoveProduct(request):
+    cart,session = session_cart_create(request)
+    productId = request.GET.get('remove')
+    if int(productId) > 0 :
+        getproduct=CostProcessing.objects.get(id=productId)
+        cart.products.remove(getproduct)
+        cart.save()
+        return redirect('homeapp:mycart')
+
+
+
+
+#update cart :
+
+'''
+Onchange quantity in user cart.
+update user cart object
+'''
+def CartUpdate(request):
+    if request.is_ajax():
+        cart,session = session_cart_create(request)
+        qt           = request.GET.get('cqt')
+        pdprocesssx = request.GET.get('pd-process')
+        #get product processing object.
+        """
+        this object stores information related a product
+        such as product quantity, selected product color 
+        etc.
+        """
+        processObj  = CostProcessing.objects.get(id=pdprocesssx)
+        processObj.quantity= qt
+        processObj.save()
+
+        cost= processObj.cost
+        sale = processObj.costaftersales
+        cart.save()
+        objs={
+            'sum':cart.total,
+            'pdcount':cart.pdcount,
+            'sale':sale,
+            'cost':cost
+        }
+        #update cart object
+        
+        data={'objs':objs}
+        return JsonResponse(data)
 
 # show more products to user 
 def Shopmore(request):

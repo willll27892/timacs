@@ -10,7 +10,8 @@
     <!-- Font awesome -->
     <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
     <!-- Bootstrap -->
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">   
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+      
     <!-- SmartMenus jQuery Bootstrap Addon CSS -->
     <link href="{% static 'css/jquery.smartmenus.bootstrap.css' %}" rel="stylesheet">
     <!-- Product view slider -->
@@ -137,7 +138,7 @@ hold product info, such as images and product  detail
              <!-- cart box -->
              {% if cartdisply %}
             <div class="aa-cartbox">
-              <a class="aa-cart-link" href="#">
+              <a class="aa-cart-link" href="{% url 'homeapp:mycart' %}">
                 <span class="fa fa-shopping-basket"></span>
                 <span class="aa-cart-title">SHOPPING CART</span>
                 <span class="aa-cart-notify" id="cart">{{cart}}</span>
@@ -407,10 +408,10 @@ hold product info, such as images and product  detail
   <!-- Custom js -->
   <script src="{% static 'js/custom.js' %}"></script>
   <!-- color selection-->
+  
   <script type="text/javascript" src="{% static 'js/colorselection.js' %}"></script>
- 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="{% static 'assets/js/forms.js' %}" ></script> 
-    
-     
+
 </body>
 </html>

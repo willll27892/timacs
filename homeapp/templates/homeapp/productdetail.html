@@ -126,7 +126,7 @@
     <span>Quantity:</span>
     <form id="add-product-cart" action="{% url 'homeapp:addtocart' slug=product.slug %}" method="get" enctype="multipart/form-data">
       {% csrf_token %}
-      <input name="qt" type="number" value="1">
+      <input name="qt" type="number" value="1" min='1' step="1">
 
       <!-- extra fields-->
       {% if product.pdcolor.count > 0 %}
@@ -300,7 +300,7 @@
  
              </div> 
              <div class="add-to-cart">
-                 <a href=""><?xml version="1.0" encoding="iso-8859-1"?>
+                 <a href="{% url 'homeapp:mycart' %}"><?xml version="1.0" encoding="iso-8859-1"?>
                    <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                       viewBox="0 0 512.008 512.008" style="enable-background:new 0 0 512.008 512.008;" xml:space="preserve">
@@ -482,7 +482,7 @@
 
             </div> 
             <div class="add-to-cart">
-                <a href=""><?xml version="1.0" encoding="iso-8859-1"?>
+                <a href="{% url 'homeapp:mycart' %}"><?xml version="1.0" encoding="iso-8859-1"?>
                   <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
                   <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                      viewBox="0 0 512.008 512.008" style="enable-background:new 0 0 512.008 512.008;" xml:space="preserve">
@@ -653,5 +653,9 @@ $('.side-img img').hover(function(){
 
 
 
+<script src="{% static 'js/bootstrap-input-spinner.js' %}"></script> 
+<script>
+    $("input[type='number']").inputSpinner()
+</script>
 
 {% endblock %}

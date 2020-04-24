@@ -1,0 +1,89 @@
+
+    {% extends 'homeapp/base.html' %}
+    {% block content %}
+
+    {% load staticfiles %}  
+{% if cart.pdcount > 0 %}
+    <div class="cart-container-pd">
+        <div class="sub-container">
+        {% if products %}
+        {% for product in products %}
+        <div class="product-objs" >
+            <div class="img-cart-pd">
+             <img src="{{product.product.picone.url}}">
+             <div class="cart-productname">
+                {{product.product.productname}}
+             </div>
+            </div>
+            <div class="name-cart-pd">
+                <form  action="{% url 'homeapp:updatecart' %}" method="get">
+  
+                {% if product.product.sales > 0 %}
+                <div class="cart-form-field">
+                        <div style="font-size: 10px;color:green;margin-top:-10px">{{product.product.sales}}% Sales Off</div>
+                 <div class="c-sales">
+                     
+                     {{product.costaftersales}} CFA</div>
+               </div>
+               {% else %}
+               <div class="cart-form-field">
+                
+                <div class="c-cost">{{product.cost}} CFA</div>
+                </div>
+                {% endif %}
+            </div>  
+            <div class="quantity-cart-pd">
+             
+                <div class="cart-form-field">
+                    <span>Qty:</span><br>
+                <input type="hidden" name="pd-process" value="{{product.id}}">
+                 <input name="cqt"type="number" value="{{product.quantity}}" min="1" max="100" step="1" onchange="QuantityUpdate(this.form)">
+                </div>
+                 
+             </form>
+            </div>
+            <form action="{% url 'homeapp:removeproduct' %}" id="remove" method="get">
+                <input name="remove" type="hidden" value="{{product.id}}">
+             <input type="submit" value="Remove">
+            </form>
+        </div>
+        {% endfor %}
+        <div class="total_">
+            <div class="ct-order-info">
+                <div class="ct-order-info-sub-lb">
+                    Total Produts:
+                </div>
+                <div class="ct-order-info-sub pd-count">
+                    {{cart.pdcount}}
+                </div>
+            </div>
+            <div class="ct-order-info">
+                    <div class="ct-order-info-sub-lb">
+                        Total:
+                    </div>
+                    <div class="ct-order-info-sub p-sum">
+                      CFA  {{cart.total}}
+                    </div>
+
+                    <div class="place-order">
+                        <a href="">Check Out</a>
+                    </div>
+                </div>
+        </div>
+        {% endif %}
+    </div>
+    </div>
+    {% else %}
+    <div class="emptycart" >
+        <p>
+            Your cart is Empty
+        </p>
+    </div>
+ {% endif %}
+
+    
+    <script src="{% static 'js/bootstrap-input-spinner.js' %}"></script> 
+    <script>
+        $("input[type='number']").inputSpinner()
+    </script>
+    {% endblock%}

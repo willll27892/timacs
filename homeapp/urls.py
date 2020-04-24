@@ -6,6 +6,9 @@ app_name="homeapp"
 
 urlpatterns=[
     #home page url
+    url(r'^remove/product/cart/$',views.RemoveProduct,name="removeproduct"),
+    url(r'^update/cart/$',views.CartUpdate,name="updatecart"),
+    url(r'^cart/$',views.cart,name="mycart"),
     url(r'^shoppers/stop/$',views.Shopmore,name="shopmore"),
     url(r'^cart/(?P<slug>[\w-]+)$',views.AddToCart,name="addtocart"),
     url(r'^product/detail/(?P<slug>[\w-]+)$',views.ProductDetail,name="productdetail"),
