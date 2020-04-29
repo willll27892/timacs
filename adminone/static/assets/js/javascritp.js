@@ -1,6 +1,13 @@
 
 
-
+/* when user hovers on profic*/
+$(document).ready(function(){
+$('.displaypic').hover(function(){
+$('.displaypic .useraccount').fadeIn('fast');
+},function(){
+    $('.displaypic .useraccount').fadeOut('fast');  
+});
+});
 $(document).ready(function(){
  
  var winwindth=$(window).width()

@@ -101,13 +101,21 @@ hold product info, such as images and product  detail
                 {% if seller %}
                   <li><a href="{% url 'homeapp:home' %}" >home</a></li>
                 {% else %}
+                {% if not request.user.is_buyer %}
                 <li><a href="{% url 'homeapp:seller' %}" >Become a seller</a></li>
-                  {% endif %}
+                {% else %}
+                <li class="displaypic"><a href="{% url 'homeapp:shopperaccount' %}"><span>{{request.user.firstname|truncatechars:20}}</span> <img src="{% static 'img/default.jpg' %}" alt="ecommerce,Africa, business"></a>
+                <div class="useraccount">
+                 <a href="{% url 'homeapp:shopperaccount' %}">Myaccount</a><br>
+                 <a href="{% url 'homeapp:logout' %}">Logout</a>
+                </div>
+                </li>
+                {% endif %}  
+                {% endif %}
                   {% if not request.user.is_authenticated %}      
                   <li><a href="{% url 'homeapp:login' %}">Login</a></li>
-                  <li><a href="blog-archive-2.html">Register</a></li>
-                  {% else %}
-                  <li><a href="{% url 'homeapp:logout' %}">Logout</a></li>
+                  <li><a href="{% url 'homeapp:shopper' %}">Register</a></li>
+  
                   {% endif %}
                 <li><a href="" data-toggle="modal" data-target="#login-modal">Request Product</a></li>
                 <li><a href="" data-toggle="modal" data-target="#login-modal">Affiliate</a></li>
@@ -396,6 +404,7 @@ hold product info, such as images and product  detail
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="{% static 'js/bootstrap.js' %}"></script>  
   <!-- SmartMenus jQuery plugin -->
+  
   <script type="text/javascript" src="{% static 'js/jquery.smartmenus.js' %}"></script>
   <!-- SmartMenus jQuery Bootstrap Addon -->
   <script type="text/javascript" src="{% static 'js/jquery.smartmenus.bootstrap.js' %}"></script>  
@@ -412,7 +421,7 @@ hold product info, such as images and product  detail
   <!-- Custom js -->
   <script src="{% static 'js/custom.js' %}"></script>
   <!-- color selection-->
-  
+  <script type="text/javascript" src="{% static 'assets/js/javascritp.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/colorselection.js' %}"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="{% static 'assets/js/forms.js' %}" ></script> 

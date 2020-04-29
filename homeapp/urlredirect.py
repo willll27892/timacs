@@ -23,8 +23,8 @@ def UrlRedirect(request):
             pass
         #check if user is buyer 
         if request.user.is_buyer:
-            #redirect user to buyer page
-            pass
+            #redirect user to shopper account 
+            return redirect('homeapp:shopperaccount')
 
         # check if user is seller
 

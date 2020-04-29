@@ -12,6 +12,8 @@ from homeapp.activitytracker import CheckIfProductNotIncart,Activity_function,Pr
 from django.db.models import Q
 
 
+
+
 # order template view
 def Order(request):
     cart,session = session_cart_create(request)
@@ -63,7 +65,7 @@ def Order(request):
             update=True
             addinst=address.last()
             if addinst.user is None:
-                ddinst.user= request.user
+                addinst.user= request.user
                 addinst.save()
             addresinstance= Address.objects.get(user=request.user)
             form = AddressForm(request.POST or None,instance=addresinstance)
@@ -257,8 +259,6 @@ def index(request):
     if request.user.is_authenticated:
         if request.user.is_seller :
             return redirect('homeapp:address')
-        else:
-            return redirect('homeapp:home')
         # If requested by admin
         if request.user.is_admin:
             pass
@@ -297,10 +297,46 @@ def register_seller(request):
     template_name="homeapp/register.html"
     return render(request,template_name,context)
 
+# regiser shopper
+def shopperRegistration(request):
+  
+    if request.user.is_authenticated:
+        return redirect('homeapp:home')
+    
+    form          = RegisterForm(request.POST or None,request.FILES or None)
+    if form.is_valid():
+        user      = form.save(commit=False)
+        password  = form.cleaned_data['password']
+        email     = form.cleaned_data['email']
+        fname     = form.cleaned_data['firstname']
+        lname     = form.cleaned_data['lastname']
+        number    = form.cleaned_data['number']
+        gender    = form.cleaned_data['gender']
+        user.set_password(password)
+        user.save()
+        # set user as seller
+        user.buyer= True
+        # reference the user to self
+        user.me =user
+        user.save()
+        login(request,user)
+        return redirect('homeapp:shopperaccount')
+    seller= False
+    context = {'form':form,'seller':seller}
+    template_name="homeapp/shopperregistration.html"
+    return render(request,template_name,context)
+
+def Shopperpannel(request):
+    if request.user.is_authenticated:
+        if request.user.is_seller or request.user.is_admin:
+            return HttpResponse('bad request')
+        template_name="homeapp/shopperaccount.html"
+        context={}
+        return render(request,template_name,context)
 
 
 
-#user address setup
+#user address setup for sellers /admin
 
 def address_set_up(request):
 

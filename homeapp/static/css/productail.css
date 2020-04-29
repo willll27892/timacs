@@ -423,7 +423,7 @@ a product added to cart */
 	margin-bottom: 2px;
 	float:left;
 	width:30%;
-	height:450px;
+	height:325px;
 	overflow: hidden;
 	margin-left:5px;
 	
@@ -796,16 +796,14 @@ max-width:50%;
 /* close empty cart*/
 
 /* order container */
-.order-container{
-	z-index: 100;
-	overflow-y:auto;
-	overflow-x:hidden;
-	background-color: white;
-	width:100%;
-	height:100%;
-	position: fixed;
-	top:0px;
-	bottom: 0px;
+.order-body{
+	display: inline-block;
+   padding-top:100px;
+   left:15%;
+	width:80%;
+	height:auto;
+	position: relative;
+	padding-bottom: 100px;
 }
 
 .order-container .order-body{
@@ -912,11 +910,43 @@ text-align: center;
 	margin-top:20px;
 	padding:10px 20px 10px;
 	position: relative;
-	left:20%;
+	left:25%;
 	border:none;
 	background-color: yellow;
 
 }
+/* when shopper is login */
+.displaypic img{
+	width:25px;
+	height:20px;
+}
+.displaypic span{
+	font-size: 10px;
+	color:rgba(0, 0, 0, 0.7);
+}
+.displaypic .useraccount{
+	display: none;
+	position: absolute;
+	z-index: 200;
+	background-color: white;
+	border:solid;
+	border-width: 1px;
+	border-radius: 4px;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	-o-border-radius:4px;
+	-ms-border-radius:4px;
+	box-shadow: -0.1px 1px 4px 1px rgba(0,0,0,0.2);
+	-webkit-box-shadow: -0.1px 1px 4px 1px rgba(0,0,0,0.2);
+	-moz-box-shadow: -0.1px 1px 4px 1px rgba(0,0,0,0.2);
+	-o-box-shadow: -0.1px 1px 4px 1px rgba(0,0,0,0.2);
+}
+.displaypic .useraccount a:nth-child(1){
+border-bottom: solid;
+border-color: rgba(0,0,0,0.2);
+}
+
+
 @media only screen and (min-width:150px) and (max-width:400px){
 	/* order html */
 	.order-body .product-total{
