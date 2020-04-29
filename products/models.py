@@ -299,6 +299,7 @@ class Cart(models.Model):
 
 # this class will be created base on user session.
 class Tracker(models.Model):
+    popular        = models.BooleanField(default=False)
     productincart  = models.BooleanField(default=False)
     session        = models.CharField(max_length=200,null=True)
     created        = models.DateTimeField(auto_now_add=True)
@@ -308,4 +309,10 @@ class Tracker(models.Model):
     def __str__(self):
         return str(self.productdisplay.productname)
 
+class Popular(models.Model):
+    views = models.IntegerField(default=2)
+    user  = models.OneToOneField(CustomUser,on_delete=models.CASCADE,null=True)
+    created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return str(self.views)

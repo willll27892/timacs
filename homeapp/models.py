@@ -105,16 +105,6 @@ class Membership(models.Model):
 
 # save user delivery address
 
-class Address(models.Model):
-    created   = models.DateTimeField(auto_now_add=True,null=True)
-    user      = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True,related_name="address")
-    address1  = models.CharField(max_length=150,null=True)
-    address2  = models.CharField(max_length=200,null=True,blank=True)
-    town      = models.CharField(max_length=100,null=True)
-    region    = models.CharField(max_length=200,null=True)
-
-    def __str__(self):
-        return "{user}".format(user=self.user)
 
 # save seller ID info
 class SellerID(models.Model):
@@ -161,4 +151,16 @@ class Sessionlog(models.Model):
     created = models.DateTimeField(auto_now_add=True,null=True)
     updated = models.DateTimeField(auto_now=True,null=True)
 
+
+class Address(models.Model):
+    session  = models.ForeignKey(Sessionlog,related_name="shippingaddress",on_delete=models.CASCADE,null=True)
+    created   = models.DateTimeField(auto_now_add=True,null=True)
+    user      = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True,related_name="address")
+    address1  = models.CharField(max_length=150,null=True)
+    address2  = models.CharField(max_length=200,null=True,blank=True)
+    town      = models.CharField(max_length=100,null=True)
+    region    = models.CharField(max_length=200,null=True)
+
+    def __str__(self):
+        return "{user}".format(user=self.user)
 

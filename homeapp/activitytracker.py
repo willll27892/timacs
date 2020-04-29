@@ -1,7 +1,7 @@
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from products.models import Product,Tracker
+from products.models import Product,Tracker,Popular
 from homeapp.session import session_cart_create
 from homeapp.models import CustomUser
 
@@ -11,12 +11,13 @@ track all the products user has visited
 using the session id
 """
 class Activity(models.Model):
+    popular        = models.ManyToManyField(Product,related_name="popularproduct")
     user           = models.ForeignKey(CustomUser,null=True,related_name='actuser',on_delete=models.CASCADE)
     session        = models.CharField(max_length=200,null=True)
     incart         = models.ManyToManyField(Tracker,related_name="display")
     products       = models.ManyToManyField(Product,related_name="products")
     pdincart       = models.ManyToManyField(Product,related_name='pdcart')
-
+    removeincart   = models.ManyToManyField(Product,related_name="removecart")
 '''
 activtiy function
 this function  creates a tracker object for approved products.
@@ -45,7 +46,7 @@ Here the magic is, this will make things
 possible to easily track  user activity base on their
 registered session id. Knowing what product 
 the user has viewed and making sure viewed products
-do not repeat themselves to themsame user.
+do not repeat themselves to same user.
 '''
 def  trackproducts(user,pdobjs,sessionid):
     '''
@@ -57,6 +58,16 @@ def  trackproducts(user,pdobjs,sessionid):
     '''
     activity = Activity.objects.filter(session=sessionid)
     #check if activity object for this session id has been created
+    '''
+    add  popular products in to activity popular list
+    and create a season tracker objects for popular 
+    products
+    '''
+    #filter all products width views creater than
+    # the given number of views from Popular
+    minviews= Popular.objects.all().last()
+    if not minviews:
+        minviews = Popular.objects.create()
     if not user.is_authenticated:
         if activity:
             # assumming this is the 1 + call to this function
@@ -68,16 +79,26 @@ def  trackproducts(user,pdobjs,sessionid):
                 #check if tracker object has been created for product
                 if not product in productlogs:
                     Tracker.objects.create(productdisplay=product,session=sessionid) 
-    
+                    # create tracker object for popular product
+                    if  product.views > minviews.views:
+                        Tracker.objects.create(popular=True,productdisplay=product,session=sessionid) 
+
+ 
         if not activity:
             activity = Activity.objects.create(session=sessionid)
             # create product tracker objects  for this session id
             for product in pdobjs:
                 Tracker.objects.create(productdisplay=product,session=sessionid)
+                # create tracker object for popular product
+                if  product.views > minviews.views:
+                    Tracker.objects.create(popular=True,productdisplay=product,session=sessionid) 
         
         for product in pdobjs:
             activity.products.add(product)
         activity =Activity.objects.filter(session=sessionid).first()
+        '''
+        create a
+        '''
         return activity
 
 
@@ -93,6 +114,9 @@ def  trackproducts(user,pdobjs,sessionid):
                 #check if tracker object has been created for product
                 if not product in productlogs:
                     Tracker.objects.create(productdisplay=product,session=sessionid)
+                    # create tracker object for popular product
+                    if  product.views > minviews.views:
+                        Tracker.objects.create(popular=True,productdisplay=product,session=sessionid) 
         
         if activity and not authactivity:
             sesactivity =activity.first()
@@ -105,16 +129,15 @@ def  trackproducts(user,pdobjs,sessionid):
             # create product tracker objects  for this session id
             for product in pdobjs:
                 Tracker.objects.create(productdisplay=product,session=sessionid)
-        
+                # create tracker object for popular product
+                if  product.views > minviews.views:
+                    Tracker.objects.create(popular=True,productdisplay=product,session=sessionid) 
         for product in pdobjs:
             activity.products.add(product)
         activity =Activity.objects.filter(session=sessionid,user=user).first()
+
+        
         return activity
-
-
-'''
-track all products user put in cart
-'''
         
 def CheckIfProductNotIncart(request):
     cart,session    = session_cart_create(request)

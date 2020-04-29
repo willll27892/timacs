@@ -9,11 +9,80 @@ from homeapp.session import session_cart_create
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from homeapp.activitytracker import CheckIfProductNotIncart,Activity_function,ProductInCart
+from django.db.models import Q
 
+
+# order template view
+def Order(request):
+    cart,session = session_cart_create(request)
+    address = None
+    form  = None
+    upadate= False
+    if not request.user.is_authenticated:
+        address =  Address.objects.filter(session=session)
+        if not address:
+            print('submit address called')
+            update=False
+            form=AddressForm(request.POST or None)
+            if request.method=="POST":
+                
+                if form.is_valid():
+                    instance = form.save(commit=False)
+                    instance.session=session
+                    instance.save()
+                    
+                    return redirect('billing:billingaddress')
+        else:
+            update=True
+            address = Address.objects.get(session=session)
+            form = AddressForm(request.POST or None,instance=address)
+            if request.method=="POST":
+                if form.is_valid():
+                    instance=form.save(commit=False)
+                    instance.save()
+                    return redirect('billing:billingaddress')
+
+
+    if  request.user.is_authenticated:
+        if request.user.is_seller :
+            return redirect('homeapp:address')  
+
+        address =  Address.objects.filter(Q(user=request.user) | Q(session=session))
+        if not address:
+            print('submit address called')
+            update=False
+            form=AddressForm(request.POST or None)
+            if request.method=="POST":
+                if form.is_valid():
+                    instance = form.save(commit=False)
+                    instance.session=session
+                    instance.user = request.user
+                    instance.save()
+                    return redirect('billing:billingaddress')
+        else:
+            update=True
+            addinst=address.last()
+            if addinst.user is None:
+                ddinst.user= request.user
+                addinst.save()
+            addresinstance= Address.objects.get(user=request.user)
+            form = AddressForm(request.POST or None,instance=addresinstance)
+            if request.method=="POST":
+                if form.is_valid():
+                    instance=form.save(commit=False)
+                    instance.user=request.user
+                    instance.save()
+                    return redirect('billing:billingaddress')
+    template_name="homeapp/order.html"
+    context={'update':update,'form':form,'cart':cart}
+    return render(request,template_name,context)
 
 
 
 def cart(request):
+    if  request.user.is_authenticated:
+        if request.user.is_seller :
+            return redirect('homeapp:address') 
     cartdisply=True
     cart,session = session_cart_create(request)
     pds  = cart.products.all()
@@ -21,8 +90,9 @@ def cart(request):
     template_name="homeapp/cart.html"
     return render(request,template_name,context)
 
-# adding product to cart 
 
+
+# adding product to cart 
 def AddToCart(request,slug):
     product  = get_object_or_404(Product,slug=slug)
     tracker  = Tracker.objects.filter(productdisplay=product).first()
@@ -78,11 +148,20 @@ def AddToCart(request,slug):
 # remove product from cart
 def RemoveProduct(request):
     cart,session = session_cart_create(request)
+    activity = Activity_function(request)
     productId = request.GET.get('remove')
     if int(productId) > 0 :
         getproduct=CostProcessing.objects.get(id=productId)
         cart.products.remove(getproduct)
         cart.save()
+        '''
+        remove this product from product in cart list activity
+        '''
+        activity.pdincart.remove(getproduct.product)
+        '''
+        add this product in remove in cart activity list
+        '''
+        activity.removeincart.add(getproduct.product)
         return redirect('homeapp:mycart')
 
 
@@ -139,12 +218,15 @@ def ProductDetail(request,slug):
     # call a function to check if this product 
     # has been added to cart. This function is found
     # in \homeapp\session.py 
-    simpd=views.SimilarPd(request,productobj=product)
+    firstsim,simpd=views.SimilarPd(request,productobj=product)
     incart=ProductInCart(request,product)
-    mstpp = views.Popular(request)
-
+    mstpp,firstp = views.pp_view(request)
     if product:
         cart,session = session_cart_create(request)
+        if not cart:
+            cart=None
+        else:
+            cart = cart.pdcount
         try:
             
             #update tracker object for this product
@@ -159,8 +241,8 @@ def ProductDetail(request,slug):
             
         except ObjectDoesNotExist:
             return redirect('homeapp:home')
-    # display six popular products to shopper, after they have added a product to cart
-    context={'mstpp':mstpp,'simpd':simpd,'cart':cart.pdcount,'incart':incart,'trending':mstpp,'product':product,'cartdisply':cartdisply}
+    # display six  pp_view products to shopper, after they have added a product to cart
+    context={'similarfirst':firstsim,'mstpp':mstpp,'simpd':simpd,'cart':cart,'incart':incart,'trending':mstpp,'product':product,'cartdisply':cartdisply}
     template_name="homeapp/productdetail.html"
     return render(request,template_name,context)
 
@@ -170,7 +252,7 @@ def ProductDetail(request,slug):
 def index(request):
     cartdisply=True
     cart,session = session_cart_create(request)
-    mstpp = views.Popular(request)
+    mstpp,firstpp = views.pp_view(request)
     #check if this page is requested by seller
     if request.user.is_authenticated:
         if request.user.is_seller :
@@ -182,7 +264,7 @@ def index(request):
             pass
     # display 10 random products to visitors
     tenpds = views.FirstTen(request)
-    context={'mstpp':mstpp,'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':tenpds}
+    context={'firstpp':firstpp,'mstpp':mstpp,'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':tenpds}
     template_name='homeapp/index.html'
     return render(request,template_name,context)
 

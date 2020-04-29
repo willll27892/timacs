@@ -545,42 +545,52 @@
 
              <!-- Related product -->
 {% if simpd %}
-<div class="aa-product-related-item clear_related ">
-  <h3>Related Products</h3>
-  <ul class="aa-product-catg aa-related-item-slider">
-    <!-- start single product item -->
-    {% for simproduct in simpd %}
-    <li>
-      <figure>
-        <a class="aa-product-img" href="{% url 'homeapp:productdetail' slug=simproduct.slug %}"><img src="{{simproduct.picone.url}}" alt="polo shirt img"></a>
-         <figcaption>
-          <h4 class="aa-product-title"><a href="#">{{simproduct.productname}}</a></h4>
-        </figcaption>
-      </figure>                     
-      <div class="aa-product-hvr-content">
-        <a href="{% url 'homeapp:productdetail' slug=simproduct.slug %}"   title="Quick View" data-toggle="modal" ><span class="fa fa-search"></span></a>                            
-      </div>
-      <!-- product badge -->
-      {% if simproduct.sales  > 0 %}
-      <span class="aa-badge aa-sale" href="#">SALE!</span>
-      {% endif %}
-    </li>     
-    {% endfor %}                                                                              
-  </ul>
-  
-</div>  
-</div>
-</div>
-</div>
-</div>
-</section>
+
+<div class="container related-product">
+  <h2>Related Products</h2>
+   <section class="customer-logos slider">
+      <div class="slide">
+        <a href="{% url 'homeapp:productdetail' slug=similarfirst.slug %}"><img src="{{similarfirst.picone.url}}" alt="ecommerce, Business, Africa , Cameroon"></a></div>
+     {% for products in simpd %}
+      <div class="slide">
+        <a href="{% url 'homeapp:productdetail' slug=products.slug %}">
+        <img src="{{products.picone.url}}"></a></div>
+        {% endfor %}
+   </section>
+ 
 </div>
 {% endif %}
-</div>
 
 
 
 
+
+<script>
+
+
+$(document).ready(function(){
+    $('.customer-logos').slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 1500,
+        arrows: false,
+        dots: false,
+        pauseOnHover: true,
+        responsive: [{
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 4
+            }
+        }, {
+            breakpoint: 520,
+            settings: {
+                slidesToShow: 3
+            }
+        }]
+    });
+});
+</script>
 
 
  <!-- endof product info container  -->

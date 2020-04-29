@@ -250,67 +250,25 @@
   
   <!-- popular section -->
   {% if mstpp %}
-  <section id="aa-popular-category">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="aa-popular-category-area">
-              <!-- start prduct navigation -->
-             <ul class="nav nav-tabs aa-products-tab">
-                <li class="active"><a href="#popular" data-toggle="tab">Popular</a></li>                   
-              </ul>
-              <!-- Tab panes -->
-              <div class="tab-content">
-                <!-- Start men popular category -->
-                <div class="tab-pane fade in active" id="popular">
-                  
-                  <ul class="aa-product-catg aa-popular-slider">
-                    {% for mspd in mstpp %}
-                    <!-- start single product item -->
-                    <li>
-                      <figure>
-                        <a class="aa-product-img" href="{% url 'homeapp:productdetail' slug=mspd.productdisplay.slug %}"><img src="{{mspd.productdisplay.picone.url}}" alt="polo shirt img"></a>
-                         <figcaption>
-                          <h4 class="aa-product-title"><a href="#">{{mspd.productdisplay.productname}}</a></h4>
-                          {% if mspd.productdisplay.sales > 0 %}
-                          <span class="aa-product-price">CFA  {{mspd.productdisplay.salesprice}} </span>
-                          <span class="aa-product-price"><del>CFA  {{mspd.productdisplay.pdprice}} </del></span>
-                          {% else %}
-                          <span class="aa-product-price">CFA  {{mspd.productdisplay.pdprice}} </span>
-                          {% endif %}
-                        </figcaption>
-                      </figure>                     
-                      <div class="aa-product-hvr-content">
-
-                        <a href="{% url 'homeapp:productdetail' slug=mspd.productdisplay.slug %}"   title="Quick View" ><span class="fa fa-search"></span></a>                            
-                      </div>
-                               <!-- product badge -->
-                               {% if mspd.productdisplay.status == "sold" %}
-                               <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
-                               {% endif %}
-                               
-                               {% if mspd.productdisplay.sales > 0 %}
-                               <span class="aa-badge aa-sale" href="#">{{mspd.productdisplay.sales}}% off</span>
-                               {% endif %}
-                    </li>
-                    {% endfor %}
-                                                                                                       
-                  </ul>
-                  
-                  <a class="aa-browse-btn" href="#">More Products <span class="fa fa-long-arrow-right"></span></a>
-                </div>
-                
-                <!-- / popular product category -->
-                
-               </div>
-            </div>
-          </div> 
-        </div>
-      </div>
-    </div>
-  </section>
+  <div class="container related-product">
+    <h2>Popular Products</h2>
+    <section class="customer-logos slider">
+       
+        <div class="slide">
+          <a href="{% url 'homeapp:productdetail' slug=firstpp.productdisplay.slug %}"><img src="{{firstpp.productdisplay.picone.url}}" alt="Shop, Cameroon, ecommerce">
+            </a>
+          </div>
+    
+        {% for products in mstpp %}
+          <div class="slide">
+            <a href="{% url 'homeapp:productdetail' slug=products.productdisplay.slug %}">
+            <img src="{{products.productdisplay.picone.url}}"></a></div>
+        {% endfor %}
+     </section>
+    
+  </div>
   {% endif %}
+  
   <!-- / popular section -->
   <!-- Support section -->
   <section id="aa-support">
@@ -349,32 +307,43 @@
   </section>
  
 
-  <!-- Client Brand -->
-  <section id="aa-client-brand">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="aa-client-brand-area">
-            <ul class="aa-client-brand-slider">
-              <li><a href="#"><img src="img/client-brand-java.png" alt="java img"></a></li>
-              <li><a href="#"><img src="img/client-brand-jquery.png" alt="jquery img"></a></li>
-              <li><a href="#"><img src="img/client-brand-html5.png" alt="html5 img"></a></li>
-              <li><a href="#"><img src="img/client-brand-css3.png" alt="css3 img"></a></li>
-              <li><a href="#"><img src="img/client-brand-wordpress.png" alt="wordPress img"></a></li>
-              <li><a href="#"><img src="img/client-brand-joomla.png" alt="joomla img"></a></li>
-              <li><a href="#"><img src="img/client-brand-java.png" alt="java img"></a></li>
-              <li><a href="#"><img src="img/client-brand-jquery.png" alt="jquery img"></a></li>
-              <li><a href="#"><img src="img/client-brand-html5.png" alt="html5 img"></a></li>
-              <li><a href="#"><img src="img/client-brand-css3.png" alt="css3 img"></a></li>
-              <li><a href="#"><img src="img/client-brand-wordpress.png" alt="wordPress img"></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- / Client Brand -->
+  <style>
 
+ 
+    
+    
+    
+    </style>
+    
+    <script>
+    
+    
+
+    $(document).ready(function(){
+    $('.customer-logos').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2500,
+        arrows: false,
+        dots: true,
+        pauseOnHover: true,
+        responsive: [{
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 4
+            }
+        }, {
+            breakpoint: 520,
+            settings: {
+                slidesToShow: 3
+            }
+        }]
+    });
+});
+    </script>
+    
+ 
   {% endblock %}
 
 

@@ -4,7 +4,7 @@ from products.models import Product,Tracker
 from django.db.models import Q
 from homeapp.session import session_cart_create
 from homeapp.activitytracker import CheckIfProductNotIncart,Activity_function
-from products.models import Product
+from products.models import Product,Popular
 
 """
 Query and return products to be displayed 
@@ -24,7 +24,7 @@ def  FirstTen(request):
     do not repeat themselves to themsame user. and many more
     '''
     # calling the activity function
-    Activity_function(request)
+    activity=Activity_function(request)
     
     cart,session = session_cart_create(request)
     #get the first 10 random approved products.
@@ -33,7 +33,7 @@ def  FirstTen(request):
     Tracker objects are created when activity_function(request)
     called.
     '''
-    products = Tracker.objects.filter(Q(viewed=False) & Q(session=session.id) & Q(productincart=False))[:12]
+    products = Tracker.objects.filter(Q(popular=False) & Q(viewed=False) & Q(session=session.id) & Q(productincart=False)).order_by('-created')[:12]
     
     '''
         at this point, the user has viewed all products in the database.
@@ -47,14 +47,14 @@ def  FirstTen(request):
     '''
     if  products.count() <= 4:
         
-        products = Tracker.objects.filter(Q(viewed=True) & Q(session=session.id) & Q(productincart=False))[:12]
+        products = Tracker.objects.filter(Q(popular=False) & Q(viewed=True) & Q(session=session.id) & Q(productincart=False)).order_by('-created')[:12]
 
         
     return products
 
 
 # popular products
-def Popular(request):
+def pp_view(request):
     cart,session= session_cart_create(request)
 
     #get the first 10 random approved products.
@@ -63,9 +63,28 @@ def Popular(request):
     Tracker objects are created when activity_function(request)
     called.
     '''
-    products = Tracker.objects.filter(Q(productdisplay__views__gte=2,productincart=False))[:6]
-        
-    return products
+    pp = Popular.objects.all().last()
+    if not pp:
+        pp    = Popular.objects.create()
+    # retrieve all products with views greater and equal to the given view
+    postedproducts = Product.objects.filter(views__gte=pp.views) 
+    products  = Tracker.objects.filter(Q(popular=True,productdisplay__views__gte=pp.views,session=session.id,productincart=False))[:6]
+    first     = Tracker.objects.filter(Q(popular=True,productdisplay__views__gte=pp.views,session=session.id,productincart=False)).last()  
+
+    '''
+    refresh popular product objects
+    '''
+    if products.count() <= 6:
+        #delete old popular product objects for present session
+        for product in products:
+            product.delete()
+        #create new popular product objects
+        for product in postedproducts:
+                Tracker.objects.create(productdisplay=product,session=session.id,popular=True)
+    # retrieve  new available popular product objects.
+    products = Tracker.objects.filter(Q(popular=True,productdisplay__views__gte=pp.views,session=session.id,productincart=False))[:6]
+    first    = Tracker.objects.filter(Q(popular=True,productdisplay__views__gte=pp.views,session=session.id,productincart=False)).last()    
+    return products,first
 
 # display products of similar category
 def SimilarPd(request,productobj):
@@ -74,7 +93,8 @@ def SimilarPd(request,productobj):
     pdSubCat = productobj.subcategory
     pdBrand  = productobj.brand
     products = Product.objects.filter(Q(brand=pdBrand) | Q(productname=pdName) | Q(category=pdCat) | Q(subcategory=pdSubCat)).exclude(id=productobj.id)[:12]
-    return products
+    first    = Product.objects.filter(Q(brand=pdBrand) | Q(productname=pdName) | Q(category=pdCat) | Q(subcategory=pdSubCat)).exclude(id=productobj.id).first()
+    return first,products
 
     
 # Suggest Products to user base on user activities

@@ -6,6 +6,7 @@ app_name="homeapp"
 
 urlpatterns=[
     #home page url
+    url(r'^place_order/$',views.Order,name="order"),
     url(r'^remove/product/cart/$',views.RemoveProduct,name="removeproduct"),
     url(r'^update/cart/$',views.CartUpdate,name="updatecart"),
     url(r'^cart/$',views.cart,name="mycart"),
