@@ -1,0 +1,90 @@
+.billing-container{
+    display: inline-block;
+    width:100%;
+    background-color: rgba(225,225,225,1)
+}
+.billing-address{
+    width:50%;
+    background-color: white;
+    position: relative;
+    left:25%;
+    margin-top:50px;
+    margin-bottom: 50px;
+    padding-left:8%;
+    padding-top:50px;
+    padding-bottom: 50px;
+    border-radius: 10px;
+    -webkit-border-radius:10px;
+    -moz-webkit-border-radius:10px;
+    -o-webkit-border-radius:10px;
+    box-shadow: -0.5px 1px 5px 1px black;
+    -webkit-box-shadow: -0.5px 1px 5px 1px black;
+    -moz-box-shadow: -0.5px 1px 5px 1px black;
+    -ms-box-shadow: -0.5px 1px 5px 1px black;
+    -o-box-shadow: -0.5px 1px 5px 1px black;
+
+}
+.billing-address .billingfield{
+    margin-top:15px;
+}
+.billing-address button{
+    position: relative;
+    left:30%;
+    margin-top:40px;
+    padding:10px 30px 10px;
+    background-color: gray;
+    border:none;
+    color: rgba(225,225,225,1);
+    font-weight: 500;
+}
+.billing-address p{
+    font-size: 12px;
+    color:gray;
+    width:60%;
+}
+.billing-address #id_name, .billing-address #id_address,
+.billing-address #id_town, .billing-address #id_region, .billing-address #id_zipcode,
+.billing-address #id_country, .billing-address #id_billtype{
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    width: 80%;
+    padding:5px 5px 5px 5px;
+    color: rgba(0,0,0,0.6);
+    text-align: center;
+    background-color: transparent;
+}
+.billing-address form input::placeholder{
+    text-align: left;
+    color:black;
+}
+
+@media only screen and (min-width:150px) and (max-width:400px){
+
+
+    .billing-address{
+        width:80%;
+        left:10%;
+    
+    }
+}
+
+@media only screen and (min-width:400px) and (max-width:600px){
+
+
+    .billing-address{
+        width:80%;
+        left:10%;
+    
+    }
+}
+
+@media only screen and (min-width:600px) and (max-width:900px){
+
+
+    .billing-address{
+        width:80%;
+        left:10%;
+    
+    }
+}

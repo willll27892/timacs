@@ -896,6 +896,7 @@ float: left;
 }
 .order-body #id_address1,.order-body #id_address2
 ,.order-body #id_town,.order-body #id_region{
+
 border-top:none;
 border-left:none;
 border-right:none;
@@ -943,11 +944,241 @@ text-align: center;
 }
 .displaypic .useraccount a:nth-child(1){
 border-bottom: solid;
+border-width: 1px;
 border-color: rgba(0,0,0,0.2);
+}
+/* viewed product container */
+.shopperaccount{
+
+display: inline-block;
+}
+
+.viewed-products-function{
+	position: relative;
+	top:-60px;
+	
+}
+.slick-slide img{
+	width:90%;
+	height: 220px;
+}
+
+.slider-product{
+	display: inline-block;
+	width:70%;
+	position: relative;
+	left:15%;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.viewed-product-price{
+	margin-bottom: 3px;
+	margin-top:-10px;
+}
+.viewed-product-price span{
+	font-size: 14px;
+	text-align: center;
+	color:green;
+}
+.viewed-product-price  .delete{
+	color:rgba(0,0,0,0.5);
+	text-decoration: line-through;
+	font-size: 12px;
+}
+.viewed-Product-name{
+	font-size: 20px;
+	padding:4px 4px 4px 4px;
+	font-weight: 400;
+	margin-bottom:5px;
+	color:rgba(0, 0, 0, 0.7);
 }
 
 
+.viewed-add-to-cart{
+	border:solid;
+	border-width: 2px;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+	width: 140px;
+	position: relative;
+	padding:1%;
+	left:10%;
+	border-color: yellowgreen;
+	
+
+}
+.shopperaccount{
+	display: inline-block;
+	width: 100%;
+	background-color: gray;
+	padding-top:40px;
+	padding-left:15%;
+	padding-bottom: 40px;
+}
+.shopperaccount input{
+	text-align: center;
+color:rgba(0, 0, 0, 0.5);
+}
+
+.shopperaccount .account-info{
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-ms-border-radius: 4px;
+	-o-border-radius: 4px;
+		float: left;
+		width:50%;
+		background-color: white;
+		margin-left:10px;
+		padding:5px 5px 5px 5px;
+	}
+	
+.shopperaccount .nav-bar-menu{
+float:left;
+background-color: white;
+margin-left:10px;
+width:20%;
+border-radius: 4px;
+-webkit-border-radius: 4px;
+-ms-border-radius: 4px;
+-o-border-radius: 4px;
+
+}
+.shopperaccount .nav-bar-menu nav ol{
+	list-style: none;
+	width: 100%;
+	left:0px;
+	margin:0px;
+	padding-left:0px;
+	padding-top:10px;
+}
+.shopperaccount .nav-bar-menu nav ol li svg{
+	width:20px;
+	height:20px;
+	position: relative;
+	
+
+}
+.shopperaccount .nav-bar-menu nav ol li span{
+	position: relative;
+	
+}
+.shopperaccount .nav-bar-menu nav ol .frist{
+	border-top:solid;
+	border-width: 1px;
+	box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.7);
+	-webkit-box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.7);
+	-o-box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.7);
+	-ms-box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.7);
+	
+	
+}
+.shopperaccount .nav-bar-menu nav .dashboard{
+	position: relative;
+	left:10px;
+	top:-4px;
+}
+.shopperaccount .account-info-heading{
+	width:80%;
+	border-bottom: solid;
+	padding:5px 5px 5px 5px;
+	border-width: 1px;
+	border-color: rgba(0, 0, 0, 0.4);
+}
+.shopperaccount .account-user-info-names{
+	font-size: 13px;
+	margin-top:10px;
+	padding-left:40px;
+}
+.shopperaccount .password-change{
+	font-size: 13px;
+	color:rgba(0, 0, 0, 0.4);
+	text-align: center;
+	
+}
+.shopperaccount .password-change a{
+	color:blue;
+}
+.shopperaccount .nav-bar-menu nav ol li{
+	font-size: 13px;
+	border-bottom: solid;
+	border-width: 1px;
+	padding:5px 4px 4px 4px;
+}
+.viewed-add-to-cart a{
+	color:yellowgreen;
+}
+.shopperaccount input{
+	padding:4px 20px 3px 4px;
+	width: 100%;
+	border-top:none;
+	border-left:none;
+	border-right:none;
+}
+.shopperaccount form{
+	margin-top:20px;
+	margin-bottom: 30px;
+}
+.shopperaccount form button{
+	padding:5px 20px 5px ;
+	margin-top:20px;
+	margin-left:40%;
+	background-color: green;
+	color:white;
+	border-color:green;
+}
 @media only screen and (min-width:150px) and (max-width:400px){
+	.shopperaccount{
+		padding-left:5%;
+	}
+	
+
+	.shopperaccount .account-info{
+			float: left;
+			width:60%;
+			margin-left:5px;
+		}
+		
+	.shopperaccount .nav-bar-menu{
+	margin-left:0px;
+	width:30%;
+	}
+	
+	.viewed-products-function{
+		position: relative;
+		top:0px;
+		
+	}
+	.viewed-add-to-cart{
+		margin-left:15%;
+	}
+	.shopperaccount .img-viewed  img{
+		width:40%;
+		height: 100px;
+	}
+
+	/* slider viewed products */
+	.slick-slide img{
+		width: 40%;
+		position: relative;
+		left:30%;
+	}
+	.aa-product-catg li figure{
+		height: auto;
+	}
+	.viewed-product-price{
+		margin-bottom: 3px;
+		margin-top:10px;
+		display: initial;
+	}
+	.slider-product{
+		width:100%;
+		position: relative;
+		left:0%;
+	}
+	
+
 	/* order html */
 	.order-body .product-total{
 		padding-left:10%;
@@ -1174,7 +1405,47 @@ width: 100%;
 }
 
 @media only screen and (min-width:400px) and (max-width:500px){
-		/* order html */
+
+
+	/* slider viewed products */
+	.slick-slide img{
+		width: 40%;
+		position: relative;
+		left:30%;
+	}
+	.aa-product-catg li figure{
+		height: auto;
+	}
+	.viewed-Product-name{
+		margin-top:20px;
+	}
+	
+	.slider-product{
+		width:100%;
+		position: relative;
+		left:0%;
+	}
+	
+
+	.shopperaccount{
+		padding-left:5%;
+	}
+	.viewed-add-to-cart{
+		left:35%;
+	}
+
+	.shopperaccount .account-info{
+			float: left;
+			width:60%;
+			margin-left:5px;
+		}
+		
+	.shopperaccount .nav-bar-menu{
+	margin-left:0px;
+	width:30%;
+	}
+	
+	/* order html */
 		.order-body .product-total{
 			padding-left:10%;
 			font-size: 14px;
@@ -1386,6 +1657,54 @@ width: 100%;
 
 
 @media only screen and (min-width:500px) and (max-width:900px){
+	
+	/* slider viewed products */
+	.slick-slide img{
+		width: 50%;
+		height:200px;
+		position: relative;
+		left:10%;
+	}
+	.aa-product-catg li figure{
+		height: auto;
+	}
+	.viewed-product-price{
+		margin-bottom: 3px;
+		margin-top:3px;
+		display: initial;
+		margin-left:-28%;
+	}
+	.slider-product{
+		width:100%;
+		position: relative;
+		left:0%;
+	}
+	.viewed-Product-name{
+		margin-bottom: 1px;
+		text-align: center;
+		margin-top:12%;
+		width:100%;
+		left:0%;
+		margin-left:-15%;
+	}
+	
+
+	.shopperaccount{
+		padding-left:5%;
+	}
+	
+
+	.shopperaccount .account-info{
+			float: left;
+			width:60%;
+			margin-left:5px;
+		}
+		
+	.shopperaccount .nav-bar-menu{
+	margin-left:0px;
+	width:30%;
+	}
+	
 	/* order html */
 	.order-body .product-total{
 		padding-left:10%;
@@ -1401,6 +1720,7 @@ width: 100%;
 ,.order-body #id_town,.order-body #id_region{
 font-size: 12px;
 width: 100%;
+
 }
 .order-body button{
 
@@ -1616,9 +1936,7 @@ width: 100%;
   .slide{
 	  width:400px;
   }
-  .slick-slide img {
-	  width: 100%;
-  }
+ 
   
   .slick-slider
   {

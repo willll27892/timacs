@@ -112,17 +112,6 @@ class Product(models.Model):
         if self.status and self.id:
             klass = self.__class__
             obj   = klass.objects.get(id=self.id)
-            '''
-            get all product colors related to 
-            this product post
-            '''
-            colors = obj.availableseizes.all()
-
-            # check if product post has any product color related to it
-            # loop through available colors 
-            if colors:
-                status = self.status
-                colorsave(colors,status)
 
 
         self.picone = self.compressImage(self.picone)
@@ -302,7 +291,7 @@ class Tracker(models.Model):
     popular        = models.BooleanField(default=False)
     productincart  = models.BooleanField(default=False)
     session        = models.CharField(max_length=200,null=True)
-    created        = models.DateTimeField(auto_now_add=True)
+    created        = models.DateTimeField(auto_now=True)
     viewed         = models.BooleanField(default=False)
     productdisplay = models.ForeignKey(Product, on_delete=models.CASCADE,related_name='display',null=True)
     

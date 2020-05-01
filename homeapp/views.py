@@ -19,7 +19,7 @@ def Order(request):
     cart,session = session_cart_create(request)
     address = None
     form  = None
-    upadate= False
+    update= False
     if not request.user.is_authenticated:
         address =  Address.objects.filter(session=session)
         if not address:
@@ -268,6 +268,80 @@ def index(request):
     template_name='homeapp/index.html'
     return render(request,template_name,context)
 
+# account address:
+def AddressBook(request,user):
+    cart,session = session_cart_create(request)
+    address = None
+    form  = None
+    update= False
+    if not request.user.is_authenticated:
+        return HttpResponse('Permission denied')
+    if  request.user.is_authenticated:
+        if request.user.is_seller and request.user.is_admin:
+            return redirect('homeapp:address')  
+
+        address =  Address.objects.filter(Q(user=request.user) | Q(session=session))
+        if not address:
+            print('submit address called')
+            update=False
+            form=AddressForm(request.POST or None)
+            if request.method=="POST":
+                if form.is_valid():
+                    instance = form.save(commit=False)
+                    instance.session=session
+                    instance.user = request.user
+                    instance.save()
+                    return redirect('homeapp:shopperaccount')
+        else:
+            update=True
+            addinst=address.last()
+            if addinst.user is None:
+                addinst.user= request.user
+                addinst.save()
+            addresinstance= Address.objects.get(user=request.user)
+            form = AddressForm(request.POST or None,instance=addresinstance)
+            if request.method=="POST":
+                if form.is_valid():
+                    instance=form.save(commit=False)
+                    instance.user=request.user
+                    instance.save()
+                    return redirect('homeapp:shopperaccount')
+    template_name ="homeapp/addressbook.html"
+    context={'cart':cart,'address':address,'update':update,'form':form}
+    return render(request,template_name,context)
+
+# change password 
+
+def passwordchange(request,user):
+    if not request.user.is_authenticated:
+        return HttpResponse('permission not granted')
+
+    if  request.user.is_authenticated:
+        if request.user.is_admin and request.user.is_seller:
+            return HttpResponse('permission not granted')
+    error="" 
+    cart,session  = session_cart_create(request)
+    cartdisply=True
+     #retrieve all user viewed products
+    trackobjs = Tracker.objects.filter(viewed=True,session=session.id,productincart=False)
+    if request.method=="GET": 
+        username    = request.GET.get("email")
+        password    = request.GET.get("passold")
+        newpassword = request.GET.get("passnew")
+        if password is not None:
+            user = authenticate(request,username=username,password=password)
+            if user is not None:
+                user.set_password(newpassword)
+                user.save()
+                logout(request)
+                return redirect('homeapp:home')
+            if user is None:
+                error="wrong password"
+                
+    context = {'error':error,'cart':cart.pdcount,'trackobjs':trackobjs}
+    template_name="homeapp/changepassword.html"
+    return render(request,template_name,context)
+
 # view to register sellers 
 def register_seller(request):
   
@@ -330,10 +404,15 @@ def Shopperpannel(request):
     if request.user.is_authenticated:
         if request.user.is_seller or request.user.is_admin:
             return HttpResponse('bad request')
+        cart,session  = session_cart_create(request)
+        cartdisply=True
+        #retrieve all user viewed products
+        trackobjs = Tracker.objects.filter(viewed=True,session=session.id,productincart=False)
         template_name="homeapp/shopperaccount.html"
-        context={}
+        context={'trackobjs':trackobjs,'cartdisply':cartdisply,'cart':cart.pdcount}
         return render(request,template_name,context)
-
+    else:
+        return HttpResponse('bad request')
 
 
 #user address setup for sellers /admin
@@ -412,7 +491,6 @@ def Logout(request):
     return redirect('homeapp:home')
 
 
-#login user 
 # login user in to their account
 def Login(request):
     if request.user.is_authenticated:

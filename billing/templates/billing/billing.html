@@ -1,0 +1,41 @@
+{% extends 'homeapp/base.html' %}
+{% block content %}
+{% load staticfiles %}
+<div class="billing-container">
+  
+    <div class="billing-address">
+    <article>
+        {% if not billingobj %}
+    <p>Kindly Enter your billing info, then proceed with your order.</p>
+    {% else %}
+    <p>Your billing address can be updated.</p>
+    {% endif %}
+    </article>
+        <form action="" method="post" enctype="multipart/form-data">
+        <div class="billingfield">
+        {{form.name}}
+        </div>
+        <div class="billingfield">
+        {{form.address}}
+        </div>
+        <div class="billingfield">
+        {{form.town}}
+        </div>
+        <div class="billingfield">
+        {{form.region}}
+        </div>
+        <div class="billingfield">
+        {{form.zipcode}}
+        </div>
+        <div class="billingfield">
+        {{form.country}}
+       </div>
+       <div class="billingfield">
+       <div>Method of payment</div>
+        {{form.billtype}}
+        </div>
+        <button type="submit"> Proceed</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

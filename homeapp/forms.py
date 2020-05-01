@@ -126,3 +126,4 @@ class LoginForm(forms.Form):
             raise forms.ValidationError("Username or Password incorrect")
         
         return passw
+

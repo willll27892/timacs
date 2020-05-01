@@ -6,6 +6,8 @@ app_name="homeapp"
 
 urlpatterns=[
     #home page url
+    url(r'^shopper/user/account/addressbook/(?P<user>.*)/$',views.AddressBook,name="addressbook"),
+    url(r'^shopper/user/account/password/change/(?P<user>.*)/$',views.passwordchange,name="passwordchange"),
     url(r'^shopper/user/account$',views.Shopperpannel,name="shopperaccount"),
     url(r'^shopper/$',views.shopperRegistration,name="shopper"),
     url(r'^place_order/$',views.Order,name="order"),
