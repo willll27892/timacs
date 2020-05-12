@@ -10,25 +10,46 @@ from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from homeapp.activitytracker import CheckIfProductNotIncart,Activity_function,ProductInCart
 from django.db.models import Q
+from order.forms import ReceiverInfo
+from order.models import ReceiversName,ProductOrder,Orderstatus
+
+
+# order details 
 
 
 
-
-# order template view
+# setup or return delivery address and receiver 
 def Order(request):
     cart,session = session_cart_create(request)
     address = None
     form  = None
+    receiverform = None
     update= False
+    receiverobj =False
     if not request.user.is_authenticated:
-        address =  Address.objects.filter(session=session)
+        receiver = ReceiversName.objects.filter(session=session)
+        address  =  Address.objects.filter(session=session)
+       #check if receiver object has been created 
+        if not receiver:
+            receiverobj =False
+            receiverform  = ReceiverInfo(request.POST or None)
+
+        if receiver:
+            receiverobj=True
+            receiver=ReceiversName.objects.get(session=session)
+            receiverform  = ReceiverInfo(request.POST or None,instance=receiver)
+         
+        
         if not address:
             print('submit address called')
             update=False
             form=AddressForm(request.POST or None)
             if request.method=="POST":
                 
-                if form.is_valid():
+                if form.is_valid() and receiverform.is_valid():
+                    instance1 = receiverform.save(commit=False)
+                    instance1.session=session
+                    instance1.save()
                     instance = form.save(commit=False)
                     instance.session=session
                     instance.save()
@@ -39,7 +60,10 @@ def Order(request):
             address = Address.objects.get(session=session)
             form = AddressForm(request.POST or None,instance=address)
             if request.method=="POST":
-                if form.is_valid():
+                if form.is_valid() and receiverform.is_valid():
+                    instance1 = receiverform.save(commit=False)
+                    instance1.session=session
+                    instance1.save()                    
                     instance=form.save(commit=False)
                     instance.save()
                     return redirect('billing:billingaddress')
@@ -48,14 +72,26 @@ def Order(request):
     if  request.user.is_authenticated:
         if request.user.is_seller :
             return redirect('homeapp:address')  
-
+        receiver = ReceiversName.objects.filter(session=session)
         address =  Address.objects.filter(Q(user=request.user) | Q(session=session))
+       #check if receiver object has been created 
+        if not receiver:
+            receiverobj =False
+            receiverform  = ReceiverInfo(request.POST or None)
+        if receiver:
+            receiverobj=True
+            receiver=ReceiversName.objects.get(session=session)
+            receiverform  = ReceiverInfo(request.POST or None,instance=receiver)
+         
         if not address:
             print('submit address called')
             update=False
             form=AddressForm(request.POST or None)
             if request.method=="POST":
-                if form.is_valid():
+                if form.is_valid() and receiverform.is_valid():
+                    instance1 = receiverform.save(commit=False)
+                    instance1.session=session
+                    instance1.save() 
                     instance = form.save(commit=False)
                     instance.session=session
                     instance.user = request.user
@@ -70,13 +106,16 @@ def Order(request):
             addresinstance= Address.objects.get(user=request.user)
             form = AddressForm(request.POST or None,instance=addresinstance)
             if request.method=="POST":
-                if form.is_valid():
+                if form.is_valid() and receiverform.is_valid():
+                    instance1 = receiverform.save(commit=False)
+                    instance1.session=session
+                    instance1.save() 
                     instance=form.save(commit=False)
                     instance.user=request.user
                     instance.save()
                     return redirect('billing:billingaddress')
     template_name="homeapp/order.html"
-    context={'update':update,'form':form,'cart':cart}
+    context={'receiverobj':receiverobj,'receiver':receiver,'receiverform':receiverform,'update':update,'form':form,'cart':cart}
     return render(request,template_name,context)
 
 
@@ -88,6 +127,12 @@ def cart(request):
     cartdisply=True
     cart,session = session_cart_create(request)
     pds  = cart.products.all()
+    # remove all products out of stock from shopper's cart
+    for pd in pds:
+        #check if there is a product with demanded quantity greater than available stock quantity
+       if  pd.quantity > pd.product.instock:
+           cart.products.remove(pd)
+           cart.save() 
     context={'products':pds,'cart':cart}
     template_name="homeapp/cart.html"
     return render(request,template_name,context)
@@ -109,6 +154,8 @@ def AddToCart(request,slug):
         quantity = request.GET.get('qt')
         colorid =int(colorid)
         sizeid = int(sizeid)
+        print('size')
+        print(sizeid)
         quantity=int(quantity)
         # check to make sure product quantity is greater than 0
         # before performing  actions.
@@ -123,6 +170,8 @@ def AddToCart(request,slug):
 
             #retrieve, update , create cost processing object for product
         pobj = CostProcessing.objects.filter(product=product)
+        
+        
         if pobj:
             instance = pobj.first()
             #update
@@ -131,16 +180,27 @@ def AddToCart(request,slug):
             instance.quantity = quantity
             instance.save()
             pobj =instance
-            cart.products.add(pobj)
-            cart.save()
-        else:
+            if product.instock >= quantity:
+                cart.products.add(pobj)
+                cart.save()
+            else:
+                if pobj in cart.products.all():
+                    cart.products.remove(pobj)
+                    cart.save()
+                    #update product tracker object
+                    tracker.productincart=False
+                    tracker.save() 
+
+        if not pobj:
             # create
             pobj= CostProcessing.objects.create(product=product,color=colorobj,size=sizeobj,quantity=quantity)
-            cart.products.add(pobj)
-            cart.save()
-        #update product tracker object
-        tracker.productincart=True
-        tracker.save()  
+
+            if product.instock >= quantity:
+                cart.products.add(pobj)
+                cart.save()
+                #update product tracker object
+                tracker.productincart=True
+                tracker.save()  
 
     CheckIfProductNotIncart(request)
     data={'cart':cart.pdcount}
@@ -216,7 +276,13 @@ def ProductDetail(request,slug):
     call the tracker object for this product
     and update the tracker to viewed
     '''
-    product = get_object_or_404(Product,slug=slug)
+    product =None
+    try:
+        product =Product.objects.get(slug=slug)
+    except ObjectDoesNotExist:
+        mstpp,firstp = views.pp_view(request)
+        template_name="homeapp/erropage.html"
+        return render(request,template_name,context={'tenpds':mstpp})
     # call a function to check if this product 
     # has been added to cart. This function is found
     # in \homeapp\session.py 
@@ -230,24 +296,34 @@ def ProductDetail(request,slug):
         else:
             cart = cart.pdcount
         try:
-            
             #update tracker object for this product
-            track = Tracker.objects.filter(productdisplay=product,viewed=False).first()
-            if track:
+            tracks = Tracker.objects.filter(session=session.id,productdisplay=product,viewed=False).all()
+            if tracks:
                 #increament product view
                 product.views +=1
                 product.save()
-                
-                track.viewed=True
-                track.save()
-            
+                for track in tracks:
+                    track.viewed=True
+                    track.save()
         except ObjectDoesNotExist:
             return redirect('homeapp:home')
+        
     # display six  pp_view products to shopper, after they have added a product to cart
     context={'similarfirst':firstsim,'mstpp':mstpp,'simpd':simpd,'cart':cart,'incart':incart,'trending':mstpp,'product':product,'cartdisply':cartdisply}
     template_name="homeapp/productdetail.html"
     return render(request,template_name,context)
 
+def updateproduct(request,slug):
+    product=get_object_or_404(Product,slug=slug)
+    if request.user.is_admin:
+        print('get product update called')
+        status = request.GET.get('status')
+        if status :
+            status=str(status)
+            product.status = status
+            print(status)
+            product.save()
+    return redirect('homeapp:productdetail',slug)
     
 
 # home page view
@@ -257,18 +333,15 @@ def index(request):
     mstpp,firstpp = views.pp_view(request)
     #check if this page is requested by seller
     if request.user.is_authenticated:
-        if request.user.is_seller :
+        if request.user.is_seller or request.user.is_admin :
             return redirect('homeapp:address')
-        # If requested by admin
-        if request.user.is_admin:
-            pass
     # display 10 random products to visitors
     tenpds = views.FirstTen(request)
     context={'firstpp':firstpp,'mstpp':mstpp,'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':tenpds}
     template_name='homeapp/index.html'
     return render(request,template_name,context)
 
-# account address:
+# account delivery address:
 def AddressBook(request,user):
     cart,session = session_cart_create(request)
     address = None
@@ -309,6 +382,9 @@ def AddressBook(request,user):
     template_name ="homeapp/addressbook.html"
     context={'cart':cart,'address':address,'update':update,'form':form}
     return render(request,template_name,context)
+
+
+
 
 # change password 
 
@@ -444,6 +520,8 @@ def address_set_up(request):
 #membership view
 def membership(request):
     if request.user.is_authenticated:
+        if request.user.is_admin:
+            return redirect('homeapp:useradmin')
         #check if user is a seller
         if request.user.is_seller:
             #check if user has setup membership 

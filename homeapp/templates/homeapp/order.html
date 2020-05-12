@@ -4,18 +4,44 @@
 
 <div class="order-body">
     <div class="shippingaddress">
+  
+
+    <form action="{% url 'homeapp:order' %}" method="Post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="reciever">
+            {% if receiverobj is False %}
+            <p>
+                Setup up receive's name and direct contact
+                </p>
+            {% else %}
+            <p>
+                    You can  update  receiver's name and direct contact
+                    </p>
+            {% endif %}
+            <div class="addlble">
+                    Receiver's Name:
+                </div>
+            <div class="addressfield">
+                    {{receiverform.name}}
+            </div>
+            <div class="addlble">
+                    Receiver's Contact:
+                </div>
+            <div class="addressfield">
+                    {{receiverform.contact}}
+            </div>
+        </div>
+        
         {% if update is False %}
         <p>
-            Enter your shipping address.
+            Enter  shipping address.
         </p>
         {% else %}
         <p>
-            You can update your shipping address.
+            You can update  shipping address.
         </p>
         {% endif %}
-
-    <form action="{% url 'homeapp:order' %}" method="Post" enctype="multipart/form-data">
-    {% csrf_token %}
+     
       <div class="addressfield-container">
         <div class="addlble">
             Address 1

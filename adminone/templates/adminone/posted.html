@@ -25,8 +25,10 @@
  <tr>
   
    <td>{{post.productname}} </td>
-   <td><a style="border:solid;padding:5px 5px 5px; border-width: 1px; text-decoration: none;background-color: white; border-radius: 5px;-webkit-border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;" href="{% url 'pannel:addcolors' slug=post.slug %}">Addcolors</a></td>
-   <td><a style="border:solid;padding:5px 5px 5px; border-width: 1px; text-decoration: none;background-color: white; border-radius: 5px;-webkit-border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;" href="{% url 'pannel:addsizes' slug=post.slug %}">Addsizes</a></td>
+   <td><a title="add colors to your product" style="border:solid;padding:5px 5px 5px; border-width: 1px; text-decoration: none;background-color: white; border-radius: 5px;-webkit-border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;" href="{% url 'pannel:addcolors' user=request.user.slug  slug=post.slug %}">Addcolors</a></td>
+   <td><a title="add sizes to your product" style="border:solid;padding:5px 5px 5px; border-width: 1px; text-decoration: none;background-color: white; border-radius: 5px;-webkit-border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;" href="{% url 'pannel:addsizes'  user=request.user.slug slug=post.slug %}">Addsizes</a></td>
+
+   <td><a  title="product details" style="border:solid;padding:5px 5px 5px; border-width: 1px; text-decoration: none;background-color: white; border-radius: 5px;-webkit-border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;" href="{% url 'homeapp:productdetail' slug=post.slug %}">View</a></td>
   </tr>
 
  {% endfor %}

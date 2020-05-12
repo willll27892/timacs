@@ -37,7 +37,7 @@
                 <div class="cart-form-field">
                     <span>Qty:</span><br>
                 <input type="hidden" name="pd-process" value="{{product.id}}">
-                 <input name="cqt"type="number" value="{{product.quantity}}" min="1" max="100" step="1" onchange="QuantityUpdate(this.form)">
+                 <input name="cqt"type="number" value="{{product.quantity}}" min="1" max="{{product.product.instock}}" step="1" onchange="QuantityUpdate(this.form)">
                 </div>
                  
              </form>

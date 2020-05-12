@@ -3,5 +3,5 @@ from .import views
 app_name="billing"
 
 urlpatterns=[
-    url(r'^billing/address$',views.BillingAddress,name="billingaddress"),
+    url(r'^billing/address/$',views.BillingAddress,name="billingaddress"),
 ]

@@ -1,0 +1,67 @@
+{% extends 'adminone/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="maincontainer-delivered">
+        <div class="search-div">
+                {% if request.user.is_admin %}
+                <form action="{% url 'pannel:searchrefunds' user=request.user.slug %}"id="search" method="get">
+                    <input type="search" name="q" placeholder="Search seller by email">
+                    <button type="submit">Search</button>
+                </form>
+               {% else %}
+                <form action="{% url 'pannel:searchrefunds' user=request.user.slug %}"id="search" method="get">
+                        <input type="search" name="q" placeholder="Search by product name">
+                        <button type="submit">Search</button>
+                    </form>
+                {% endif %}
+                </div>
+        <h4>Refunded Products(Sold) {{orders.count}}</h4>
+<div class="order-div">
+        <div class="order-div-one">
+         <h5>ProductName</h5>
+        </div>
+        <div class="order-div-one">
+                <h5>Quantity Ordered</h5>
+           </div>
+           <div class="order-div-one">
+               <h5>State</h5>
+               </div>
+               <div class="order-div-one">
+                    <h5>Cost</h5>
+                </div>
+                <div class="order-div-one">
+                        <h5>Seller</h5>
+                    </div>
+               <div class="order-div-one">
+                    <h5>Date</h5>
+                </div>
+    </div>
+
+    {% for order in orders %}
+    <div class="order-div" style="box-shadow: none">
+            <div class="order-div-one">
+             {{order.product.productname}}
+            </div>
+            <div class="order-div-one">
+                    {{order.quantity}}
+               </div>
+               <div class="order-div-one">
+                    {{order.state}}
+                   </div>
+                   <div class="order-div-one">
+                       CFA {{order.amount}}
+                    </div>
+                    <div class="order-div-one" style="overflow: hidden;font-size:12px;">
+                            {{order.seller}}
+                        </div>
+                   <div class="order-div-one">
+                        {{order.created}}
+                    </div>
+        </div>
+    
+    {% endfor %}
+</div>
+
+{% endblock %}

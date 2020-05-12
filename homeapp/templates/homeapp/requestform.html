@@ -1,0 +1,48 @@
+{% extends 'homeapp/base.html' %}
+{% block content %}
+{% load staticfiles %}
+<div class="requestform-container">
+    <h2>We would love to read from you</h2>
+    <h4 style="color:white;display:none"> Request sent. Thank you.</h4>
+    <form id="requestform" action="{% url 'product:productrequest' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="rq-lble">
+        Your Name:
+    </div>
+    <div class="rq-field">
+        {{form.name}}
+    </div>
+
+    <div class="rq-lble">
+        Your Email:
+    </div>
+    <div class="rq-field">
+        {{form.email}}
+    </div>
+    
+    <div class="rq-lble">
+        Product Name:
+    </div>
+    <div class="rq-field">
+        {{form.productname}}
+    </div>
+
+    <div class="rq-lble">
+       Product Model:
+    </div>
+    <div class="rq-field">
+        {{form.productmodel}}
+    </div>
+
+    <div class="rq-lble">
+        Details:
+     </div>
+     <div class="rq-field">
+         {{form.description}}
+     </div>
+    <div class="request-btn">
+    <button type="submit">Submit</button>
+    </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import Tracker,Cart,SubCategory,Category,Product,CostProcessing
+from .models import ProductRequest,Tracker,Cart,SubCategory,Category,Product,CostProcessing
 
+
+admin.site.register(ProductRequest)
 admin.site.register(Tracker)
 admin.site.register(CostProcessing)
 admin.site.register(Category)

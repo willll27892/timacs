@@ -122,11 +122,22 @@
       </svg>
       </span>
   </div>
+    <!-- instock-->
+    <div class="instock">
+      
+      <span class="stocklable">Instock:</span> 
+      {% if product.instock > 0 %}
+      <span>{{product.instock}}</span>
+      {% else %}
+      <span style="color:red;font-size: 15px;">out of stock</span>
+      {% endif %}
+      
+      </div>
   <div class="add-quantity">
     <span>Quantity:</span>
     <form id="add-product-cart" action="{% url 'homeapp:addtocart' slug=product.slug %}" method="get" enctype="multipart/form-data">
       {% csrf_token %}
-      <input name="qt" type="number" value="1" min='1' step="1">
+      <input name="qt" type="number" value="1" min='1' max="{{product.instock}}" step="1">
 
       <!-- extra fields-->
       {% if product.pdcolor.count > 0 %}
@@ -181,7 +192,8 @@
     {% endif %}
     
     <!-- end of  extral fields-->
-
+    {% if product.instock > 0 %}
+    {% if not request.user.is_admin and not request.user.is_seller %}
       <div class="add-to-cart">
         <button type="submit"><?xml version="1.0" encoding="iso-8859-1"?>
           <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -238,7 +250,11 @@
           </svg>
           Add to cart</button>
       </div>
+      {% else %}
+      {% endif %}
+      {% endif %}
     </form>
+    
   </div>
 </div>
 <!-- end of info sub container-->
@@ -543,21 +559,83 @@
    </div>
    {% endif %}
 
+<div class="adminuser-div">
+  <form id="productupdateform" action="{% url 'homeapp:updateproduct' slug=product.slug %}" method="GET" enctype="multipart/form-data">
+    <p style="color:green"></p>
+    {% csrf_token %}
+    <div class="lable">
+      Change product status to approve, only when 
+     product integrity is true
+    </div>
+    <div class="field" >
+     <select name="status">
+       <option value="{{product.status}}">
+          {{product.status}}
+       </option>
+       {% if product.status == "pending" %}
+       <option value="approved">
+          approve
+       </option>
+       {% else %}
+       <option value="pending">
+          pending
+       </option>
+       {% endif %}
+     </select>
+
+    </div>
+    <div class="admin-app-btns">
+      <button type="submit">Change</button>
+      <a href="{% url 'pannel:deleteproduct' slug=product.slug %}">Delete Product</a>
+    </div>
+  </form>
+</div>
+
              <!-- Related product -->
 {% if simpd %}
 
 <div class="container related-product">
   <h2>Related Products</h2>
-   <section class="customer-logos slider">
-      <div class="slide">
-        <a href="{% url 'homeapp:productdetail' slug=similarfirst.slug %}"><img src="{{similarfirst.picone.url}}" alt="ecommerce, Business, Africa , Cameroon"></a></div>
-     {% for products in simpd %}
-      <div class="slide">
-        <a href="{% url 'homeapp:productdetail' slug=products.slug %}">
-        <img src="{{products.picone.url}}"></a></div>
-        {% endfor %}
-   </section>
- 
+  <div class="smaller-screen">
+
+    <section id="aa-product-details">
+    
+      <!-- Related product -->
+      <div class="aa-product-related-item">
+        
+        <ul class="aa-product-catg aa-related-item-slider">
+          <!-- start single product item -->
+          <!-- start single product item -->
+          {% for product in simpd %}
+          <li>
+            <figure>
+              <a class="img-viewed" href="{% url 'homeapp:productdetail' slug=product.slug %}"><img src="{{product.picone.url}}" alt="polo shirt img"></a>
+             
+            </figure>
+            <div class="viewed-products-function">   
+            <div class="viewed-Product-name">
+               {{product.productname}}
+            </div>  
+            <div class="viewed-product-price">
+               {% if  product.sales > 0 %}
+               <span class="delete">CFA {{product.salesprice}}</span>   <span>CFA  {{product.pdprice}}</span> 
+               {% else %}
+               <span>CFA {{product.pdprice}}</span>
+               {% endif %}
+            </div>   
+  
+           <div class="viewed-add-to-cart">
+               <a href="{% url 'homeapp:productdetail' slug=product.slug %}">Add To Cart</a>
+           </div>
+            </div>
+          </li>    
+          {% endfor %}                                                                               
+        </ul>
+        <!-- quick view modal -->                  
+        
+  </section>
+  </div>
+   
 </div>
 {% endif %}
 
@@ -604,8 +682,8 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 $('.side-img img').hover(function(){
-  
- $(this).addClass("activeimg");
+  $('.side-img img').css({'border':'solid','border-color':'black','border-width':'1px','transform':'scale(0.9)'})
+    $('.side-img img').not(this).css({'border':'none','transform':'scale(1)'})
 },function(){
   $(this).removeClass("activeimg");
 });
@@ -628,11 +706,9 @@ $('.side-img img').hover(function(){
  }
 
   function preview(img){
-    $(img).css({'border':'solid','border-color':'black','border-width':'1px','transform':'scale(0.9)'})
-    $("img").not(img).css({'border':'none','transform':'scale(1)'})
-    $('.img-zoom-lens').show();
-    imageZoom("0", "myresult");  
+
     document.getElementById(0).src=img.src;
+    
         
       
       
@@ -655,9 +731,11 @@ $('.side-img img').hover(function(){
        
   });
     }
-  
+    if(windowwidth>1200){
+ 
+    }
   });
-      // Initiate zoom effect:
+       // Initiate zoom effect:
       
       </script>
 

@@ -73,7 +73,8 @@ class ProductColor(models.Model):
 # product model 
 
 class Product(models.Model):
-    stt             = (('posted','posted'),('pending','pending'),('sold','sold'))
+    order=(('sold','sold'),('refunded','refunded'),('available','available'),('cancelled','cancelled'))
+    stt             = (('approved','approved'),('pending','pending'))
     st              = (('Brand New','Brand New'),('Used','Used'))
     sl              = ((0,0),(20,20),(30,30),(35,35),(40,40),(45,45),(50,50),(60,60),(70,70),(80,80))
     created         = models.DateTimeField(auto_now_add=True,null=True)
@@ -99,8 +100,10 @@ class Product(models.Model):
     pdprice         = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=False)
     salesprice      = models.DecimalField(max_digits=19,decimal_places=2,null=True,blank=True)
     pdcolor         = models.ManyToManyField(ProductColor,related_name="color_id",null=True,blank=True)
-    availableseizes = models.ManyToManyField(ProductSize,null=True,related_name="avlprice")
+    availableseizes = models.ManyToManyField(ProductSize,null=True,related_name="avlprice",blank=True)
     views           = models.IntegerField(default=0)
+    orderstate      = models.CharField(choices=order,default="available",max_length=200)
+    instock         = models.IntegerField(null=True)
     def __str__(self):
         return self.productname
  
@@ -305,3 +308,14 @@ class Popular(models.Model):
 
     def __str__(self):
         return str(self.views)
+
+class ProductRequest(models.Model):
+    created      = models.DateTimeField(auto_now_add=True,null=True)
+    session      = models.ForeignKey(Sessionlog,on_delete=models.CASCADE,null=True,related_name="productrequest")
+    name         = models.CharField(max_length=200,null=True)
+    email        = models.EmailField(null=True)
+    productname  = models.CharField(max_length=200,null=True)
+    productmodel = models.CharField(max_length=200,null=True)
+    description = models.TextField(null=True)
+    def __int__(self):
+        return str(self.productname)

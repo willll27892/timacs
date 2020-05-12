@@ -9,6 +9,12 @@
     <h4>Important Info</h4>
     
     <div class="account-status">
+        {% if verified is False %}
+        <p>
+            This account has not been verified
+            <a href="https://wa.me/237672691617" target="_blank">verification link</a>
+        </p>
+        {% endif %}
             {% if  accountstate.active %}
         <h3>2 Months try period activated.</h3>
         {% else %}
@@ -169,11 +175,17 @@
      <!-- form field-->
     <div class="field-container">
     <div class="lable">
-    Description:
+    Instock:
     </div>
     <div class="field">
-    {{productform.descript}}
+    {{productform.instock}}
     </div>
+    <div class="lable">
+            Description:
+            </div>
+            <div class="field">
+            {{productform.descript}}
+            </div>
     </div>
     <!-- end of form field-->
     <div class="form-button">
@@ -421,11 +433,16 @@
         </div>  
     </div>
     <!-- end of imageuploads field -->
+    {% if verified %}   
     <div class="form-button">
-            
+              
        <button type="submit">Post</button>
+       
        <span class="gif"><img src="{% static 'img/Wedges-3s-200px.png' %}"></span>  
        </div>
+       {% else %}
+       <a href="https://wa.me/237672691617" target="_blank">verification link</a>
+       {% endif %}
        </div>
 <!-- end of section three-->
     </form>

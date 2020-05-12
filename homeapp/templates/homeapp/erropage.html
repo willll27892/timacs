@@ -1,0 +1,93 @@
+{% extends 'homeapp/base.html' %}
+{% block content %}
+{% load staticfiles %}  
+<div class="erro-div">
+<div class="product-not-av">
+    <p>
+        Oops!! Product does not exist.<br>
+        You can shop related products.
+    </p>
+</div>
+<!-- / Promo section -->
+  <!-- Products section -->
+  <section id="aa-product">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="aa-product-area">
+                  <div class="aa-product-inner">
+                    
+    
+                      {% if tenpds %}
+                      <!-- Tab panes -->
+                      <div class="tab-content">
+    
+                        <!-- Start men product category -->
+                        <div class="tab-pane fade in active" id="men">
+                          <ul class="aa-product-catg">
+                            <!-- display products-->
+    
+                            {% for product in tenpds %}
+                            <!-- start single product item -->
+                            <li>
+                              <figure>
+                                {% if not product.productdisplay.picone %}
+                                <a class="aa-product-img" href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}"><img src="{% static 'img/man/t-shirt-1.png' %}" alt="polo shirt img"></a>
+                                {% else %}
+                                <a class="aa-product-img" href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}"><img src="{{product.productdisplay.picone.url}}" alt="polo shirt img"></a>
+                                {% endif %}
+                                <a class="aa-add-card-btn" href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}"><span class="fa "></span>Add To Cart</a>
+                                <figcaption>
+                                  <h4 class="aa-product-title"><a href="#">{{product.productdisplay.productname}}</a></h4>
+                                  
+                                  {% if product.productdisplay.sales > 0 %}
+                                  <span class="aa-product-price">CFA  {{product.productdisplay.salesprice}} </span>
+                                  <span class="aa-product-price"><del>CFA  {{product.productdisplay.pdprice}} </del></span>
+                                  {% else %}
+                                  <span class="aa-product-price">CFA  {{product.productdisplay.pdprice}} </span>
+                                  {% endif %}
+                                </figcaption>
+                              </figure>                         
+                              <div class="aa-product-hvr-content">
+                                <a href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}" data-toggle2="tooltip"  title="Quick View" data-toggle="modal" ><span class="fa fa-search"></span></a>
+                              </div>
+                              <!-- product badge -->
+                              {% if product.productdisplay.status == "sold" %}
+                               <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                               {% endif %}
+                               {% if product.productdisplay.sales > 0 %}
+                               <span class="aa-badge aa-sale" href="#">{{product.productdisplay.sales}}% off</span>
+                               {% endif %}
+                            </li> 
+                            
+                            {% endfor %}
+    
+                            
+                            
+                            
+                            
+                          </ul>
+  
+                        </div>
+                       
+                       
+                      
+                      {% else %}
+                      <p style="text-align: center"> No products posted</p>
+                    </div>
+                      {% endif %}
+                                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+    </div>
+      <!-- / Products section -->
+    
+
+{% endblock %}

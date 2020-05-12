@@ -252,19 +252,45 @@
   {% if mstpp %}
   <div class="container related-product">
     <h2 style="text-align: left;margin-bottom: 20px; border-bottom: solid;border-width: 1px;color:rgba(0,0,0,0.6);border-color:yellow;">Trending Products</h2>
-    <section class="customer-logos slider">
-       
-        <div class="slide">
-          <a href="{% url 'homeapp:productdetail' slug=firstpp.productdisplay.slug %}"><img src="{{firstpp.productdisplay.picone.url}}" alt="Shop, Cameroon, ecommerce">
-            </a>
-          </div>
+     <div class="smaller-screen">
+
+      <section id="aa-product-details">
+      
+        <!-- Related product -->
+        <div class="aa-product-related-item">
+          
+          <ul class="aa-product-catg aa-related-item-slider">
+            <!-- start single product item -->
+            <!-- start single product item -->
+            {% for product in mstpp %}
+            <li>
+              <figure>
+                <a class="img-viewed" href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}"><img src="{{product.productdisplay.picone.url}}" alt="polo shirt img"></a>
+               
+              </figure>
+              <div class="viewed-products-function">   
+              <div class="viewed-Product-name">
+                 {{product.productdisplay.productname}}
+              </div>  
+              <div class="viewed-product-price">
+                 {% if  product.productdisplay.sales > 0 %}
+                 <span class="delete">CFA {{product.productdisplay.salesprice}}</span>   <span>CFA  {{product.pdprice}}</span> 
+                 {% else %}
+                 <span>CFA {{product.productdisplay.pdprice}}</span>
+                 {% endif %}
+              </div>   
     
-        {% for products in mstpp %}
-          <div class="slide">
-            <a href="{% url 'homeapp:productdetail' slug=products.productdisplay.slug %}">
-            <img src="{{products.productdisplay.picone.url}}"></a></div>
-        {% endfor %}
-     </section>
+             <div class="viewed-add-to-cart">
+                 <a href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}">Add To Cart</a>
+             </div>
+              </div>
+            </li>    
+            {% endfor %}                                                                               
+          </ul>
+          <!-- quick view modal -->                  
+          
+    </section>
+    </div>
     
   </div>
   {% endif %}

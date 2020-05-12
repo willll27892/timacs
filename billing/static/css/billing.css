@@ -42,7 +42,7 @@
     color:gray;
     width:60%;
 }
-.billing-address #id_name, .billing-address #id_address,
+.billing-address #id_contact,.billing-address #id_name, .billing-address #id_address,
 .billing-address #id_town, .billing-address #id_region, .billing-address #id_zipcode,
 .billing-address #id_country, .billing-address #id_billtype{
     border-top:none;
@@ -55,7 +55,7 @@
     background-color: transparent;
 }
 .billing-address form input::placeholder{
-    text-align: left;
+    text-align: center;
     color:black;
 }
 

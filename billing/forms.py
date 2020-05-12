@@ -5,6 +5,7 @@ class billingForm(forms.ModelForm):
     class Meta:
         model = Billing
         widgets ={
+          'contact':forms.TextInput(attrs={'placeholder':'(areacoder)-your number'}),
           'name':forms.TextInput(attrs={'placeholder':'Your Name'}),
           'address':forms.TextInput(attrs={'placeholder':'Billing Address'}),
           'town':forms.TextInput(attrs={'placeholder':'Town/City'}),
@@ -15,4 +16,4 @@ class billingForm(forms.ModelForm):
 
         }
         exclude=('owner','created')
-        fields=('name','address','town','region','country','billtype','zipcode')
+        fields=('contact','name','address','town','region','country','billtype','zipcode')

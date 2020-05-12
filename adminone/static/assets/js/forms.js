@@ -131,9 +131,95 @@ function previewreset() {
     $("#id_picfour").val('');
 };
 
-
+//update orderstate
 
 $(document).ready(function(){
+$('.orderstateupadate').submit(function(e){
+  e.preventDefault();
+  $('.databaseupdated',this).fadeIn('slow')
+  $('.databaseupdated').delay(10000).fadeOut('slow')
+  var this_   =$(this);
+  var method_ =this_.attr('method');
+  var action_ = this_.attr('action');
+  var data_   = this_.serialize();
+$.ajax({
+  url:action_,
+  method:method_,
+  data:data_,
+  success:function(data,this_){
+
+  },
+  error:function(data){
+
+  }
+})
+});
+});
+
+
+/* whe shopper cancels an order */
+$(document).ready(function(){
+  $('#requestform').submit(function(e){
+    e.preventDefault();
+    $('h4').fadeIn('slow')
+    $(' h4').delay(10000).fadeOut('slow')
+    var this_   =$(this);
+    var method_ =this_.attr('method');
+    var action_ = this_.attr('action');
+    var data_   = this_.serialize();
+  $.ajax({
+    url:action_,
+    method:method_,
+    data:data_,
+    success:function(){
+       $('#requestform')[0].reset()
+    },
+    error:function(data){
+  
+    }
+  })
+  });
+  });
+$(document).ready(function(){
+  $('#ordercanceled').submit(function(e){
+    e.preventDefault();
+    $('.databaseupdated',this).fadeIn('slow')
+    $('.databaseupdated').delay(10000).fadeOut('slow')
+    $('button',this).attr('disabled',true)
+    var this_   =$(this);
+    var method_ =this_.attr('method');
+    var action_ = this_.attr('action');
+    var data_   = this_.serialize();
+  $.ajax({
+    url:action_,
+    method:method_,
+    data:data_,
+    success:function(data,this_){
+  
+    },
+    error:function(data){
+  
+    }
+  })
+  });
+  });
+
+$(document).ready(function(){
+// submit product update form
+$('#productupdateform').submit(function(e){
+  e.preventDefault();
+  $.ajax({
+    url:$(this).attr('action'),
+    method:$(this).attr('method'),
+    data:$(this).serialize(),
+    success:function(){
+      $('#productupdateform p').text('This product updated')
+    },
+    error:function(){}
+  })
+})
+
+//  submit product form
 $('#productform').submit(function(e){
 e.preventDefault();
 $('#productform').ajaxSubmit({})

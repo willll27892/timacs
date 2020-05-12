@@ -1,0 +1,283 @@
+{% extends 'adminone/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="displayorders-container">
+    {% if request.user.is_admin %}
+        <div class="search-div">
+                <form action="{% url 'pannel:searchorder' user=request.user.slug %}"id="search" method="get">
+                    <input required type="search" name="q" placeholder="Search order by orderId">
+                    <button type="submit">Search</button>
+                </form>
+                </div>
+            {% endif %}
+    {% if request.user.is_seller %}
+    <h2> Total Orders: {{orders.count}}</h2>
+    {% if orders %}
+    <div class="ordertable">
+    <table>
+        <tr>
+            <th></th>
+            <th>
+              OrderId
+            </th>
+            <th>
+                Product
+            </th>
+            <th>
+             Qt Ordered
+            </th>
+            <th>Sum</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Seller</th>
+            <th>Reason</th>
+            <th>State</th>
+            <th>
+
+            </th>
+            <th>Date</th>
+        </tr>
+        {% for order in orders %}
+        <tr>
+            <td>
+               {{order.id}}
+            </td>
+            <td>
+                {{order.productorderid}}
+            </td>
+            <td>
+                {{order.product.productname}}
+            </td>
+            <td>
+                {{order.quantity}}
+            </td>
+            <td>
+                CFA {{order.amount}}
+            </td>
+            <td>
+            {% if order.orderinfo.color %}
+            <div style="background-color:{{order.orderinfo.color.color}}; width:10px; height:10px; border:solid;border-color:black;border-width:3px;"></div>
+            {% else %}
+            <div style="background-color:{{order.product.color}}; width:10px; height:10px; border:solid;border-color:black;border-width:3px;"></div>
+            <span>{{order.product.color}}</span>
+            {% endif %}
+        </td>
+        <td>
+                {% if order.orderinfo.size %}
+                {{order.orderinfo.size.size}}
+                {% else %}
+                {{order.product.size}}
+                {% endif %}
+        </td>
+        <td>
+            {{order.seller}}
+        </td>
+        <td>
+            {{order.reason}}
+        </td>
+        <td>{{order.state}}</td>
+        <td>
+                <a href="{% url 'homeapp:productdetail' slug=order.product.slug %}">
+                    Viewproduct
+                </a>
+            </td>
+            <td>
+                {{order.created }}
+            </td>
+        </tr>
+        {% endfor %}
+       
+    </table>
+</div>
+    {% else %}
+    <p style="font-size:30px; text-align: center;margin-top:150px;">No orders found</p>
+    {% endif %}
+    {% endif %}
+
+    {% if request.user.is_admin %}
+    <h2>Total Orders: {{orders.count}}</h2>
+    <div class="maincontainer">
+        {% if  orders %}
+        <div class="subcontainer">
+                
+         {% for order in orders %}
+         <div class="order-container-main">
+         <div class="order-div ordermain">
+                <div class="order-div-one">
+                    <h4>OrderId</h4>
+                  
+                </div>
+                <div class="order-div-one">
+                        <h4>Total</h4>
+                   </div>
+                   <div class="order-div-one">
+                        <h4>Delivery Address</h4>
+                       </div>
+                       <div class="order-div-one">
+                            <h4>Total Quantity</h4>
+                           </div>
+                       <div class="order-div-one">
+                            <h4>Date</h4>
+                        </div>
+            </div>
+         <div class="order-div">
+                <div class="order-div-one">
+                  {{order.orderid}}
+                </div>
+                <div class="order-div-one">
+                        CFA {{order.cart.total}}
+                   </div>
+                   <div class="order-div-one">
+                       <h5>Receiver's Name:</h5> {{order.receivername.name}}<br>
+                       <h5>Receiver's Contact:</h5> {{order.receivername.contact}}
+                    <h5>address1:</h5> {{order.address.address1}} <br>
+                    {% if order.address.address2  %}
+                    <h5>address2:</h5> {{order.address.address2}} <br>
+                    {% endif %}
+                    <h5>Town:</h5> {{order.address.town}}<br>
+                    <h5>Region:</h5>{{order.address.region}}
+                       </div>
+                       <div class="order-div-one">
+                            {{order.cart.pdcount}}
+                           </div>
+                       <div class="order-div-one">
+                         {{order.created}}
+                        </div>
+            </div>
+            <h4>Ordered Products {{order.suborder.count}}</h4>
+            <div class="order-div">
+                    <div class="order-div-one">
+                     <h5>ProductName</h5>
+                    </div>
+                    <div class="order-div-one">
+                            <h5>Quantity Ordered</h5>
+                       </div>
+                       <div class="order-div-one">
+                           <h5>State</h5>
+                           </div>
+                           <div class="order-div-one">
+                                <h5>Cost</h5>
+                            </div>
+                            <div class="order-div-one">
+                                    <h5>Seller</h5>
+                                </div>
+                           <div class="order-div-one">
+                                <h5>Date</h5>
+                            </div>
+                </div>
+             
+            {% for product in order.suborder.all %}
+            <div class="order-div">
+                    <div class="order-div-one">
+                      {{product.product.productname}}
+                    </div>
+                    <div class="order-div-one">
+                            {{product.quantity}}
+                       </div>
+                       <div class="order-div-one">
+                            {{product.state}}
+                           </div>
+                       <div class="order-div-one">
+                            CFA {{product.amount}}
+                           </div>
+                           <div class="order-div-one">
+                                {{product.seller.firstname}}
+                                {{product.seller.lastname}}<br>
+                                <span style="font-size: 12px">{{product.seller}}</span>
+                                </div>
+                           <div class="order-div-one">
+                             {{order.created}}
+                            </div>
+                            
+                            <div class="order-div-one">
+                                   <a href="">StateUpdate</a>
+                                   </div><div class="order-div-one">
+                                        <a href="{% url 'homeapp:productdetail' slug=product.product.slug %}">ProductView</a>
+                                        </div>
+                </div>
+             
+            {% endfor %}
+            <h4>
+                Order State: {% if order.active %}
+                Active 
+                {% else %}
+                InActive
+                {% endif %}
+            </h4>
+ 
+            {% for status in order.status.all %}
+            <form class="orderstateupadate"action="{% url 'order:updateorder' pk=status.id %}" method="get" enctype="multipart/form-data">
+               
+               {% csrf_token %} <p>
+                        Update order state for products ordered.
+                    </p>
+                    <div class="databaseupdated">
+                    <p style="color:green;">Entry successfully registered</p>
+                </div>
+                <div class="status_lable">
+                <span>Products in warehouse ?</span> 
+                 
+                 <span><input name="dispatch" type="checkbox" 
+                    {% if status.dispatch %}
+                    checked
+                    disabled
+                    {% endif %}
+                    ></span>
+             </div>
+            
+             <div class="status_lable">
+               <span>Products shipped to buyer ?</span> 
+                <span><input type="checkbox"            {% if  status.shipped %}
+                    checked
+                    disabled
+                    {% endif %} name="shipped"></span>
+            </div>
+            <div class="status_lable">
+                <span>Products delivered to buyer ?</span> 
+                 <span><input type="checkbox" 
+                    {% if  status.delivered %}
+                    checked
+                    disabled
+                    {% endif %}
+                    name="delivered"></span>
+             </div>
+
+             <div class="status_lable">
+                 This order cancelled by Buyer: 
+                {% if status.canceled is True %}
+                   True
+                   {% else %}
+                   False
+                {% endif %}
+             </div>
+             <br>
+             <div class="status_lable" >
+              
+             {% if status.comments %}    
+             <textarea name="comment"  placeholder="Admin working on this order, make sure to comment detail info. Such as your name and what you have done.">{{status.comments}}</textarea>
+             {% else %}
+             <textarea required name="comment"  placeholder="Admin working on this order, make sure to comment detail info. Such as your name and what you have done."></textarea>
+             {% endif %}
+             
+            </div>
+            {% if not order.active %}
+             <button
+             {% if status.delivered and status.shipped and status.dispatch %}
+             disabled
+             {% endif %}
+             type="submit">Update State</button>
+             {% else %}
+             <button type="button">In Active Order</button>
+             {% endif %}
+            </form>
+            {% endfor %}
+        </div>
+         {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    
+    {% endif %}
+</div>
+{% endblock %}

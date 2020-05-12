@@ -44,7 +44,7 @@
         <div class="pd-value">
         {% for sizes in product.availableseizes.all %}
         
-      <form id action="{% url 'pannel:removesize' slug=product.slug %}">
+      <form id action="{% url 'pannel:removesize' user=request.user.slug slug=product.slug %}">
             <input name="id" type="hidden" value="{{sizes.id}}">   
         {{sizes.size}}
              
@@ -61,7 +61,7 @@
 <div class="form-container">
   <h4>Add A Size To Product<span class="alertsub" style="color:green">Submited!</span></h4>
 
-  <form  action="{% url 'pannel:addsizes' slug=product.slug %}" method="post" enctype="multipart/form-data" >
+  <form  action="{% url 'pannel:addsizes' user=request.user.slug slug=product.slug %}" method="post" enctype="multipart/form-data" >
    <div class="add_color_field_name">
   
 {% csrf_token %}

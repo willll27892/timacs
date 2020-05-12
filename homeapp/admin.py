@@ -2,12 +2,13 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import  UserAdminCreationForm,UserAdminChangeForm
 from django.contrib.auth import get_user_model
-from homeapp.models import Sessionlog,Membership,Address,TryPeriod
+from homeapp.models import SellerID,Sessionlog,Membership,Address,TryPeriod
 from homeapp.activitytracker import Activity
 admin.site.register(TryPeriod)
 admin.site.register(Membership)
 admin.site.register(Address)
 admin.site.register(Activity)
+admin.site.register(SellerID)
 
 
 User= get_user_model()

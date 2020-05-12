@@ -6,6 +6,7 @@ app_name="homeapp"
 
 urlpatterns=[
     #home page url
+   
     url(r'^shopper/user/account/addressbook/(?P<user>.*)/$',views.AddressBook,name="addressbook"),
     url(r'^shopper/user/account/password/change/(?P<user>.*)/$',views.passwordchange,name="passwordchange"),
     url(r'^shopper/user/account$',views.Shopperpannel,name="shopperaccount"),
@@ -17,6 +18,7 @@ urlpatterns=[
     url(r'^shoppers/stop/$',views.Shopmore,name="shopmore"),
     url(r'^cart/(?P<slug>[\w-]+)$',views.AddToCart,name="addtocart"),
     url(r'^product/detail/(?P<slug>[\w-]+)$',views.ProductDetail,name="productdetail"),
+    url(r'^product/update/(?P<slug>[\w-]+)$',views.updateproduct,name="updateproduct"),
     url(r'^$',views.index,name="home"),
     url(r'^login/$',views.Login,name="login"),
     url(r'^urlredirect/$',views.UrlRedirect,name="homeredirect"),

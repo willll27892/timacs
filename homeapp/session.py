@@ -81,6 +81,9 @@ def Create_Crud_cart(request,sessionObj):
             cart = cartinstance
         if  cartobtwo:
             cart = cartobtwo.first()
+        if not cartobj and not cartobtwo:
+            cart = Cart.objects.create(session=sessionObj,owner=request.user)
+
         return cart
 
     

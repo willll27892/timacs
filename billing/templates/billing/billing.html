@@ -12,22 +12,34 @@
     {% endif %}
     </article>
         <form action="" method="post" enctype="multipart/form-data">
-        <div class="billingfield">
+        {% csrf_token %}
+ 
+            <div class="billingfield">
+                    <div>Your Name</div>
         {{form.name}}
         </div>
         <div class="billingfield">
+                <div>Your Contact</div>
+    {{form.contact}}
+    </div>
+        <div class="billingfield">
+                <div>Address</div>
         {{form.address}}
         </div>
         <div class="billingfield">
+                <div>Town/City</div>
         {{form.town}}
         </div>
         <div class="billingfield">
+                <div>State/Region</div>
         {{form.region}}
         </div>
         <div class="billingfield">
+                <div>ZipCode</div>
         {{form.zipcode}}
         </div>
         <div class="billingfield">
+       <div>Country</div>
         {{form.country}}
        </div>
        <div class="billingfield">

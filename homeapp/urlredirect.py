@@ -20,7 +20,7 @@ def UrlRedirect(request):
         #check if user is admin 
         if request.user.is_admin:
             # redirect the user to admin page
-            pass
+            return redirect('homeapp:useradmin')
         #check if user is buyer 
         if request.user.is_buyer:
             #redirect user to shopper account 

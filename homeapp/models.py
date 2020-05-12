@@ -62,8 +62,11 @@ class CustomUser(AbstractBaseUser):
     def is_staff(self):
         return self.staff
     @property
-    def is_admin(self):
+    def is_adminsuper(self):
         return self.admin
+    @property
+    def is_admin(self):
+        return self.staff
     @property
     def is_active(self):
         return self.active 
@@ -108,6 +111,7 @@ class Membership(models.Model):
 
 # save seller ID info
 class SellerID(models.Model):
+    verified  = models.BooleanField(default=False)
     created   = models.DateTimeField(auto_now_add=True,null=True)
     user      = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True,related_name="identification")
     idpic     =  models.ImageField(upload_to="ids",null=True)
