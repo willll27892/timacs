@@ -32,7 +32,8 @@ class Category(models.Model):
 # sub category model 
    
 class SubCategory(models.Model):
-    slug    = models.SlugField(null=True,blank=True)
+    category = models.ManyToManyField(Category,null=True,related_name="category")
+    slug     = models.SlugField(null=True,blank=True)
     name     = models.CharField(max_length=100,null=True)
     descrip  = models.TextField()
     def __str__(self):

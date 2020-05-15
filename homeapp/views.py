@@ -13,7 +13,7 @@ from django.db.models import Q
 from order.forms import ReceiverInfo
 from order.models import ReceiversName,ProductOrder,Orderstatus
 from productsdisplay.views import UsedProducts,ShopeMore
-
+from products.models import Category, SubCategory
 
 def selleragreement(request):
     agmnt = Sagreement.objects.all().last()
@@ -352,6 +352,8 @@ def UsedProduct(request):
 
 # home page view
 def index(request):
+    categoryobjs     = Category.objects.all()
+    subcategoryobjs  = SubCategory.objects.all()
     cartdisply=True
     cart,session = session_cart_create(request)
     mstpp,firstpp = views.pp_view(request)
@@ -361,7 +363,7 @@ def index(request):
             return redirect('homeapp:address')
     # display 10 random products to visitors
     tenpds = views.FirstTen(request)
-    context={'firstpp':firstpp,'mstpp':mstpp,'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':tenpds}
+    context={'categoryobjs':categoryobjs,'subcategoryobjs':subcategoryobjs,'firstpp':firstpp,'mstpp':mstpp,'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':tenpds}
     template_name='homeapp/index.html'
     return render(request,template_name,context)
 
