@@ -3,9 +3,11 @@ from homeapp.session import session_cart_create
 from billing.models import Billing
 from billing.forms import billingForm
 from order.orderprocessing import PlaceOrder
+from products.models import Category, SubCategory
 
 
 def BillingAddress(request):
+    categoryobjs     = Category.objects.all()
     cart,session = session_cart_create(request)
     billingobj = Billing.objects.filter(owner=session)
     form   = None
@@ -19,7 +21,7 @@ def BillingAddress(request):
         instance.owner = session
         instance.save()
         PlaceOrder(request)
-    context={'form':form,'billingobj':billingobj}
+    context={'categoryobjs':categoryobjs,'form':form,'billingobj':billingobj}
     template_name="billing/billing.html"
     return render(request,template_name,context)
 

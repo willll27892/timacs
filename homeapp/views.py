@@ -12,17 +12,48 @@ from homeapp.activitytracker import CheckIfProductNotIncart,Activity_function,Pr
 from django.db.models import Q
 from order.forms import ReceiverInfo
 from order.models import ReceiversName,ProductOrder,Orderstatus
-from productsdisplay.views import UsedProducts,ShopeMore
+from productsdisplay.views import  MenuSearch,UsedProducts,ShopeMore
 from products.models import Category, SubCategory
+from django.core.paginator import Paginator
+
+
+# display all products with category and subcategory relationship
+def  quicklinks(request,cat,subcat):
+    activity = Activity_function(request)
+    categoryobjs     = Category.objects.all()
+    cartdisply=True
+    cart,session = session_cart_create(request)
+    tenpds=  MenuSearch(request,cat,subcat)
+    paginator = Paginator(tenpds, 16) 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    print('tends')
+    print(tenpds)
+    mstpp,firstpp = views.pp_view(request)
+    #check if this page is requested by seller
+    if request.user.is_authenticated:
+        if request.user.is_seller or request.user.is_admin :
+            return redirect('homeapp:address')
+    context={'cat':cat,'categoryobjs':categoryobjs,'mstpp':mstpp,'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':page_obj}
+    template_name="homeapp/quickproductsearch.html"
+    return render(request,template_name,context)
+
+def  quicklinkscat(request,category):
+    activity = Activity_function(request)
+    pass
+
 
 def selleragreement(request):
+    categoryobjs     = Category.objects.all()
     agmnt = Sagreement.objects.all().last()
-    context={'agmnt':agmnt}
+    context={'categoryobjs':categoryobjs,'agmnt':agmnt}
     template_name="homeapp/agreement.html"
     return render (request,template_name,context)
 
 # setup or return delivery address and receiver 
 def Order(request):
+    activity = Activity_function(request)
+    categoryobjs     = Category.objects.all()
     cart,session = session_cart_create(request)
     address = None
     form  = None
@@ -118,12 +149,13 @@ def Order(request):
                     instance.save()
                     return redirect('billing:billingaddress')
     template_name="homeapp/order.html"
-    context={'receiverobj':receiverobj,'receiver':receiver,'receiverform':receiverform,'update':update,'form':form,'cart':cart}
+    context={'categoryobjs':categoryobjs,'receiverobj':receiverobj,'receiver':receiver,'receiverform':receiverform,'update':update,'form':form,'cart':cart}
     return render(request,template_name,context)
 
 
 
 def cart(request):
+    categoryobjs     = Category.objects.all()
     if  request.user.is_authenticated:
         if request.user.is_seller :
             return redirect('homeapp:address') 
@@ -136,7 +168,7 @@ def cart(request):
        if  pd.quantity > pd.product.instock:
            cart.products.remove(pd)
            cart.save() 
-    context={'products':pds,'cart':cart}
+    context={'categoryobjs':categoryobjs,'products':pds,'cart':cart}
     template_name="homeapp/cart.html"
     return render(request,template_name,context)
 
@@ -144,6 +176,7 @@ def cart(request):
 
 # adding product to cart 
 def AddToCart(request,slug):
+    
     product  = get_object_or_404(Product,slug=slug)
     tracker  = Tracker.objects.filter(productdisplay=product).first()
     activity = Activity_function(request)
@@ -239,6 +272,7 @@ Onchange quantity in user cart.
 update user cart object
 '''
 def CartUpdate(request):
+    categoryobjs     = Category.objects.all()
     if request.is_ajax():
         cart,session = session_cart_create(request)
         qt           = request.GET.get('cqt')
@@ -271,16 +305,17 @@ def CartUpdate(request):
 
 # show more products to user 
 def Shopmoredef(request):
+    categoryobjs     = Category.objects.all()
     section1,section2,section3 =ShopeMore(request)
     template_name="homeapp/shopemore.html"
-    context={'section1':section1,'section2':section2,'section3':section3}
+    context={'categoryobjs':categoryobjs,'section1':section1,'section2':section2,'section3':section3}
     return render(request,template_name,context)
 
 
 
 # product detail 
 def ProductDetail(request,slug):
-    
+    categoryobjs     = Category.objects.all()
     cartdisply=True
     '''
     call the tracker object for this product
@@ -319,11 +354,12 @@ def ProductDetail(request,slug):
             return redirect('homeapp:home')
         
     # display six  pp_view products to shopper, after they have added a product to cart
-    context={'similarfirst':firstsim,'mstpp':mstpp,'simpd':simpd,'cart':cart,'incart':incart,'trending':mstpp,'product':product,'cartdisply':cartdisply}
+    context={'categoryobjs':categoryobjs,'similarfirst':firstsim,'mstpp':mstpp,'simpd':simpd,'cart':cart,'incart':incart,'trending':mstpp,'product':product,'cartdisply':cartdisply}
     template_name="homeapp/productdetail.html"
     return render(request,template_name,context)
 
 def updateproduct(request,slug):
+    
     product=get_object_or_404(Product,slug=slug)
     if request.user.is_admin:
         print('get product update called')
@@ -337,7 +373,7 @@ def updateproduct(request,slug):
 
 # Display used products 
 def UsedProduct(request):
-    
+    categoryobjs     = Category.objects.all()
     cartdisply=True
     cart,session = session_cart_create(request)
     tenpds =UsedProducts(request)
@@ -346,7 +382,7 @@ def UsedProduct(request):
     if request.user.is_authenticated:
         if request.user.is_seller or request.user.is_admin :
             return redirect('homeapp:address')
-    context={'mstpp':mstpp,'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':tenpds}
+    context={'categoryobjs':categoryobjs,'mstpp':mstpp,'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':tenpds}
     template_name="homeapp/useditems.html"
     return render(request,template_name,context)  
 
@@ -369,6 +405,7 @@ def index(request):
 
 # account delivery address:
 def AddressBook(request,user):
+    categoryobjs     = Category.objects.all()
     cart,session = session_cart_create(request)
     address = None
     form  = None
@@ -381,7 +418,6 @@ def AddressBook(request,user):
 
         address =  Address.objects.filter(Q(user=request.user) | Q(session=session))
         if not address:
-            print('submit address called')
             update=False
             form=AddressForm(request.POST or None)
             if request.method=="POST":
@@ -406,7 +442,7 @@ def AddressBook(request,user):
                     instance.save()
                     return redirect('homeapp:shopperaccount')
     template_name ="homeapp/addressbook.html"
-    context={'cart':cart,'address':address,'update':update,'form':form}
+    context={'categoryobjs':categoryobjs,'cart':cart,'address':address,'update':update,'form':form}
     return render(request,template_name,context)
 
 
@@ -421,6 +457,8 @@ def passwordchange(request,user):
     if  request.user.is_authenticated:
         if request.user.is_admin and request.user.is_seller:
             return HttpResponse('permission not granted')
+    categoryobjs     = Category.objects.all()
+    subcategoryobjs  = SubCategory.objects.all()
     error="" 
     cart,session  = session_cart_create(request)
     cartdisply=True
@@ -440,12 +478,13 @@ def passwordchange(request,user):
             if user is None:
                 error="wrong password"
                 
-    context = {'error':error,'cart':cart.pdcount,'trackobjs':trackobjs}
+    context = {'subcategoryobjs':subcategoryobjs,'categoryobjs':categoryobjs,'error':error,'cart':cart.pdcount,'trackobjs':trackobjs}
     template_name="homeapp/changepassword.html"
     return render(request,template_name,context)
 
 # view to register sellers 
 def register_seller(request):
+    categoryobjs     = Category.objects.all()
   
     if request.user.is_authenticated:
         return redirect('homeapp:home')
@@ -469,12 +508,13 @@ def register_seller(request):
         login(request,user)
         return redirect('homeapp:address')
     seller= True
-    context = {'form':form,'seller':seller}
+    context = {'categoryobjs':categoryobjs,'form':form,'seller':seller}
     template_name="homeapp/register.html"
     return render(request,template_name,context)
 
 # regiser shopper
 def shopperRegistration(request):
+    categoryobjs     = Category.objects.all()
   
     if request.user.is_authenticated:
         return redirect('homeapp:home')
@@ -498,11 +538,12 @@ def shopperRegistration(request):
         login(request,user)
         return redirect('homeapp:shopperaccount')
     seller= False
-    context = {'form':form,'seller':seller}
+    context = {'categoryobjs':categoryobjs,'form':form,'seller':seller}
     template_name="homeapp/shopperregistration.html"
     return render(request,template_name,context)
 
 def Shopperpannel(request):
+    categoryobjs     = Category.objects.all()
     if request.user.is_authenticated:
         if request.user.is_seller or request.user.is_admin:
             return HttpResponse('bad request')
@@ -511,7 +552,7 @@ def Shopperpannel(request):
         #retrieve all user viewed products
         trackobjs = Tracker.objects.filter(viewed=True,session=session.id,productincart=False)
         template_name="homeapp/shopperaccount.html"
-        context={'trackobjs':trackobjs,'cartdisply':cartdisply,'cart':cart.pdcount}
+        context={'categoryobjs':categoryobjs,'trackobjs':trackobjs,'cartdisply':cartdisply,'cart':cart.pdcount}
         return render(request,template_name,context)
     else:
         return HttpResponse('bad request')
@@ -520,6 +561,7 @@ def Shopperpannel(request):
 #user address setup for sellers /admin
 
 def address_set_up(request):
+    categoryobjs     = Category.objects.all()
 
     # check if view is requested by authenticated user
     if request.user.is_authenticated:
@@ -535,7 +577,7 @@ def address_set_up(request):
                 instance.user=request.user
                 instance.save()
                 return redirect('homeapp:members')
-        context={'form':form}
+        context={'categoryobjs':categoryobjs,'form':form}
         template_name="homeapp/addresssetup.html"
 
         return render(request,template_name,context)
@@ -545,6 +587,7 @@ def address_set_up(request):
 
 #membership view
 def membership(request):
+    categoryobjs     = Category.objects.all()
     if request.user.is_authenticated:
         if request.user.is_admin:
             return redirect('homeapp:useradmin')
@@ -562,7 +605,7 @@ def membership(request):
                     instance.save()
                     return redirect('homeapp:useradmin')
             template_name = "homeapp/membership.html"
-            context       = {'form':form}
+            context       = {'categoryobjs':categoryobjs,'form':form}
             return render(request,template_name,context)
         else:
             return HttpResponse('Bad request')
@@ -572,6 +615,7 @@ def membership(request):
 # function for user admin pannel
 
 def UserAdmin(request):
+    
     # call the url redirect function 
     # that will do checks and redirect user base on their state
     if request.user.is_authenticated:
@@ -597,6 +641,7 @@ def Logout(request):
 
 # login user in to their account
 def Login(request):
+    categoryobjs     = Category.objects.all()
     if request.user.is_authenticated:
         return redirect('homeapp:home')
     form = LoginForm(request.POST or None)
@@ -612,6 +657,6 @@ def Login(request):
                 if user.is_active:
                     login(request,user)
                     return redirect('homeapp:homeredirect')
-    context = {'login':form}
+    context = {'categoryobjs':categoryobjs,'login':form}
     template_name="homeapp/login.html"
     return render(request,template_name,context)

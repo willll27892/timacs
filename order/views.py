@@ -5,10 +5,12 @@ from django.http import JsonResponse
 from homeapp.session import session_cart_create
 from order.models import ProductOrder,Orderstatus
 from django.core.exceptions import ObjectDoesNotExist
-
+from productsdisplay.views import UsedProducts,ShopeMore
+from products.models import Category, SubCategory
 
 # detail order view
 def orderdetail(request,user,slug):
+    categoryobjs     = Category.objects.all()
     if request.user.is_authenticated:
         if request.user.is_buyer:
             cart,session=session_cart_create(request)
@@ -19,7 +21,7 @@ def orderdetail(request,user,slug):
             except ObjectDoesNotExist:
                 pass
             
-            context={'cartdisply':cartdisply,'cart':cart.pdcount,'mainorder':mainorder}
+            context={'categoryobjs':categoryobjs,'cartdisply':cartdisply,'cart':cart.pdcount,'mainorder':mainorder}
             template_name="homeapp/orderdetail.html"
             return render(request,template_name,context)
         else:
@@ -59,12 +61,13 @@ def Ordercancel(request,user):
         return HttpResponse('bad request')
 
 def userorders(request,user):
+    categoryobjs     = Category.objects.all()
     if request.user.is_authenticated:
         if request.user.is_buyer:
             cart,session=session_cart_create(request)
             mainorder= ProductOrder.objects.filter(buyer=session).order_by('-created')
             cartdisply=True
-            context={'cartdisply':cartdisply,'cart':cart.pdcount,'mainorder':mainorder}
+            context={'categoryobjs':categoryobjs,'cartdisply':cartdisply,'cart':cart.pdcount,'mainorder':mainorder}
             template_name="homeapp/shopperorder.html"
             return render(request,template_name,context)
         else:
@@ -74,7 +77,7 @@ def userorders(request,user):
 #admin upadate order
 
 def OrderUpdate(request,pk):
-    print('status update called')
+    ategoryobjs     = Category.objects.all()
     if request.method=="GET":
         dispatch  = request.GET.get('dispatch')
         shipped   = request.GET.get('shipped')

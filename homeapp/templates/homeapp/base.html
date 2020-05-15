@@ -104,7 +104,7 @@ hold product info, such as images and product  detail
                   <li><a href="{% url 'homeapp:home' %}" >home</a></li>
                 {% else %}
                 {% if not request.user.is_buyer %}
-                <li><a href="{% url 'homeapp:seller' %}" >Become a seller</a></li>
+                <li><a href="{% url 'homeapp:seller' %}" >Sell On Timacs</a></li>
                 {% else %}
                 <li class="displaypic"><a href="{% url 'homeapp:shopperaccount' %}"><span>{{request.user.firstname|truncatechars:20}}</span> <img src="{% static 'img/default.jpg' %}" alt="ecommerce,Africa, business"></a>
                 <div class="useraccount">
@@ -196,26 +196,26 @@ hold product info, such as images and product  detail
               {% if categoryobjs %}
               {% for obj in categoryobjs %}
               {% if obj.category.count > 0 %}
-              <li><a href="#"> {{obj.name}} <span class="caret"></span></a>
+              <li><a href="{% url 'homeapp:quicklinkscat' category=obj.slug %} "> {{obj.name}} <span class="caret"></span></a>
                 
                 <ul class="dropdown-menu">   
                 {% for suboj in obj.category.all|slice:"0:6" %}
                                  
-                    <li><a href="#">{{suboj.name}}</a></li>
+                    <li><a href="{% url 'homeapp:quicklinks' cat=obj.name subcat=suboj.slug %}">{{suboj.name}}</a></li>
                   
                   {% endfor %}
 
                   {% if  obj.category.count > 6 %}
-                  <li><a href="#">And more.. <span class="caret"></span></a>
+                  <li><a >And more.. <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         {% for suboj in obj.category.all|slice:"6:9" %}
-                        <li><a href="#">{{suboj.name}}</a></li>
+                        <li><a href="{% url 'homeapp:quicklinks' cat=obj.name subcat=suboj.slug %}" >{{suboj.name}}</a></li>
                         {% endfor %}
                         {% if  obj.category.count > 9 %}
                         <li><a href="#">And more.. <span class="caret"></span></a>
                           <ul class="dropdown-menu">
-                          {% for subtwo in obj.category.all|slice:"9:" %}
-                          <li><a href="#">{{subtwo.name}}</a></li>
+                          {% for suboj in obj.category.all|slice:"9:" %}
+                          <li><a href="{% url 'homeapp:quicklinks' cat=obj.name subcat=suboj.slug %}">{{suboj.name}}</a></li>
                           {% endfor %}
                           </ul>
                         </li>
@@ -226,7 +226,7 @@ hold product info, such as images and product  detail
                   </ul>
               </li>
                 {% else %}
-                <li><a href="#">{{obj.name}}</a></li>  
+                <li><a href="{% url 'homeapp:quicklinkscat' category=obj.slug %}">{{obj.name}}</a></li>  
                 {% endif %}
                 <!-- close sub category-->
                 {% endfor %} 

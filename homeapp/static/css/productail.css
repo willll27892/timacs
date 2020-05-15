@@ -1380,7 +1380,46 @@ padding-top:40px;
 	width:80%;
 	display: inline-block;
 }
+.quicksearch-container {
+	display: inline-block;
+	width:100%;
+	margin-bottom:30px;
+	margin-top:30px;
+}
+.quicksearch-subcontainer{
+	width:100%;
+	display: inline-block;
+}
+.quicksearch-subcontainer a{
+	text-decoration:none;
+}
+.quicksearch-subcontainer .product-price{
+	color:green;
+}
+.quicksearch-subcontainer .product-name{
+	font-size:20px;
+	color:rgba(0, 0, 0, 0.7);
+}
+ .quicksearch-subcontainer .quicksearchobjs-container{
+	width:25%;
+	float: left;
+}
+.quicksearch-subcontainer .quickobj-info-container{
+	width:100%;
+	text-align: center;
+	
+	
+}
 @media only screen and (min-width:150px) and (max-width:400px){
+	.quicksearch-container {
+		width:100%;
+		text-align: center;
+	}
+	.quicksearch-subcontainer .quicksearchobjs-container{
+		width:100%;
+		margin-bottom: 10px;
+	}
+	
 	.shopmore{
 		display:block;
 		width:100%;
@@ -1691,6 +1730,15 @@ width: 100%;
 }
 
 @media only screen and (min-width:400px) and (max-width:500px){
+	.quicksearch-container {
+		width:100%;
+		text-align: center;
+	}
+	.quicksearch-subcontainer .quicksearchobjs-container{
+		width:100%;
+		margin-bottom: 10px;
+	}
+	
 	.shopmore{
 		display:block;
 		width:100%;
@@ -1973,6 +2021,15 @@ width: 100%;
 
 
 @media only screen and (min-width:500px) and (max-width:900px){
+	
+	.quicksearch-container {
+		width:100%;
+		text-align: center;
+	}
+	.quicksearch-subcontainer .quicksearchobjs-container{
+		width:100%;
+		margin-bottom: 10px;
+	}
 	.info-container,.affiliateform-container{
 		width:80%;
 		float: left;

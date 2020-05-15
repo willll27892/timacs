@@ -5,6 +5,8 @@ from .import views
 app_name="homeapp"
 
 urlpatterns=[
+    url(r'^tag/category/product/quick-search/(?P<category>.*)/$',views.quicklinkscat,name="quicklinkscat"),
+     url(r'^tag/product/quick-search/(?P<cat>.*)/(?P<subcat>.*)/$',views.quicklinks,name="quicklinks"),
     url(r'^seller/agreement/$',views.selleragreement,name="sagreement"),
     url(r'^shope/more/$',views.Shopmoredef,name="shopemore"),
     #home page url

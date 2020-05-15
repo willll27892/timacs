@@ -115,7 +115,7 @@ class SellerID(models.Model):
     created   = models.DateTimeField(auto_now_add=True,null=True)
     user      = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True,related_name="identification")
     idpic     =  models.ImageField(upload_to="ids",null=True)
-    idnum     = models.IntegerField(null=True)
+    idnum     = models.CharField(max_length=200,null=True)
 
     def __str__(self):
         return '{user}'.format(user=self.user)

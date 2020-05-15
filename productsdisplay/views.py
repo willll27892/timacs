@@ -171,3 +171,11 @@ def ShopeMore(request):
     products3 = Tracker.objects.filter( Q(popular=False) & Q(viewed=False) & Q(session=session.id) & Q(productincart=False)).order_by('-created')[20:30]
     print(products1)
     return products1,products2,products3
+
+
+# quick seach from menu category and sub category 
+
+def MenuSearch(request,cat,sub):
+    cart,session = session_cart_create(request)
+    products = Tracker.objects.filter(Q(subcategoryslug=sub) & Q(categoryname=cat) & Q(popular=False) & Q(viewed=False) & Q(session=session.id) & Q(productincart=False)).order_by('-created')
+    return products
