@@ -117,10 +117,10 @@ hold product info, such as images and product  detail
                   {% if not request.user.is_authenticated %}      
                   <li><a href="{% url 'homeapp:login' %}">Login</a></li>
                   <li><a href="{% url 'homeapp:shopper' %}">Register</a></li>
-  
+                  <li><a href="">About Us</a></li>
                   {% endif %}
                 <li><a href="{% url 'product:productrequest' %}">Request Product</a></li>
-                <li><a href="" >Affiliate</a></li>
+                <li><a href="{% url 'affiliate:apply' %}" >Affiliate</a></li>
               </ul>
             </div>
           </div>
@@ -333,6 +333,7 @@ hold product info, such as images and product  detail
                   <div class="aa-footer-widget">
                     <h3>Knowledge Base</h3>
                     <ul class="aa-footer-nav">
+                        <li><a href="#">About Us</a></li>
                       <li><a href="#">Delivery</a></li>
                       <li><a href="#">Returns</a></li>
                     </ul>
@@ -344,7 +345,7 @@ hold product info, such as images and product  detail
                   <div class="aa-footer-widget">
                     <h3>Useful Links</h3>
                     <ul class="aa-footer-nav">
-                      <li><a href="#">FAQ</a></li>
+                      <li><a href="{% url 'affiliate:apply' %}">Affiliate</a></li>
                     </ul>
                   </div>
                 </div>

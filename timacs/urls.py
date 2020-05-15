@@ -25,7 +25,8 @@ urlpatterns = [
     path('products',include('products.urls')),
     url(r'userpannel/',include('adminone.urls')),
     url('billing/',include('billing.urls')),
-    url('order/',include('order.urls'))
+    url('order/',include('order.urls')),
+    url('affilaite/',include('affiliate.urls'))
 ]
 
 

@@ -1,0 +1,224 @@
+
+{% extends 'homeapp/base.html' %}
+{% block content %}
+{% load staticfiles %}
+  
+
+             
+
+
+  <!-- / Promo section -->
+  <!-- Products section -->
+  <section id="aa-product">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="aa-product-area">
+              <div class="aa-product-inner">
+                <!-- start prduct navigation -->
+                 <ul class="nav nav-tabs aa-products-tab">
+                    <li ><a href="{% url 'homeapp:home' %}" >Brand New</a></li>
+                    <li class="active"><a href="{% url 'homeapp:usedItems' %}" >Used Items</a></li>
+                  </ul>
+
+                  {% if tenpds %}
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+
+                    <!-- Start men product category -->
+                    <div class="tab-pane fade in active" id="men">
+                      <ul class="aa-product-catg">
+                        <!-- display products-->
+
+                        {% for product in tenpds %}
+                        <!-- start single product item -->
+                        <li>
+                          <figure>
+                            {% if not product.productdisplay.picone %}
+                            <a class="aa-product-img" href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}"><img src="{% static 'img/man/t-shirt-1.png' %}" alt="polo shirt img"></a>
+                            {% else %}
+                            <a class="aa-product-img" href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}"><img src="{{product.productdisplay.picone.url}}" alt="polo shirt img"></a>
+                            {% endif %}
+                            <a class="aa-add-card-btn" href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}"><span class="fa "></span>Add To Cart</a>
+                            <figcaption>
+                              <h4 class="aa-product-title"><a href="#">{{product.productdisplay.productname}}</a></h4>
+                              
+                              {% if product.productdisplay.sales > 0 %}
+                              <span class="aa-product-price">CFA  {{product.productdisplay.salesprice}} </span>
+                              <span class="aa-product-price"><del>CFA  {{product.productdisplay.pdprice}} </del></span>
+                              {% else %}
+                              <span class="aa-product-price">CFA  {{product.productdisplay.pdprice}} </span>
+                              {% endif %}
+                            </figcaption>
+                          </figure>                         
+                          <div class="aa-product-hvr-content">
+                            <a href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}" data-toggle2="tooltip"  title="Quick View" data-toggle="modal" ><span class="fa fa-search"></span></a>
+                          </div>
+                          <!-- product badge -->
+                          {% if product.productdisplay.status == "sold" %}
+                           <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                           {% endif %}
+                           {% if product.productdisplay.sales > 0 %}
+                           <span class="aa-badge aa-sale" href="#">{{product.productdisplay.sales}}% off</span>
+                           {% endif %}
+                        </li> 
+                        
+                        {% endfor %}
+
+                        
+                        
+                        
+                        
+                    </ul>
+                    </div>
+                   
+                   
+                  
+                  {% else %}
+                  <p style="text-align: center"> No products posted</p>
+                </div>
+                  {% endif %}
+                                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- / Products section -->
+
+
+
+
+
+
+  
+  <!-- popular section -->
+  {% if mstpp %}
+  <div class="container related-product">
+    <h2 style="text-align: left;margin-bottom: 20px; border-bottom: solid;border-width: 1px;color:rgba(0,0,0,0.6);border-color:yellow;">Trending Products</h2>
+     <div class="smaller-screen">
+
+      <section id="aa-product-details">
+      
+        <!-- Related product -->
+        <div class="aa-product-related-item">
+          
+          <ul class="aa-product-catg aa-related-item-slider">
+            <!-- start single product item -->
+            <!-- start single product item -->
+            {% for product in mstpp %}
+            <li>
+              <figure>
+                <a class="img-viewed" href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}"><img src="{{product.productdisplay.picone.url}}" alt="polo shirt img"></a>
+               
+              </figure>
+              <div class="viewed-products-function">   
+              <div class="viewed-Product-name">
+                 {{product.productdisplay.productname}}
+              </div>  
+              <div class="viewed-product-price">
+                 {% if  product.productdisplay.sales > 0 %}
+                 <span class="delete">CFA {{product.productdisplay.salesprice}}</span>   <span>CFA  {{product.pdprice}}</span> 
+                 {% else %}
+                 <span>CFA {{product.productdisplay.pdprice}}</span>
+                 {% endif %}
+              </div>   
+    
+             <div class="viewed-add-to-cart">
+                 <a href="{% url 'homeapp:productdetail' slug=product.productdisplay.slug %}">Add To Cart</a>
+             </div>
+              </div>
+            </li>    
+            {% endfor %}                                                                               
+          </ul>
+          <!-- quick view modal -->                  
+          
+    </section>
+    </div>
+    
+  </div>
+  {% endif %}
+  
+  <!-- / popular section -->
+  <!-- Support section -->
+  <section id="aa-support">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-support-area">
+            <!-- single support -->
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="aa-support-single">
+                <span class="fa fa-truck"></span>
+                <h4>DELIVERY METHODS</h4>
+                <P>Products are delivered using fastest delivery methods.</P>
+              </div>
+            </div>
+            <!-- single support -->
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="aa-support-single">
+                <span class="fa fa-clock-o"></span>
+                <h4>42 HOURS</h4>
+                <P>42 hours max of product delivery between cities.</P>
+              </div>
+            </div>
+            <!-- single support -->
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="aa-support-single">
+                <span class="fa fa-phone"></span>
+                <h4>SUPPORT 24/7</h4>
+                <P>Professional customer care service.</P>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+
+  <style>
+
+ 
+    
+    
+    
+    </style>
+    
+    <script>
+    
+    
+
+    $(document).ready(function(){
+    $('.customer-logos').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2500,
+        arrows: false,
+        dots: true,
+        pauseOnHover: true,
+        responsive: [{
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 4
+            }
+        }, {
+            breakpoint: 520,
+            settings: {
+                slidesToShow: 3
+            }
+        }]
+    });
+});
+    </script>
+    
+ 
+  {% endblock %}
+
+

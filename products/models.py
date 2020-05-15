@@ -10,6 +10,7 @@ from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from homeapp.models import Sessionlog
+from django.core.exceptions import ObjectDoesNotExist
 #category model 
 
 class Category(models.Model):
@@ -291,6 +292,7 @@ class Cart(models.Model):
 
 # this class will be created base on user session.
 class Tracker(models.Model):
+    state          = models.CharField(max_length=200,null=True)
     popular        = models.BooleanField(default=False)
     productincart  = models.BooleanField(default=False)
     session        = models.CharField(max_length=200,null=True)
@@ -319,3 +321,5 @@ class ProductRequest(models.Model):
     description = models.TextField(null=True)
     def __int__(self):
         return str(self.productname)
+        1,2,3,4,5,6,7,8,9,10
+

@@ -3,6 +3,13 @@ from .forms import  Productform,RequestProductForm
 from homeapp.session import session_cart_create
 from django.http import JsonResponse
 
+
+# filter used products
+
+
+
+
+
 # to request a produc
 def RequestProduct(request):
     cart,session = session_cart_create(request)

@@ -69,7 +69,6 @@ $.ajax({
 
 // when adding products to cart
 $(document).ready(function(){
-
 // when user selects a product size
 
 $('.select-size').click(function(){
@@ -205,6 +204,22 @@ $(document).ready(function(){
   });
 
 $(document).ready(function(){
+// submit product update form
+$('#affiliate_application').submit(function(e){
+  e.preventDefault();
+  $.ajax({
+    url:$(this).attr('action'),
+    method:$(this).attr('method'),
+    data:$(this).serialize(),
+    success:function(){
+      $('.received').html('');
+      $('.received').text('Your request received. We will get back to you shortly.')
+      $('#affiliate_application')[0].reset();
+    },
+    error:function(){}
+  })
+})
+
 // submit product update form
 $('#productupdateform').submit(function(e){
   e.preventDefault();

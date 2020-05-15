@@ -130,7 +130,10 @@
       <span>{{product.instock}}</span>
       {% else %}
       <span style="color:red;font-size: 15px;">out of stock</span>
+    
       {% endif %}
+      <br>
+      <span>Location of Product:  {{product.location}}</span>
       
       </div>
   <div class="add-quantity">
@@ -254,7 +257,15 @@
       {% endif %}
       {% endif %}
     </form>
-    
+    <div class="freedilivery">
+      Note:
+      <p>
+        Free deliver of this product within {{product.location}}.
+      </p>
+      <p>
+        For city to city delivery, delivery fee of   1000 cfa + will be applicable. Base on product type.
+      </p>
+    </div>
   </div>
 </div>
 <!-- end of info sub container-->
@@ -387,12 +398,20 @@
            </tr>
            <tr>
              <td>
-               ProductName
+               Product Name
              </td>
              <td>
                {{product.productname}}
              </td>
             </tr>
+            <tr>
+                <td>
+                  Product State
+                </td>
+                <td>
+                  {{product.state}}
+                </td>
+               </tr>
              <tr>
              <td>
                Brand
@@ -559,6 +578,7 @@
    </div>
    {% endif %}
 
+   {% if request.user.is_admin %}
 <div class="adminuser-div">
   <form id="productupdateform" action="{% url 'homeapp:updateproduct' slug=product.slug %}" method="GET" enctype="multipart/form-data">
     <p style="color:green"></p>
@@ -590,7 +610,7 @@
     </div>
   </form>
 </div>
-
+{% endif %}
              <!-- Related product -->
 {% if simpd %}
 

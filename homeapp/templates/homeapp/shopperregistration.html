@@ -3,10 +3,11 @@
 {% load staticfiles %}
 <div class="registrationform">
 <div class="page-content">
+        
     <div class="form-v4-content">
        
         <form class="form-detail" action="{% url 'homeapp:shopper' %}"  method="POST" id="myform">
-
+                <h2>Create a free account.</h2>
             {% csrf_token %}
  
             <div class="form-group">

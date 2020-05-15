@@ -16,7 +16,7 @@
                <span data-seq>Save Up to 90% </span>                
                 <h2 data-seq>Men's Fashion</h2>                
                 <p data-seq>Lastest, trending, stylish and outstanding outfits</p>
-                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
+                <a data-seq href="{% url 'homeapp:shopemore' %}"  class="aa-shop-now-btn aa-secondary-btn" >SHOP NOW</a>
               </div>
             </li>
             <!-- single slide item -->
@@ -28,7 +28,6 @@
                 <span data-seq>Save Up to 50% </span>                
                 <h2 data-seq>Electronics</h2>                
                 <p data-seq> Consumer and home electronics.</p>
-                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
               </div>
             </li>
             <!-- single slide item -->
@@ -40,7 +39,7 @@
                 <span data-seq>Save Up to 75% </span>                
                 <h2 data-seq>Casual Collections</h2>                
                 <p data-seq >Fashionable and stylish.</p>
-                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
+
               </div>
             </li>
             <!-- single slide item -->           
@@ -52,7 +51,6 @@
                 <span data-seq>Save Up to 40%</span>                
                 <h2 data-seq>Used Products</h2>                
                 <p data-seq>Buy and sell used products.</p>
-                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
               </div>
             </li>
                              
@@ -67,94 +65,10 @@
     </div>
   </section>
   <!-- / slider -->
-  <!-- Start Promo section -->
-  <section id="aa-promo">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="aa-promo-area">
-            <div class="row">
 
 
-              <!-- promo left -->
 
-              <!-- links to take user to women items on sale-->
-              <div class="col-md-5 no-padding">                
-                <div class="aa-promo-left">
-                  <div class="aa-promo-banner">                    
-                    <img src="{% static 'img/women/women-one.jpg' %}" alt="img">                    
-                    <div class="aa-prom-content">
-                      <span>Up to 80% Off</span>
-                      <h4><a href="#">For Women</a></h4>                      
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- promo right -->
-
-              <!-- link to display promotion products for men-->
-              <div class="col-md-7 no-padding">
-                <div class="aa-promo-right">
-                  <div class="aa-single-promo-right">
-                    <div class="aa-promo-banner">                      
-                      <img src="{% static 'img/fashion/itempromo_watch.jpg' %}" alt="img">                      
-                      <div class="aa-prom-content">
-                        <span>Exclusive Item</span>
-                        <h4><a href="#">For Men</a></h4>                        
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- end of men promotion products-->
-
-                  <!-- link to display promotions on electronics-->
-                  <div class="aa-single-promo-right">
-                    <div class="aa-promo-banner">                      
-                      <img src="{% static 'img/electronics/promodisplay.jpg' %}" alt="img">                      
-                      <div class="aa-prom-content">
-                        <span>Sale Off</span>
-                        <h4><a href="#">Electronics</a></h4>                        
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- end of electronics promotion-->
-
-                 
-                 <!-- link to take user to recented posted ladies products-->
-                  <div class="aa-single-promo-right">
-                    <div class="aa-promo-banner">                      
-                      <img src="{% static 'img/kids/imagepromo.jpg' %}" alt="img">                      
-                      <div class="aa-prom-content">
-                        <span>New Arrivals</span>
-                        <h4><a href="#">For Kids</a></h4>                        
-                      </div>
-                    </div>
-                  </div>
-                <!-- end of ladies link -->
-
-
-                    <!-- link to take visitor to shoes on sale-->
-
-                  <div class="aa-single-promo-right">
-                    <div class="aa-promo-banner">                      
-                      <img src="{% static 'img/shoes/promoone.jpg' %}" alt="img">                      
-                      <div class="aa-prom-content">
-                        <span>Sale Off</span>
-                        <h4><a href="#">For Shoes</a></h4>                        
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
+             
 
 
   <!-- / Promo section -->
@@ -169,7 +83,7 @@
                 <!-- start prduct navigation -->
                  <ul class="nav nav-tabs aa-products-tab">
                     <li class="active"><a href="#men" data-toggle="tab">Brand New</a></li>
-                    <li><a href="" >Used Items</a></li>
+                    <li><a href="{% url 'homeapp:usedItems' %}" >Used Items</a></li>
                   </ul>
 
                   {% if tenpds %}
@@ -221,7 +135,7 @@
                         
                         
                       </ul>
-                      <a class="aa-browse-btn" href="#">More <span class="fa fa-long-arrow-right"></span></a>
+                      <a class="aa-browse-btn" href="{% url 'homeapp:shopemore' %}">More <span class="fa fa-long-arrow-right"></span></a>
                     </div>
                    
                    

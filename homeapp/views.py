@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,HttpResponse,get_object_or_404
 from homeapp.forms import LoginForm,RegisterForm,AddressForm,Membershipform
 from django.contrib.auth import login,logout,authenticate
-from homeapp.models import Membership,Address
+from homeapp.models import Membership,Address,Sagreement
 from homeapp.urlredirect import UrlRedirect
 from products.models import CostProcessing,Product,ProductSize,ProductColor,Tracker
 from productsdisplay import views
@@ -12,11 +12,14 @@ from homeapp.activitytracker import CheckIfProductNotIncart,Activity_function,Pr
 from django.db.models import Q
 from order.forms import ReceiverInfo
 from order.models import ReceiversName,ProductOrder,Orderstatus
+from productsdisplay.views import UsedProducts,ShopeMore
 
 
-# order details 
-
-
+def selleragreement(request):
+    agmnt = Sagreement.objects.all().last()
+    context={'agmnt':agmnt}
+    template_name="homeapp/agreement.html"
+    return render (request,template_name,context)
 
 # setup or return delivery address and receiver 
 def Order(request):
@@ -264,9 +267,16 @@ def CartUpdate(request):
         data={'objs':objs}
         return JsonResponse(data)
 
+
+
 # show more products to user 
-def Shopmore(request):
-    pass
+def Shopmoredef(request):
+    section1,section2,section3 =ShopeMore(request)
+    template_name="homeapp/shopemore.html"
+    context={'section1':section1,'section2':section2,'section3':section3}
+    return render(request,template_name,context)
+
+
 
 # product detail 
 def ProductDetail(request,slug):
@@ -324,7 +334,21 @@ def updateproduct(request,slug):
             print(status)
             product.save()
     return redirect('homeapp:productdetail',slug)
+
+# Display used products 
+def UsedProduct(request):
     
+    cartdisply=True
+    cart,session = session_cart_create(request)
+    tenpds =UsedProducts(request)
+    mstpp,firstpp = views.pp_view(request)
+    #check if this page is requested by seller
+    if request.user.is_authenticated:
+        if request.user.is_seller or request.user.is_admin :
+            return redirect('homeapp:address')
+    context={'mstpp':mstpp,'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':tenpds}
+    template_name="homeapp/useditems.html"
+    return render(request,template_name,context)  
 
 # home page view
 def index(request):

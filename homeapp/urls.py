@@ -5,8 +5,10 @@ from .import views
 app_name="homeapp"
 
 urlpatterns=[
+    url(r'^seller/agreement/$',views.selleragreement,name="sagreement"),
+    url(r'^shope/more/$',views.Shopmoredef,name="shopemore"),
     #home page url
-   
+    url(r'^items/used/$',views.UsedProduct,name="usedItems"),
     url(r'^shopper/user/account/addressbook/(?P<user>.*)/$',views.AddressBook,name="addressbook"),
     url(r'^shopper/user/account/password/change/(?P<user>.*)/$',views.passwordchange,name="passwordchange"),
     url(r'^shopper/user/account$',views.Shopperpannel,name="shopperaccount"),
@@ -14,8 +16,7 @@ urlpatterns=[
     url(r'^place_order/$',views.Order,name="order"),
     url(r'^remove/product/cart/$',views.RemoveProduct,name="removeproduct"),
     url(r'^update/cart/$',views.CartUpdate,name="updatecart"),
-    url(r'^cart/$',views.cart,name="mycart"),
-    url(r'^shoppers/stop/$',views.Shopmore,name="shopmore"),
+    url(r'^cart/$',views.cart,name="mycart"),    
     url(r'^cart/(?P<slug>[\w-]+)$',views.AddToCart,name="addtocart"),
     url(r'^product/detail/(?P<slug>[\w-]+)$',views.ProductDetail,name="productdetail"),
     url(r'^product/update/(?P<slug>[\w-]+)$',views.updateproduct,name="updateproduct"),

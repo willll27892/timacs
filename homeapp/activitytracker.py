@@ -11,6 +11,7 @@ track all the products user has visited
 using the session id
 """
 class Activity(models.Model):
+    state          = models.CharField(max_length=200,null=True)
     popular        = models.ManyToManyField(Product,related_name="popularproduct")
     user           = models.ForeignKey(CustomUser,null=True,related_name='actuser',on_delete=models.CASCADE)
     session        = models.CharField(max_length=200,null=True)
@@ -78,20 +79,20 @@ def  trackproducts(user,pdobjs,sessionid):
             for product in pdobjs:
                 #check if tracker object has been created for product
                 if not product in productlogs:
-                    Tracker.objects.create(productdisplay=product,session=sessionid) 
+                    Tracker.objects.create(state=product.state,productdisplay=product,session=sessionid) 
                     # create tracker object for popular product
                     if  product.views > minviews.views:
-                        Tracker.objects.create(popular=True,productdisplay=product,session=sessionid) 
+                        Tracker.objects.create(state=product.state,popular=True,productdisplay=product,session=sessionid) 
 
  
         if not activity:
             activity = Activity.objects.create(session=sessionid)
             # create product tracker objects  for this session id
             for product in pdobjs:
-                Tracker.objects.create(productdisplay=product,session=sessionid)
+                Tracker.objects.create(state=product.state,productdisplay=product,session=sessionid)
                 # create tracker object for popular product
                 if  product.views > minviews.views:
-                    Tracker.objects.create(popular=True,productdisplay=product,session=sessionid) 
+                    Tracker.objects.create(state=product.state,popular=True,productdisplay=product,session=sessionid) 
         
         for product in pdobjs:
             activity.products.add(product)

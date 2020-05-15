@@ -1,0 +1,61 @@
+{% extends 'homeapp/base.html' %}
+{% block content %}
+{% load staticfiles %}
+<div class="affiliate-container">
+<div class="info-container">
+<article>
+    <p>
+        TIMACS affiliate program is design to offer work
+        from home opportunities to those seeking means to make extral money.
+        This program is almost free of charge, and most importantly to help students, stay at 
+        home mums etc,  make  money. Meeting up with their needs will no longer be a problem or call for concern.<br>
+        fill up the form to become an affiliated agent.
+
+    </p>
+</article>
+<div class="received" style="text-align: center;color:green">
+
+</div>
+</div>
+<div class="affiliateform-container">
+    <form id="affiliate_application" action="{% url 'affiliate:apply' %}" method="post">
+        {% csrf_token %}
+        <div class="fields_lable">
+        Your Name:
+        </div>
+        <div class="fields">
+        {{form.name}}
+        </div>
+        <div class="fields_lable">
+            Your Email:
+        </div>
+        <div class="fields">
+                {{form.email}}
+        </div> 
+        <div class="fields_lable">
+                Your Number:
+            </div>
+            <div class="fields">
+                    {{form.number}}
+            </div> 
+            <div class="fields_lable">
+                    Your Occupation:
+                </div>
+                <div class="fields">
+                        {{form.occupation}}
+                </div> 
+            <div class="fields_lable">
+                    Your Address:
+                </div>
+                <div class="fields">
+                        {{form.address}}
+                </div> 
+
+                <div class="submit-div">
+                    <button type="submit">Apply</button>
+                </div>
+       
+    </form>
+</div>
+</div>
+{% endblock %}

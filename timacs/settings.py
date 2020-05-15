@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'products',
     'adminone',
     'productsdisplay',
-    
+    'billing', 
+    'order', 
+    'affiliate' 
 ]
 
 MIDDLEWARE = [
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
     
 ]
 AUTH_USER_MODEL = 'homeapp.CustomUser'
@@ -83,8 +86,12 @@ WSGI_APPLICATION = 'timacs.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ecommerce',                      
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
+        'HOST': '',
+        'PORT': '',# set to empty to use the default port number
     }
 }
 

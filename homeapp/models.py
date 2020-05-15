@@ -168,3 +168,5 @@ class Address(models.Model):
     def __str__(self):
         return "{user}".format(user=self.user)
 
+class Sagreement(models.Model):
+    agreement=models.TextField(null=True)
