@@ -51,8 +51,13 @@ def  quicklinkscat(request,category):
     cat=category
     cart,session = session_cart_create(request)
     try :
+        
         catobj = Category.objects.get(slug=category)
-        tenpds=  SearchCategory(request,catname=catobj.name)
+        cat= catobj.name
+        tenpds=  SearchCategory(request,catname=cat)
+        print('called try')
+        print('product objs')
+        print(tenpds)
         paginator = Paginator(tenpds, 16) 
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)

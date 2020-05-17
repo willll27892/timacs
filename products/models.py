@@ -14,7 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 #category model 
 
 class Category(models.Model):
-    name    = models.CharField(max_length=50,null=True)
+    name    = models.CharField(unique=True,max_length=50,null=True)
     created = models.DateTimeField(auto_now_add=True,null=True)
     slug    = models.SlugField(null=True,blank=True)
 
@@ -34,8 +34,8 @@ class Category(models.Model):
 class SubCategory(models.Model):
     category = models.ManyToManyField(Category,null=True,related_name="category")
     slug     = models.SlugField(null=True,blank=True)
-    name     = models.CharField(max_length=100,null=True)
-    descrip  = models.TextField()
+    name     = models.CharField(unique=True,max_length=100,null=True)
+    descrip  = models.TextField(null=True)
     def __str__(self):
         return self.name
 
