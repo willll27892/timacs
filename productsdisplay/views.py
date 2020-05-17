@@ -179,3 +179,9 @@ def MenuSearch(request,cat,sub):
     cart,session = session_cart_create(request)
     products = Tracker.objects.filter(Q(subcategoryslug=sub) & Q(categoryname=cat) & Q(popular=False) & Q(viewed=False) & Q(session=session.id) & Q(productincart=False)).order_by('-created')
     return products
+
+
+def SearchCategory(request,catname):
+    cart,session = session_cart_create(request)
+    products = Tracker.objects.filter( Q(categoryname=cat) & Q(popular=False) & Q(viewed=False) & Q(session=session.id) & Q(productincart=False)).order_by('-created')
+    return products

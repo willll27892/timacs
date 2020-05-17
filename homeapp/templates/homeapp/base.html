@@ -264,23 +264,26 @@ hold product info, such as images and product  detail
                     <li><a href="{% url 'homeapp:home' %}">Home</a></li>
                     {% else %}
                     {% if not request.user.is_authenticated %}
-                    <li> <a href="{% url 'homeapp:seller' %}">Become a seller</a></li>
+                    <li> <a href="{% url 'homeapp:seller' %}">Sell on TIMACS</a></li>
                     {% else %}
                     {% endif %}
                     <li><a href="{% url 'homeapp:home' %}">Home</a></li>
                     {% endif %}
+                    <li><a href="">About Us</a></li>
                     
                   </ul>
                 </div>
               </div>
+
+
               <div class="col-md-3 col-sm-6">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
-                    <h3>Knowledge Base</h3>
+                    <h3>Payment Methods</h3>
                     <ul class="aa-footer-nav">
-                        <li><a href="#">About Us</a></li>
-                      <li><a href="#">Delivery</a></li>
-                      <li><a href="#">Returns</a></li>
+                        <li><a>MTN mobile money</a></li>
+                      <li><a>Orange Money</a></li>
+                      <li><a >Master And Visa Card</a></li>
                     </ul>
                   </div>
                 </div>
@@ -288,7 +291,19 @@ hold product info, such as images and product  detail
               <div class="col-md-3 col-sm-6">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
-                    <h3>Useful Links</h3>
+                    <h3>Our Policies</h3>
+                    <ul class="aa-footer-nav">
+                        <li><a href="#">Buyer and Seller Saftey Policy</a></li>
+                      <li><a href="#">Delivery Policy</a></li>
+                      <li><a href="#">Returns Policy</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="aa-footer-widget">
+                  <div class="aa-footer-widget">
+                    <h3>About TIMACS</h3>
                     <ul class="aa-footer-nav">
                       <li><a href="{% url 'affiliate:apply' %}">Affiliate</a></li>
                     </ul>

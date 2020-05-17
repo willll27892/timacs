@@ -12,9 +12,14 @@ from homeapp.activitytracker import CheckIfProductNotIncart,Activity_function,Pr
 from django.db.models import Q
 from order.forms import ReceiverInfo
 from order.models import ReceiversName,ProductOrder,Orderstatus
-from productsdisplay.views import  MenuSearch,UsedProducts,ShopeMore
+from productsdisplay.views import  SearchCategory,MenuSearch,UsedProducts,ShopeMore
 from products.models import Category, SubCategory
 from django.core.paginator import Paginator
+
+
+
+
+
 
 
 # display all products with category and subcategory relationship
@@ -40,7 +45,31 @@ def  quicklinks(request,cat,subcat):
 
 def  quicklinkscat(request,category):
     activity = Activity_function(request)
-    pass
+    categoryobjs     = Category.objects.all()
+    tenpds = None
+    page_obj=None
+    cat=category
+    cart,session = session_cart_create(request)
+    try :
+        catobj = Category.objects.get(slug=category)
+        tenpds=  SearchCategory(request,catname=catobj.name)
+        paginator = Paginator(tenpds, 16) 
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+    except:
+       tenpds =None 
+    
+    cartdisply=True
+
+
+    mstpp,firstpp = views.pp_view(request)
+    #check if this page is requested by seller
+    if request.user.is_authenticated:
+        if request.user.is_seller or request.user.is_admin :
+            return redirect('homeapp:address')
+    context={'cat':cat,'categoryobjs':categoryobjs,'mstpp':mstpp,'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':page_obj}
+    template_name="homeapp/quickproductsearch.html"
+    return render(request,template_name,context)
 
 
 def selleragreement(request):
