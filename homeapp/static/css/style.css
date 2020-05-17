@@ -3441,6 +3441,9 @@ img {
   color: #fff;
 }
 
+.navbar-nav li a{
+  text-transform:capitalize;
+}
 /*==================
  RESPONSIVE DESIGN
 ====================*/
