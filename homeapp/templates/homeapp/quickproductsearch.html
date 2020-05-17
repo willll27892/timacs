@@ -18,7 +18,7 @@
               <div class="aa-product-inner">
                 <!-- start prduct navigation -->
                  <ul class="nav nav-tabs aa-products-tab">
-                    <li class="active"><a href="{% url 'homeapp:usedItems' %}" >{{cat}}</a></li>
+                    <li class="active"><a href="{% url 'homeapp:usedItems' %}" >{{cat}}{% if subcatname %}-{{subcatname}} {% endif %}</a></li>
                     <li ><a href="{% url 'homeapp:home' %}" >Brand New</a></li>
                     <li ><a href="{% url 'homeapp:usedItems' %}" >Used Items</a></li>
                   </ul>
@@ -45,7 +45,7 @@
 
                   </div>
                   {% else %}
-                  <p style="text-align: center"> No products posted</p>
+                  <p style="text-align: center"> No products found</p>
                 </div>
                   {% endif %}
 

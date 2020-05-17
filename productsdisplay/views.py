@@ -82,7 +82,7 @@ def pp_view(request):
             product.delete()
         #create new popular product objects
         for product in postedproducts:
-                Tracker.objects.create(state=product.state,productdisplay=product,session=session.id,popular=True)
+                Tracker.objects.create(productname=product.productname,productprice=product.pdprice,productstate=product.state,categoryname=product.category.name,subcategoryslug=product.subcategory.slug,state=product.state,productdisplay=product,session=session.id,popular=True)
     # retrieve  new available popular product objects.
     products = Tracker.objects.filter(Q(state="Brand New") & Q(popular=True,productdisplay__views__gte=pp.views,session=session.id,productincart=False))[:6]
     first    = Tracker.objects.filter(Q(popular=True,productdisplay__views__gte=pp.views,session=session.id,productincart=False)).last()    
@@ -183,5 +183,11 @@ def MenuSearch(request,cat,sub):
 
 def SearchCategory(request,catname):
     cart,session = session_cart_create(request)
-    products = Tracker.objects.filter( Q(categoryname=catname) & Q(popular=False)  & Q(session=session.id) & Q(productincart=False)).order_by('-created')
+    products = Tracker.objects.filter(Q(categoryname=catname) & Q(popular=False)  & Q(session=session.id) & Q(productincart=False)).order_by('-created')
+    return products
+
+
+def SeaerchByInput(request,inputvalue):
+    cart,session = session_cart_create(request)
+    products = Tracker.objects.filter(Q(Q(subcategoryslug=inputvalue) | Q(categoryname=inputvalue) | Q(productname=inputvalue) | Q(productprice=inputvalue)) & Q(Q(session=session.id) & Q(popular=False)) ) 
     return products

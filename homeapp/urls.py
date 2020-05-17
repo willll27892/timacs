@@ -5,7 +5,7 @@ from .import views
 app_name="homeapp"
 
 urlpatterns=[
-    
+    url(r'^search/timacs/',views.inputsearch,name="inputsearch"),
     url(r'^tag/category/product/quick-search/(?P<category>.*)/$',views.quicklinkscat,name="quicklinkscat"),
      url(r'^tag/product/quick-search/(?P<cat>.*)/(?P<subcat>.*)/$',views.quicklinks,name="quicklinks"),
     url(r'^seller/agreement/$',views.selleragreement,name="sagreement"),

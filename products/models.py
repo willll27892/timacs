@@ -293,6 +293,9 @@ class Cart(models.Model):
 
 # this class will be created base on user session.
 class Tracker(models.Model):
+    productstate  = models.CharField(max_length=200,null=True) 
+    productprice    = models.CharField(max_length=200,null=True)
+    productname     = models.CharField(max_length=200,null=True)
     categoryname    = models.CharField(max_length=100,null=True)
     subcategoryslug = models.CharField(max_length=200,null=True)
     state          = models.CharField(max_length=200,null=True)

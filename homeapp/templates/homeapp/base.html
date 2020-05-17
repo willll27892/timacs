@@ -162,8 +162,8 @@ hold product info, such as images and product  detail
             <!-- / cart box -->
             <!-- search box -->
             <div class="aa-search-box">
-              <form action="">
-                <input type="text" name="" id="" placeholder="Search here  ">
+              <form action="{% url 'homeapp:inputsearch' %}" method="get">
+                <input  type="text"  id="" placeholder="Search product" name="q" required>
                 <button type="submit"><span class="fa fa-search"></span></button>
               </form>
             </div>

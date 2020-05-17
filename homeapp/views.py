@@ -12,20 +12,49 @@ from homeapp.activitytracker import CheckIfProductNotIncart,Activity_function,Pr
 from django.db.models import Q
 from order.forms import ReceiverInfo
 from order.models import ReceiversName,ProductOrder,Orderstatus
-from productsdisplay.views import  SearchCategory,MenuSearch,UsedProducts,ShopeMore
+from productsdisplay.views import  SeaerchByInput,SearchCategory,MenuSearch,UsedProducts,ShopeMore
 from products.models import Category, SubCategory
 from django.core.paginator import Paginator
 
 
 
-
+def inputsearch(request):
+    activity = Activity_function(request)
+    categoryobjs     = Category.objects.all()
+    cartdisply=True
+    inputvalue=None
+    cart,session = session_cart_create(request)
+    if request.method=="GET":
+        value= request.GET.get('q')
+        if value is not None:
+            inputvalue=str(value)
+    tenpds=  SeaerchByInput(request,inputvalue=inputvalue)
+    paginator = Paginator(tenpds, 16) 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    print('tends')
+    print(tenpds)
+    mstpp,firstpp = views.pp_view(request)
+    #check if this page is requested by seller
+    if request.user.is_authenticated:
+        if request.user.is_seller or request.user.is_admin :
+            return redirect('homeapp:address')
+    context={'cat':inputvalue,'categoryobjs':categoryobjs,'mstpp':mstpp,'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':page_obj}
+    template_name="homeapp/quickproductsearch.html"
+    return render(request,template_name,context)   
 
 
 
 # display all products with category and subcategory relationship
-def  quicklinks(request,cat,subcat):
+def quicklinks(request,cat,subcat):
     activity = Activity_function(request)
     categoryobjs     = Category.objects.all()
+    subcatname=None
+    try:
+        subcategory = SubCategory.objects.get(slug=subcat)
+        subcatname =subcategory.name
+    except ObjectDoesNotExist:
+        subcatname=None
     cartdisply=True
     cart,session = session_cart_create(request)
     tenpds=  MenuSearch(request,cat,subcat)
@@ -39,24 +68,24 @@ def  quicklinks(request,cat,subcat):
     if request.user.is_authenticated:
         if request.user.is_seller or request.user.is_admin :
             return redirect('homeapp:address')
-    context={'cat':cat,'categoryobjs':categoryobjs,'mstpp':mstpp,'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':page_obj}
+    context={'subcatname':subcatname,'cat':cat,'categoryobjs':categoryobjs,'mstpp':mstpp,'cartdisply':cartdisply,'cart':cart.pdcount,'tenpds':page_obj}
     template_name="homeapp/quickproductsearch.html"
     return render(request,template_name,context)
 
 def  quicklinkscat(request,category):
+    print('quicklinkscat called')
     activity = Activity_function(request)
     categoryobjs     = Category.objects.all()
     tenpds = None
     page_obj=None
-    cat=category
+    cat=None
     cart,session = session_cart_create(request)
     try :
         
         catobj = Category.objects.get(slug=category)
         cat= catobj.name
+        print(cat)
         tenpds=  SearchCategory(request,catname=cat)
-        print('called try')
-        print('product objs')
         print(tenpds)
         paginator = Paginator(tenpds, 16) 
         page_number = request.GET.get('page')

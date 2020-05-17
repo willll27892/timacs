@@ -79,20 +79,20 @@ def  trackproducts(user,pdobjs,sessionid):
             for product in pdobjs:
                 #check if tracker object has been created for product
                 if not product in productlogs:
-                    Tracker.objects.create(categoryname=product.category.name,subcategoryslug=product.subcategory.slug,state=product.state,productdisplay=product,session=sessionid) 
+                    Tracker.objects.create(productname=product.productname,productprice=product.pdprice,productstate=product.state,categoryname=product.category.name,subcategoryslug=product.subcategory.slug,state=product.state,productdisplay=product,session=sessionid) 
                     # create tracker object for popular product
                     if  product.views > minviews.views:
-                        Tracker.objects.create(categoryname=product.category.name,subcategoryslug=product.subcategory.slug,state=product.state,popular=True,productdisplay=product,session=sessionid) 
+                        Tracker.objects.create(productname=product.productname,productprice=product.pdprice,productstate=product.state,categoryname=product.category.name,subcategoryslug=product.subcategory.slug,state=product.state,popular=True,productdisplay=product,session=sessionid) 
 
  
         if not activity:
             activity = Activity.objects.create(session=sessionid)
             # create product tracker objects  for this session id
             for product in pdobjs:
-                Tracker.objects.create(categoryname=product.category.name,subcategoryslug=product.subcategory.slug,state=product.state,productdisplay=product,session=sessionid)
+                Tracker.objects.create(productname=product.productname,productprice=product.pdprice,productstate=product.state,categoryname=product.category.name,subcategoryslug=product.subcategory.slug,state=product.state,productdisplay=product,session=sessionid)
                 # create tracker object for popular product
                 if  product.views > minviews.views:
-                    Tracker.objects.create(categoryname=product.category.name,subcategoryslug=product.subcategory.slug,state=product.state,popular=True,productdisplay=product,session=sessionid) 
+                    Tracker.objects.create(productname=product.productname,productprice=product.pdprice,productstate=product.state,categoryname=product.category.name,subcategoryslug=product.subcategory.slug,state=product.state,popular=True,productdisplay=product,session=sessionid) 
         
         for product in pdobjs:
             activity.products.add(product)
@@ -114,10 +114,10 @@ def  trackproducts(user,pdobjs,sessionid):
             for product in pdobjs:
                 #check if tracker object has been created for product
                 if not product in productlogs:
-                    Tracker.objects.create(categoryname=product.category.name,subcategoryslug=product.subcategory.slug,productdisplay=product,session=sessionid)
+                    Tracker.objects.create(productname=product.productname,productprice=product.pdprice,productstate=product.state,categoryname=product.category.name,subcategoryslug=product.subcategory.slug,productdisplay=product,session=sessionid)
                     # create tracker object for popular product
                     if  product.views > minviews.views:
-                        Tracker.objects.create(categoryname=product.category.name,subcategoryslug=product.subcategory.slug,popular=True,productdisplay=product,session=sessionid) 
+                        Tracker.objects.create(productname=product.productname,productprice=product.pdprice,productstate=product.state,categoryname=product.category.name,subcategoryslug=product.subcategory.slug,popular=True,productdisplay=product,session=sessionid) 
         
         if activity and not authactivity:
             sesactivity =activity.first()
@@ -129,10 +129,10 @@ def  trackproducts(user,pdobjs,sessionid):
             activity = Activity.objects.create(session=sessionid,user=user)
             # create product tracker objects  for this session id
             for product in pdobjs:
-                Tracker.objects.create(categoryname=product.category.name,subcategoryslug=product.subcategory.slug,productdisplay=product,session=sessionid)
+                Tracker.objects.create(productname=product.productname,productprice=product.pdprice,productstate=product.state,categoryname=product.category.name,subcategoryslug=product.subcategory.slug,productdisplay=product,session=sessionid)
                 # create tracker object for popular product
                 if  product.views > minviews.views:
-                    Tracker.objects.create(categoryname=product.category.name,subcategoryslug=product.subcategory.slug,popular=True,productdisplay=product,session=sessionid) 
+                    Tracker.objects.create(productname=product.productname,productprice=product.pdprice,productstate=product.state,categoryname=product.category.name,subcategoryslug=product.subcategory.slug,popular=True,productdisplay=product,session=sessionid) 
         for product in pdobjs:
             activity.products.add(product)
         activity =Activity.objects.filter(session=sessionid,user=user).first()
