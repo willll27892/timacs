@@ -257,21 +257,12 @@ hold product info, such as images and product  detail
             <div class="row">
               <div class="col-md-3 col-sm-6">
                 <div class="aa-footer-widget">
-                  <h3>Main Menu</h3>
+                  <h3>BUYING AND SELLING ON TIMACS</h3>
                   <ul class="aa-footer-nav">
-                    <!-- check if user is at seller registration page-->
-                    {% if seller %}
-                    <li><a href="{% url 'homeapp:home' %}">Home</a></li>
-                    {% else %}
-                    {% if not request.user.is_authenticated %}
-                    <li> <a href="{% url 'homeapp:seller' %}">Sell on TIMACS</a></li>
-                    {% else %}
-                    {% endif %}
-                    <li><a href="{% url 'homeapp:home' %}">Home</a></li>
-                    {% endif %}
-                    <li><a href="">About Us</a></li>
-                    <li><a href="{% url 'affiliate:apply' %}">Affiliate</a></li>
-                  </ul>
+                    <li><a href="#">Buyer and Seller Saftey Policy</a></li>
+                  <li><a href="#">Delivery Policy</a></li>
+                  <li><a href="#">Returns Policy</a></li>
+                </ul>
                 </div>
               </div>
 
@@ -279,7 +270,7 @@ hold product info, such as images and product  detail
               <div class="col-md-3 col-sm-6">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
-                    <h3>Payment Methods</h3>
+                    <h3>PAYMENTS</h3>
                     <ul class="aa-footer-nav">
                         <li><a>MTN mobile money</a></li>
                       <li><a>Orange Money</a></li>
@@ -291,11 +282,11 @@ hold product info, such as images and product  detail
               <div class="col-md-3 col-sm-6">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
-                    <h3>Our Policies</h3>
+                    <h3>ABOUT TIMACS</h3>
                     <ul class="aa-footer-nav">
-                        <li><a href="#">Buyer and Seller Saftey Policy</a></li>
-                      <li><a href="#">Delivery Policy</a></li>
-                      <li><a href="#">Returns Policy</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                      <li><a href="#">About Us</a></li>
+                      <li><a href="">Terms and Conditions</a></li>
                     </ul>
                   </div>
                 </div>
@@ -304,16 +295,13 @@ hold product info, such as images and product  detail
               <div class="col-md-3 col-sm-6">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
-                    <h3>Contact Us</h3>
-                    <address>
-                      <p><span class="fa fa-phone"></span>000-000-000</p>
-                      <p><span class="fa fa-envelope"></span>email</p>
-                    </address>
+                    <h3>CONNECT WITH US</h3>
                     <div class="aa-footer-social">
                       <a href="#"><span class="fa fa-facebook"></span></a>
                       <a href="#"><span class="fa fa-twitter"></span></a>
-                      <a href="#"><span class="fa fa-google-plus"></span></a>
+                      <a href="#"><span class="fa fa-instagram"></span></a>
                       <a href="#"><span class="fa fa-youtube"></span></a>
+                      <a href="#"><span class="fa fa-linkedin"></span></a>
                     </div>
                   </div>
                 </div>
