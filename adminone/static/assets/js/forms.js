@@ -204,6 +204,23 @@ $(document).ready(function(){
   });
 
 $(document).ready(function(){
+// submit contact form
+
+$('#contactform').submit(function(e){
+  e.preventDefault();
+  $.ajax({
+    url:$(this).attr('action'),
+    method:$(this).attr('method'),
+    data:$(this).serialize(),
+    success:function(){
+      $('.received').html('');
+      $('.received').text('Message sent. Thank you')
+      $('#contactform')[0].reset();
+    },
+    error:function(){}
+  })
+})
+
 // submit product update form
 $('#affiliate_application').submit(function(e){
   e.preventDefault();

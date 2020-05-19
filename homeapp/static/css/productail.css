@@ -1418,9 +1418,66 @@ padding-top:40px;
 	
 	
 }
-@media only screen and (min-width:150px) and (max-width:400px){
-	
 
+.contactform .button {
+	text-align: center;
+}
+.contactform{
+	display: inline-block;
+	width:70%;
+	background-color: black;
+	position: relative;
+	left:15%;
+}
+.contactform .form-type{
+	width: 70%;
+	float: left;
+}
+.contactform .order-info{
+	text-align: center;
+	background-color: white;
+	width:20%;
+	float: left;
+	margin-top:10px;
+	position: relative;
+	left:-20px;
+	padding:5px 5px 5px;
+	box-shadow: 2px 2px 5px 2px black;
+}
+.contactform #id_name, .contactform #id_email,
+.contactform #id_phone,.contactform #id_detail{
+	width:100%;
+	padding:5px 5px 5px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border:none;
+	margin-bottom: 5px;
+
+}
+.form-type h3{
+	text-align: center;
+	color:white;
+}
+.form-type p{
+	text-align: center;
+	color:white;
+}
+.form-type button{
+	padding:10px 40px 10px;
+	border:none;
+	margin-bottom: 20px;
+	width:100%;
+}
+@media only screen and (min-width:150px) and (max-width:400px){
+	.order-info h4{
+		font-size: 10px;
+	}
+	.contactform{
+		width:90%;
+		left:5%;
+	}
 	.agreement {
 		width:100%;
 		position: relative;
@@ -1745,6 +1802,9 @@ width: 100%;
 }
 
 @media only screen and (min-width:400px) and (max-width:500px){
+	.order-info h4{
+		font-size: 13px;
+	}
 	.quicksearch-container {
 		width:100%;
 		text-align: center;

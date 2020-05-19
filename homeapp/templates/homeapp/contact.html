@@ -1,0 +1,39 @@
+{% extends 'homeapp/base.html' %}
+{% block content %}
+{% load staticfiles %}
+<div class="contactform">
+    <div class="order-info">
+     <h4>Contact Us On</h4>
+     <div class="aa-footer-social">
+            <a href="#"><span class="fa fa-facebook"></span></a><br>
+            <a href="#"><span class="fa fa-twitter"></span></a><br>
+            <a href="#"><span class="fa fa-instagram"></span></a><br>
+            <a href="#"><span class="fa fa-youtube"></span></a><br>
+            <a href="#"><span class="fa fa-linkedin"></span></a><br>
+          </div>
+    </div>
+    <div class="form-type">
+        <h3>Get In Touch</h3>
+        <p class="received">Feel free to drop us a message</p>
+        <form id="contactform" action="{% url 'homeapp:contact' %}" method="post">
+        {% csrf_token %}
+            <div class="field">
+            {{form.name}}
+        </div>
+        <div class="field">
+            {{form.email}}
+        </div>
+        <div class="field">
+            {{form.phone}}
+        </div>
+        <div class="field">
+            {{form.detail}}
+        </div>
+        <div class="button">
+        <button type="submit">Send</button>
+    </div>
+    </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -2,9 +2,15 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import  UserAdminCreationForm,UserAdminChangeForm
 from django.contrib.auth import get_user_model
-from homeapp.models import Sagreement,SellerID,Sessionlog,Membership,Address,TryPeriod
+from homeapp.models import Buyer_terms_and_condition,deliveryandreturnpolicies,privacypolicies,About,Sellertermsandcondition,SellerID,Sessionlog,Membership,Address,TryPeriod
 from homeapp.activitytracker import Activity
-admin.site.register(Sagreement)
+
+
+admin.site.register(Buyer_terms_and_condition)
+admin.site.register(About)
+admin.site.register(privacypolicies)
+admin.site.register(deliveryandreturnpolicies)
+admin.site.register(Sellertermsandcondition)
 admin.site.register(TryPeriod)
 admin.site.register(Membership)
 admin.site.register(Address)

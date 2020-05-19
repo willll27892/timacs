@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,HttpResponse,get_object_or_404
-from homeapp.forms import LoginForm,RegisterForm,AddressForm,Membershipform
+from homeapp.forms import ContactForm,LoginForm,RegisterForm,AddressForm,Membershipform
 from django.contrib.auth import login,logout,authenticate
-from homeapp.models import Membership,Address,Sagreement
+from homeapp.models import Buyer_terms_and_condition,deliveryandreturnpolicies,privacypolicies,About,Membership,Address,Sellertermsandcondition
 from homeapp.urlredirect import UrlRedirect
 from products.models import CostProcessing,Product,ProductSize,ProductColor,Tracker
 from productsdisplay import views
@@ -15,7 +15,19 @@ from order.models import ReceiversName,ProductOrder,Orderstatus
 from productsdisplay.views import  SeaerchByInput,SearchCategory,MenuSearch,UsedProducts,ShopeMore
 from products.models import Category, SubCategory
 from django.core.paginator import Paginator
+from  homeapp.models import contactus
 
+
+def Contact(request):
+    categoryobjs     = Category.objects.all()
+    form = ContactForm(request.POST or None)
+    if request.is_ajax:
+        if form.is_valid:
+            instance= form.save(commit=False)
+            instance.save()
+    context={'form':form,'categoryobjs':categoryobjs}
+    template_name="homeapp/contact.html"
+    return render(request,template_name,context)
 
 
 def inputsearch(request):
@@ -106,9 +118,43 @@ def  quicklinkscat(request,category):
     return render(request,template_name,context)
 
 
+#return and delivery policies
+def delivery_and_return_policies(request):
+    categoryobjs     = Category.objects.all()
+    agmnt = deliveryandreturnpolicies.objects.all().last()
+    context={'categoryobjs':categoryobjs,'agmnt':agmnt}
+    template_name="homeapp/agreement.html"
+    return render (request,template_name,context)
+
+
+#about page
+def AboutUs(request):
+    categoryobjs     = Category.objects.all()
+    agmnt = About.objects.all().last()
+    context={'categoryobjs':categoryobjs,'agmnt':agmnt}
+    template_name="homeapp/agreement.html"
+    return render (request,template_name,context)
+
+# user privacy policy
+def userprivacy(request):
+    categoryobjs     = Category.objects.all()
+    agmnt = privacypolicies.objects.all().last()
+    context={'categoryobjs':categoryobjs,'agmnt':agmnt}
+    template_name="homeapp/agreement.html"
+    return render (request,template_name,context)
+
+
+def BuyerTerms(request):
+    categoryobjs     = Category.objects.all()
+    agmnt = Buyer_terms_and_condition.objects.all().last()
+    context={'categoryobjs':categoryobjs,'agmnt':agmnt}
+    template_name="homeapp/agreement.html"
+    return render (request,template_name,context)
+
+
 def selleragreement(request):
     categoryobjs     = Category.objects.all()
-    agmnt = Sagreement.objects.all().last()
+    agmnt = Sellertermsandcondition.objects.all().last()
     context={'categoryobjs':categoryobjs,'agmnt':agmnt}
     template_name="homeapp/agreement.html"
     return render (request,template_name,context)

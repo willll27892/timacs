@@ -3,7 +3,21 @@ from homeapp.models import CustomUser
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth import login,logout,authenticate
-from homeapp.models import Address,Membership
+from homeapp.models import contactus,Address,Membership
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = contactus
+        widgets={
+         'name':forms.TextInput(attrs={'placeholder':'Enter your name'}),
+         'email':forms.EmailInput(attrs={'placeholder':'Enter your email'}),
+         'phone':forms.TextInput(attrs={'placeholder':'Enter your number'}),
+         'detail':forms.Textarea(attrs={'placeholder':'Enter your message'}),
+        }
+        
+        exclude= ('created',)
+        fields = ('name','email','phone', 'detail')
 
 
 class UserAdminCreationForm(forms.ModelForm):

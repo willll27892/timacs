@@ -168,7 +168,10 @@ class Address(models.Model):
     def __str__(self):
         return "{user}".format(user=self.user)
 
-class Sagreement(models.Model):
+class Buyer_terms_and_condition(models.Model):
+    terms = RichTextField(config_name="default",null=True)
+
+class Sellertermsandcondition(models.Model):
     agreement=RichTextField(config_name="default",null=True)
 
 class About(models.Model):
@@ -179,3 +182,11 @@ class privacypolicies(models.Model):
 
 class deliveryandreturnpolicies(models.Model):
     policy=RichTextField(config_name="default",null=True)
+
+
+class contactus(models.Model):
+    name  = models.CharField(max_length=200,null=True)
+    email = models.EmailField(null=True)
+    phone = models.CharField(max_length=200,null=True)
+    detail= models.TextField(null=True)
+    created = models.DateTimeField(null=True,auto_now_add=True)

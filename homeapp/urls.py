@@ -3,12 +3,16 @@ from django.urls import path
 from .import views
 
 app_name="homeapp"
-
 urlpatterns=[
+    url(r'^contact/timacs/',views.Contact,name="contact"),
+    url(r'^buyer/terms/condition',views.BuyerTerms,name="buyerterms"),
+    url(r'^data/privacy',views.userprivacy,name="datapolicies"),
+    url(r'^about/timacs/',views.AboutUs,name="aboutus"),
+    url(r'^search/return_and_delivery/policies/',views.delivery_and_return_policies,name="returnpolicies"),
     url(r'^search/timacs/',views.inputsearch,name="inputsearch"),
     url(r'^tag/category/product/quick-search/(?P<category>.*)/$',views.quicklinkscat,name="quicklinkscat"),
      url(r'^tag/product/quick-search/(?P<cat>.*)/(?P<subcat>.*)/$',views.quicklinks,name="quicklinks"),
-    url(r'^seller/agreement/$',views.selleragreement,name="sagreement"),
+    url(r'^seller/agreement/$',views.selleragreement,name="Sellertermsandcondition"),
     url(r'^shope/more/$',views.Shopmoredef,name="shopemore"),
     #home page url
     url(r'^items/used/$',views.UsedProduct,name="usedItems"),
