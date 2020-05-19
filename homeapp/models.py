@@ -6,7 +6,7 @@ from django.utils.text import slugify
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 from .slug import Generate_slug
 from django.contrib.contenttypes.models import ContentType
-
+from ckeditor.fields import RichTextField
 
 class UserManger(BaseUserManager):
     def  create_user(self,email,password=None,is_active=True,is_admin=False,is_staff=False):
@@ -169,4 +169,13 @@ class Address(models.Model):
         return "{user}".format(user=self.user)
 
 class Sagreement(models.Model):
-    agreement=models.TextField(null=True)
+    agreement=RichTextField(config_name="default",null=True)
+
+class About(models.Model):
+    about = RichTextField(config_name="default",null=True)
+
+class privacypolicies(models.Model):
+    policy=RichTextField(config_name="default",null=True)
+
+class deliveryandreturnpolicies(models.Model):
+    policy=RichTextField(config_name="default",null=True)

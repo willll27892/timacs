@@ -26,7 +26,8 @@ urlpatterns = [
     url(r'userpannel/',include('adminone.urls')),
     url('billing/',include('billing.urls')),
     url('order/',include('order.urls')),
-    url('affilaite/',include('affiliate.urls'))
+    url('affilaite/',include('affiliate.urls')),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 

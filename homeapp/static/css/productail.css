@@ -1370,15 +1370,23 @@ padding-top:40px;
 	left:10%;
 }
 .agreement article{
+	width: 100%;
 	line-height: 1.5;
+	display: inline-flex;
+
 }
 .agreement {
-	line-height: 1.5;
-	padding-left:20%;
-	padding-top:50px;
-	padding-bottom: 50px;
+	text-align:left;
+	border-left:solid;
+	border-right:solid;
+	border-width: 1px;
+	padding:10px 10px 10px 10px;
 	width:80%;
 	display: inline-block;
+	margin-top:50px;
+	margin-bottom: 50px;
+	position: relative;
+	left:10%;
 }
 .quicksearch-container {
 	display: inline-block;
@@ -1411,6 +1419,13 @@ padding-top:40px;
 	
 }
 @media only screen and (min-width:150px) and (max-width:400px){
+	
+
+	.agreement {
+		width:100%;
+		position: relative;
+		left:0%;
+	}
 	.quicksearch-container {
 		width:100%;
 		text-align: center;
