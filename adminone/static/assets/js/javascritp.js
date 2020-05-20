@@ -1,5 +1,8 @@
 
 
+  
+  
+
 /* when user hovers on profic*/
 $(document).ready(function(){
 $('.displaypic').hover(function(){

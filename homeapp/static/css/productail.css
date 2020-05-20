@@ -89,17 +89,7 @@ float: left;
 	overflow: hidden;
 }
 
-.produt-info-container{
-	width:40%;
 
-}
-.img-view-container ,.produt-info-container{
-	float: left;
-	
-	position: relative;
-
-
-}
 .produt-info-container .product-name{
 	font-size: 14px;
 	text-transform:capitalize;
@@ -1265,22 +1255,37 @@ border-radius: 5px;
 	padding:10px 60px 10px;
 	background-color:white;
 }
+
+
 .affiliate-container{
-	margin-bottom:50px;
-	margin-top:50px;
+	display:none;
+	overflow-y:auto;
+	position: fixed;
+	bottom: 0px;
+	top:0px;
+	z-index: 1000;
+	width:100%;
+	height: 100%;
+	background-color: white;
+
+}
+.affiliateform-container{
+	
+	margin-top:20px;
+	margin-bottom: 20px;
+	border:solid;
+	border-width: 1px;
+	padding-left:8%;
+	padding-top:20px;
+	padding-bottom: 20px;
+	width:50%;
 	position: relative;
-	display: inline-block;
-	width:80%;
-	left:10%;
-	box-shadow:-0.1px 1px 5px 1px black;
-	-webkit-box-shadow: -0.1px 1px 5px 1px black;
-	-moz-box-shadow: -0.1px 1px 5px 1px black;
-	-ms-box-shadow: -0.1px 1px 5px 1px black;
-	-o-box-shadow: -0.1px 1px 5px 1px black;
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-ms-border-radius: 5px;
-	-o-border-radius: 5px;
+	left: 25%;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
 }
 .requestform-container .rq-lble{
 	margin-bottom: 10px;
@@ -1304,25 +1309,13 @@ border-radius: 5px;
 -ms-border-radius: 5px;
 -o-border-radius: 5px;
 }
-.info-container article{
-	line-height: 1.5;
-	padding:10px 10px 10px;
-	font-size: 18px;
-	color:rgba(0, 0, 0, 0.7);
-}
+
 .fields_lable{
 	font-size: 18px;
 	margin-bottom: 5px;
 	margin-top:5px;
 }
-.info-container,.affiliateform-container{
-width:40%;
-float: left;
-margin-top:50px;
-margin-bottom: 50px;
-margin-left:8%;
-padding-top:40px;
-}
+
 
 
 .affiliateform-container #id_occupation,.affiliateform-container #id_name,.affiliateform-container #id_email,
@@ -1443,6 +1436,9 @@ padding-top:40px;
 	left:-20px;
 	padding:5px 5px 5px;
 	box-shadow: 2px 2px 5px 2px black;
+	-webkit-box-shadow: 2px 2px 5px 2px black;
+	-ms-box-shadow: 2px 2px 5px 2px black;
+	-o-box-shadow: 2px 2px 5px 2px black;
 }
 .contactform #id_name, .contactform #id_email,
 .contactform #id_phone,.contactform #id_detail{
@@ -1470,7 +1466,279 @@ padding-top:40px;
 	margin-bottom: 20px;
 	width:100%;
 }
+
+.affiliate-design{
+	display: inline-block;
+	width: 100%;
+	padding-top:40px;
+	text-align: center;
+}
+
+.affiliate-design h2{
+	text-shadow: 1px 2px 1px  rgb(0, 0, 129,0.8);
+	-webkit-text-shadow: 1px 2px 1px  rgb(0, 0, 129,0.8);
+	-ms-text-shadow: 1px 2px 1px  rgb(0, 0, 129,0.8);
+	-o-text-shadow: 1px 2px 1px  rgb(0, 0, 129,0.8); 
+	color:rgb(255, 221, 29);
+	padding-top:50px;
+	padding-bottom: 50px;
+	font-size: 50px;
+}
+.popupmenu {
+	padding-left:20px;
+}
+.second-container{
+	display: inline-block;
+	width:80%;
+}
+
+.second-container .aff-art-one{
+	font-family: 'Nanum Myeongjo', serif;
+	width: 30%;
+	height: 300px;
+	float: left;
+	border:solid;
+	font-size: 25px;
+	margin-left:13%;
+	border-radius: 50%;
+	padding-top: 120px;
+	padding-left:10px;
+	padding-right:10px;
+	border-width: 1px;
+	border-color:rgb(255, 221, 29);
+	color:brown;
+}
+
+.affiliate-info-container h3{
+	color:green;
+}
+
+.rotateIn {
+	-webkit-animation-name: rotateIn;
+	animation-name: rotateIn;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	}
+	@-webkit-keyframes rotateIn {
+	0% {
+	-webkit-transform-origin: center;
+	transform-origin: center;
+	-webkit-transform: rotate3d(0, 0, 1, -200deg);
+	transform: rotate3d(0, 0, 1, -200deg);
+	opacity: 0;
+	}
+	100% {
+	-webkit-transform-origin: center;
+	transform-origin: center;
+	-webkit-transform: none;
+	transform: none;
+	opacity: 1;
+	}
+	}
+	@keyframes rotateIn {
+	0% {
+	-webkit-transform-origin: center;
+	transform-origin: center;
+	-webkit-transform: rotate3d(0, 0, 1, -200deg);
+	transform: rotate3d(0, 0, 1, -200deg);
+	opacity: 0;
+	}
+	100% {
+	-webkit-transform-origin: center;
+	transform-origin: center;
+	-webkit-transform: none;
+	transform: none;
+	opacity: 1;
+	}
+	} 
+
+
+.affiliate-info-container{
+	margin-top: 60px;
+	padding-top:30px;
+	padding-bottom: 50px;
+	 width:80%;
+	 display: inline-block;
+	 border:solid;
+	 border-width: 1px;
+	 border-radius: 10px;
+	 -webkit-border-radius: 10px;
+	 -moz-border-radius: 10px;
+	 -o-border-radius: 10px;
+	 -ms-border-radius: 10px;
+	 border-color: rgba(0, 0, 0, 0.2);
+	 box-shadow: 1px 1px 5px 1px black;
+	 -webkit-box-shadow: 1px 1px 5px 1px black;
+	 -moz-box-shadow: 1px 1px 5px 1px black;
+	 -o-box-shadow: 1px 1px 5px 1px black;
+}
+
+	@-webkit-keyframes first-container {
+	0% {
+	opacity: 0;
+	-webkit-transform: scale3d(.3, .3, .3);
+	transform: scale3d(.3, .3, .3);
+	}
+	50% {
+	opacity: 1;
+	}
+	}
+	@keyframes first-container {
+	0% {
+	opacity: 0;
+	-webkit-transform: scale3d(.3, .3, .3);
+	transform: scale3d(.3, .3, .3);
+	}
+	50% {
+	opacity: 1;
+	}
+	}
+	.open-apply-pop-up{
+		display: inline-block;
+		width:100%;
+		margin-top:40px;
+		margin-bottom: 40px;
+	}
+	.open-apply-pop-up .register-form{
+		cursor: pointer;
+		text-align: center;
+		position: relative;
+		left:40%;
+		width:20%;
+		border: solid;
+		padding:10px 10px 10px;
+		background-color: navy;
+		border-color:rgb(255, 221, 29);
+		color:rgb(255, 221, 29);
+		border-width: 2px;
+		font-weight: 700;
+		border-radius: 5px;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		-ms-border-radius: 5px;
+		-o-border-radius: 5px;
+	}
+
+.first-container{
+
+   padding-top:50px;
+   padding-bottom: 50px;
+	width:80%;
+	display: inline-block;
+	border:solid;
+	border-width: 1px;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
+	-ms-border-radius: 10px;
+	border-color: rgba(0, 0, 0, 0.2);
+	box-shadow: 1px 1px 5px 1px black;
+	-webkit-box-shadow: 1px 1px 5px 1px black;
+	-moz-box-shadow: 1px 1px 5px 1px black;
+	-o-box-shadow: 1px 1px 5px 1px black;
+}
+
+.aff-content{
+	-webkit-animation-name: zoomIn;
+	animation-name: zoomIn;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	padding-top:70px;
+	font-size: 30px;
+	width:50%;
+	float: left;
+    color:rgb(0, 128, 0,0.8);
+    font-family: 'Sorts Mill Goudy', serif;
+}
+.moneysvg{
+	float: left;
+	width:40%;
+	height:200px;
+	overflow: hidden;
+}
+.moneysvg svg{
+	width:100%;
+	height:200px;
+}
 @media only screen and (min-width:150px) and (max-width:400px){
+	.affiliateform-container{
+		margin-top:20px;
+		margin-bottom: 20px;
+		border:solid;
+		border-width: 1px;
+		padding-left:2%;
+		padding-right:2%;
+		padding-top:20px;
+		padding-bottom: 20px;
+		width:80%;
+		left: 10%;
+	}
+	.affiliateform-container .submit-div{
+		left:10%;
+	}
+	.open-apply-pop-up .register-form{
+		width:60%;
+		left:20%;
+	}
+
+	.affiliate-info-container p {
+		padding: 5px 5px 5px;
+		text-align: center;
+		font-size: 14px;
+		width: 100%;
+		left: 0%;
+	}
+	.second-container .aff-art-one{
+		width: 45%;
+		height: 100px;
+		font-size: 13px;
+		margin-left:3%;
+		border-radius: 50%;
+		padding-top: 20px;
+		padding-left:10px;
+		padding-right:10px;
+		border-width: 1px;
+		color:brown;
+	}
+		
+.affiliate-design h2{
+	text-shadow: 1px 1px 1px  rgb(0, 0, 129,0.8);
+	-webkit-text-shadow: 1px 1px 1px  rgb(0, 0, 129,0.8);
+	-ms-text-shadow: 1px 1px 1px  rgb(0, 0, 129,0.8);
+	-o-text-shadow: 1px 1px 1px  rgb(0, 0, 129,0.8); 
+	color:rgb(255, 221, 29);
+	padding-top:50px;
+	padding-bottom: 50px;
+	font-size: 25px;
+}
+
+	
+	.first-container{
+
+		padding-top:10px;
+		padding-bottom: 10px;
+		 width:80%;
+		 display: inline-block;
+		 border:solid;
+	 }	
+.aff-content{
+	-webkit-animation-name: zoomIn;
+	animation-name: zoomIn;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	padding-top:40px;
+	font-size: 20px;
+	width:50%;
+}
+
+	
 	.order-info h4{
 		font-size: 10px;
 	}
@@ -1497,12 +1765,7 @@ padding-top:40px;
 		width:100%;
 		left:0%;
 	}
-	.info-container,.affiliateform-container{
-		width:80%;
-		float: left;
-		margin-top:10px;
-		margin-left:8%;
-		}
+	
 		.affiliateform-container #id_occupation,.affiliateform-container #id_name,.affiliateform-container #id_email,
 		.affiliateform-container #id_number,.affiliateform-container #id_address{
 			width:100%;
@@ -1793,15 +2056,79 @@ width: 100%;
 		margin-left:0%;
 		overflow: hidden;
 	}
+
 	.img-view-container ,.produt-info-container{
 		width:90%;
-	
-	
-	
 	}
 }
 
 @media only screen and (min-width:400px) and (max-width:500px){
+	.affiliateform-container{
+		margin-top:20px;
+		margin-bottom: 20px;
+		border:solid;
+		border-width: 1px;
+		padding-left:2%;
+		padding-right:2%;
+		padding-top:20px;
+		padding-bottom: 20px;
+		width:80%;
+		left: 10%;
+	}
+	.affiliateform-container .submit-div{
+		left:10%;
+	}
+	.open-apply-pop-up .register-form{
+		width:60%;
+		left:20%;
+	}
+
+	.affiliate-info-container p {
+		padding: 5px 5px 5px;
+		text-align: left;
+		font-size: 14px;
+		width: 100%;
+		left: 0%;
+	}
+	.second-container .aff-art-one{
+		width: 40%;
+		height: 120px;
+		font-size: 13px;
+		margin-left:6%;
+		border-radius: 50%;
+		padding-top: 40px;
+		padding-left:2px;
+		padding-right:10px;
+		border-width: 1px;
+	}
+		
+.affiliate-design h2{
+	padding-top:50px;
+	padding-bottom: 50px;
+	font-size: 25px;
+}
+
+	
+	.first-container{
+
+		padding-top:10px;
+		padding-bottom: 10px;
+		 width:80%;
+		 display: inline-block;
+		 border:solid;
+	 }	
+.aff-content{
+	-webkit-animation-name: zoomIn;
+	animation-name: zoomIn;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	padding-top:40px;
+	font-size: 20px;
+	width:50%;
+}
+	
 	.order-info h4{
 		font-size: 13px;
 	}
@@ -1819,12 +2146,7 @@ width: 100%;
 		width:100%;
 		left:0%;
 	}
-	.info-container,.affiliateform-container{
-		width:80%;
-		float: left;
-		margin-top:10px;
-		margin-left:8%;
-		}
+
 		.affiliateform-container #id_occupation,.affiliateform-container #id_name,.affiliateform-container #id_email,
 		.affiliateform-container #id_number,.affiliateform-container #id_address{
 			width:100%;
@@ -2096,7 +2418,62 @@ width: 100%;
 
 
 @media only screen and (min-width:500px) and (max-width:900px){
+	.affiliateform-container{
+		margin-top:20px;
+		margin-bottom: 20px;
+		border:solid;
+		border-width: 1px;
+		padding-left:2%;
+		padding-right:2%;
+		padding-top:20px;
+		padding-bottom: 20px;
+		width:80%;
+		left: 10%;
+	}
+	.affiliateform-container .submit-div{
+		left:10%;
+	}
+	.affiliate-info-container p {
+		text-align: center
+	}
+	.second-container .aff-art-one{
+		width: 40%;
+		height: 180px;
+		font-size: 16px;
+		margin-left:6%;
+		border-radius: 50%;
+		padding-top: 70px;
+		padding-left:2px;
+		padding-right:10px;
+		border-width: 1px;
+	}
+		
+.affiliate-design h2{
+	padding-top:50px;
+	padding-bottom: 50px;
+	font-size: 25px;
+}
+
 	
+	.first-container{
+		height:auto;
+		padding-top:10px;
+		padding-bottom: 10px;
+		 width:80%;
+		 display: inline-block;
+		 border:solid;
+	 }	
+.aff-content{
+	-webkit-animation-name: zoomIn;
+	animation-name: zoomIn;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	padding-top:40px;
+	font-size: 20px;
+	width:50%;
+}
 	.quicksearch-container {
 		width:100%;
 		text-align: center;
@@ -2105,12 +2482,7 @@ width: 100%;
 		width:100%;
 		margin-bottom: 10px;
 	}
-	.info-container,.affiliateform-container{
-		width:80%;
-		float: left;
-		margin-top:10px;
-		margin-left:8%;
-		}
+	
 		.affiliateform-container #id_occupation,.affiliateform-container #id_name,.affiliateform-container #id_email,
 		.affiliateform-container #id_number,.affiliateform-container #id_address{
 			width:100%;

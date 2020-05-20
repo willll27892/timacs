@@ -9,7 +9,6 @@ def Apply(request):
     form = AffiliateForm(request.POST or None)
     if request.is_ajax:
         if form.is_valid:
-            print('valided')
             instance= form.save(commit=False)
             instance.save()
     context={'categoryobjs':categoryobjs,'form':form}

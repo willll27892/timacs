@@ -1,4 +1,69 @@
 
+// submit product update form
+$('#affiliate_application').submit(function(e){
+  e.preventDefault();
+  $.ajax({
+    url:$(this).attr('action'),
+    method:$(this).attr('method'),
+    data:$(this).serialize(),
+    success:function(){
+      $('.received').html('');
+      $('.received').text('Your request received. We will get back to you shortly.')
+      $('#affiliate_application')[0].reset();
+      setTimeout(function(){ 
+        $('.affiliate-container').css({'display':'none'});
+        $('.affiliate-design').css({'display':'inline-block',});
+       $('footer').show();
+       $('header').show();
+        
+        ; }, 2000);
+   
+    },
+    error:function(){}
+  })
+})
+
+
+// when user clicks on submit form
+
+$(document).ready(function(){
+$('.register-form').click(function(){
+  
+$('.affiliate-container').css({'display':'inherit','position':'fixed'});
+$('.affiliate-design').css({'display':'none'});
+$('footer').hide();
+$('header').hide();
+}); 
+});
+
+//check if a div is in viewport
+$(document).ready(function(){
+  $.fn.isInViewport = function() {
+    var elementTop = $(this).offset().top;
+    var elementBottom = elementTop + $(this).outerHeight();
+  
+    var viewportTop = $(window).scrollTop();
+    var viewportBottom = viewportTop + $(window).height();
+  
+    return elementBottom > viewportTop && elementTop < viewportBottom;
+  };
+  /* 
+  check if venture div is in view port perform the following actions
+  */
+  $(window).on('resize scroll', function() {
+    $('.affiliate-info-container').each(function() {
+        
+      if ($(this).isInViewport()) {
+          $('.aff-art-one').addClass('rotateIn ')
+
+      } else {
+        $('.aff-art-one').removeClass('rotateIn ')
+      }
+    });
+  });
+})
+
+
 // submit form when Qt change in cart 
 
 function QuantityUpdate(form){
@@ -179,6 +244,7 @@ $(document).ready(function(){
   })
   });
   });
+
 $(document).ready(function(){
   $('#ordercanceled').submit(function(e){
     e.preventDefault();
@@ -221,21 +287,7 @@ $('#contactform').submit(function(e){
   })
 })
 
-// submit product update form
-$('#affiliate_application').submit(function(e){
-  e.preventDefault();
-  $.ajax({
-    url:$(this).attr('action'),
-    method:$(this).attr('method'),
-    data:$(this).serialize(),
-    success:function(){
-      $('.received').html('');
-      $('.received').text('Your request received. We will get back to you shortly.')
-      $('#affiliate_application')[0].reset();
-    },
-    error:function(){}
-  })
-})
+
 
 // submit product update form
 $('#productupdateform').submit(function(e){
