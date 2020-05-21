@@ -4,11 +4,14 @@ from .import views
 
 app_name="homeapp"
 urlpatterns=[
-    url(r'^contact/timacs/',views.Contact,name="contact"),
-    url(r'^buyer/terms/condition',views.BuyerTerms,name="buyerterms"),
-    url(r'^data/privacy',views.userprivacy,name="datapolicies"),
-    url(r'^about/timacs/',views.AboutUs,name="aboutus"),
-    url(r'^search/return_and_delivery/policies/',views.delivery_and_return_policies,name="returnpolicies"),
+    url(r'^Master/Visa/card/$',views.MasterAndVisa,name="card"),
+    url(r'^Orange/money/$',views.OrangeMoney,name="orange"),
+    url(r'^MTN/mobilemoney/$',views.MtnMoney,name="mtn"),
+    url(r'^contact/timacs/$',views.Contact,name="contact"),
+    url(r'^buyer/terms/condition/$',views.BuyerTerms,name="buyerterms"),
+    url(r'^data/privacy/$',views.userprivacy,name="datapolicies"),
+    url(r'^about/timacs/$',views.AboutUs,name="aboutus"),
+    url(r'^search/return_and_delivery/policies/$',views.delivery_and_return_policies,name="returnpolicies"),
     url(r'^search/timacs/',views.inputsearch,name="inputsearch"),
     url(r'^tag/category/product/quick-search/(?P<category>.*)/$',views.quicklinkscat,name="quicklinkscat"),
      url(r'^tag/product/quick-search/(?P<cat>.*)/(?P<subcat>.*)/$',views.quicklinks,name="quicklinks"),

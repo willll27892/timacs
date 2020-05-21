@@ -11,3 +11,5 @@ class Application(models.Model):
     name       = models.CharField(null=True,max_length=200)
     address    = models.TextField(null=True)
     occupation = models.CharField(null=True,max_length=200)
+
+

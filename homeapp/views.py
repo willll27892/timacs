@@ -15,8 +15,31 @@ from order.models import ReceiversName,ProductOrder,Orderstatus
 from productsdisplay.views import  SeaerchByInput,SearchCategory,MenuSearch,UsedProducts,ShopeMore
 from products.models import Category, SubCategory
 from django.core.paginator import Paginator
-from  homeapp.models import contactus
+from  homeapp.models import MasterAndVisaCard,contactus,MTNmobile,Orangemoney
 
+
+def MtnMoney(request):
+    categoryobjs     = Category.objects.all()
+    agmnt = MTNmobile.objects.all().last()
+    context={'categoryobjs':categoryobjs,'agmnt':agmnt}
+    template_name="homeapp/agreement.html"
+    return render (request,template_name,context) 
+
+
+def OrangeMoney(request):
+    categoryobjs     = Category.objects.all()
+    agmnt = Orangemoney.objects.all().last()
+    context={'categoryobjs':categoryobjs,'agmnt':agmnt}
+    template_name="homeapp/agreement.html"
+    return render (request,template_name,context) 
+
+
+def MasterAndVisa(request):
+    categoryobjs     = Category.objects.all()
+    agmnt = MasterAndVisaCard.objects.all().last()
+    context={'categoryobjs':categoryobjs,'agmnt':agmnt}
+    template_name="homeapp/agreement.html"
+    return render (request,template_name,context)  
 
 def Contact(request):
     categoryobjs     = Category.objects.all()

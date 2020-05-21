@@ -190,3 +190,18 @@ class contactus(models.Model):
     phone = models.CharField(max_length=200,null=True)
     detail= models.TextField(null=True)
     created = models.DateTimeField(null=True,auto_now_add=True)
+
+
+# MTN Mobile Money
+class MTNmobile(models.Model):
+    info= RichTextField(config_name="default",null=True)
+
+
+# Orange  Money
+class Orangemoney(models.Model):
+    info= RichTextField(config_name="default",null=True)
+
+# Master and visacard
+class MasterAndVisaCard(models.Model):
+    info= RichTextField(config_name="default",null=True)
+

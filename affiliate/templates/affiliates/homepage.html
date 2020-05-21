@@ -153,7 +153,7 @@
         <h3> More About TIMACS Affiliate.</h3>
         <article>
             <p>
-                TIMACS affiliate program is design to offer work
+                TIMACS affiliate program is designed to offer work
                 from home opportunities to those seeking means to make extral money.
                 This program is almost free of charge, and most importantly to help students, stay at 
                 home mums etc,  make  money. Meeting up with their needs will no longer be a problem or call for concern.
@@ -172,11 +172,13 @@
 <div class="affiliate-container">
     <div class="popupmenu">
         <a href="{% url 'homeapp:home' %}">Home</a>
-    </div>
-    <h3 style="text-align: center">Apply To Become An Affiliated Agent With TIMACS</h3>
-<div class="received" style="text-align: center;color:green">
+        <h3 >Apply To Become An Affiliated Agent With TIMACS</h3>
+        <div class="received" style="text-align: center;color:green">
 
-</div>
+        </div>
+    </div>
+
+
 <div class="affiliateform-container">
     <form id="affiliate_application" action="{% url 'affiliate:apply' %}" method="post">
         {% csrf_token %}

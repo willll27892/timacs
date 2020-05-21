@@ -13,7 +13,8 @@ $('#affiliate_application').submit(function(e){
       setTimeout(function(){ 
         $('.affiliate-container').css({'display':'none'});
         $('.affiliate-design').css({'display':'inline-block',});
-       $('footer').show();
+        $('.affiliate-container').removeClass('zoomIn');
+        $('footer').show();
        $('header').show();
         
         ; }, 2000);
@@ -30,6 +31,7 @@ $(document).ready(function(){
 $('.register-form').click(function(){
   
 $('.affiliate-container').css({'display':'inherit','position':'fixed'});
+$('.affiliate-container').addClass('zoomIn');
 $('.affiliate-design').css({'display':'none'});
 $('footer').hide();
 $('header').hide();

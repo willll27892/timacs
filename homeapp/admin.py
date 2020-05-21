@@ -2,10 +2,13 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import  UserAdminCreationForm,UserAdminChangeForm
 from django.contrib.auth import get_user_model
-from homeapp.models import Buyer_terms_and_condition,deliveryandreturnpolicies,privacypolicies,About,Sellertermsandcondition,SellerID,Sessionlog,Membership,Address,TryPeriod
+from homeapp.models import MasterAndVisaCard,Orangemoney,MTNmobile,Buyer_terms_and_condition,deliveryandreturnpolicies,privacypolicies,About,Sellertermsandcondition,SellerID,Sessionlog,Membership,Address,TryPeriod
 from homeapp.activitytracker import Activity
 
 
+admin.site.register(MTNmobile)
+admin.site.register(Orangemoney)
+admin.site.register(MasterAndVisaCard)
 admin.site.register(Buyer_terms_and_condition)
 admin.site.register(About)
 admin.site.register(privacypolicies)
