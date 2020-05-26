@@ -63,6 +63,20 @@ $(document).ready(function(){
       }
     });
   });
+
+  /* wheck if main menu still on view port*/
+
+  $(window).on('resize scroll', function() {
+    $('#aa-header').each(function() {
+        
+      if ($(this).isInViewport()) {
+        $('.fixed-menu').css({'height':'0px','padding-top':'0px','padding-bottom':'0px','visibility':'hidden'})
+
+      } else {	
+        $('.fixed-menu').css({'visibility':'initial','padding-top':'10px','padding-bottom':'10px','height':'auto','visibility':'initial'})
+      }
+    });
+  });
 })
 
 
@@ -112,6 +126,7 @@ $.ajax({
   data:data_,
   success:function(data){
     $('#cart').text(data.cart);
+    $('#cart-fixed').text(data.cart);
     $('.loader_').hide();
     $('.mainbody').css({'overflow':'initial','height':'initial'});
     $('.product-detail-container').hide();

@@ -32,7 +32,7 @@
   height: 500px;
   position:absolute;
  margin-top:-10px;
-  margin-left:45%;
+  margin-left:40%;
   box-shadow:-0.5px 1px 4px 1px black;
   -webkit-box-shadow:-0.5px 1px 4px 1px black;
   -ms-box-shadow:-0.5px 1px 4px 1px black;
@@ -57,7 +57,10 @@ visibility: hidden;
 .side-img, .img-active{
 float: left;
 }
-
+.img-view-container{
+	width:50%;
+	float:left;
+}
 .product-detail-container .side-img{
 	width:auto;
 	margin-right:20px;
@@ -97,6 +100,8 @@ float: left;
 }
 .produt-info-container{
 	padding-left:20px;
+	float:left;
+	width:40%;
 }
 .produt-info-container .pd-amnt{
 	font-size: 14px;
@@ -1707,7 +1712,101 @@ border-radius: 5px;
 	}
 	} 
 	
+	/* style top menu*/
+	.fixed-menu{
+		box-shadow:1px 1px 2px 1px  rgba(0,0,0,0.6);
+		-webkit-box-shadow:1px 1px 2px 1px  rgba(0,0,0,0.6);
+		-moz-box-shadow:1px 1px 2px 1px  rgba(0,0,0,0.6);
+		-o-box-shadow:1px 1px 2px 1px  rgba(0,0,0,0.6);
+		-ms-box-shadow:1px 1px 2px 1px  rgba(0,0,0,0.6);
+		padding-left:10%;
+		padding-right:10%;
+		width:100%;
+		top:0px;
+		left:0px;
+		position:fixed;
+		z-index: 1000;
+		background-color:rgb(255, 221, 29);
+		overflow:hidden;
+		height:0px;
+		visibility: hidden;
+		transition: visibility 0.5s;
+		transition: height 0.1s;
+		
+	} 
+	.fixed-menu .aa-search-box button{
+		background:white;
+		border-color:white;
+		border:none;
+		padding:3px 5px 3px;
+	}
+	.fixed-menu a{
+		font-weight:400;
+		font-size:13px;
+		padding:5px 5px 5px;
+		color:white;
+	}
+	.fixed-menu .aa-search-box{
+		width:50%;
+		float:left;
+	}
+	.fixed-menu .aa-search-box input{
+	 width:80%;
+	 border-radius:5px;
+		-webkit-border-radius:5px;
+		-moz-border-radius:5px;
+		-o-border-radius:5px;
+		text-align:center;
+		padding:3px 3px 3px;
+		border:none;
+	}
+	
+	.fixed-menu .aa-search-box{
+		width:50%;
+		float:left;
+	}
+	.fixed-menu .submenu
+	{
+		padding-right:5px;
+        padding-left:5px;
+		padding-top:2px;
+		float:right;
+		width:auto;
+	}
+	.fixed-menu .fixedcard{
+		border-radius:10px;
+		-webkit-border-radius:10px;
+		-moz-border-radius:10px;
+		-o-border-radius:10px;
+		padding:2px 5px 5px;
+		float:right;
+		width:5%;
+		background-color:navy;
+		text-align:center;
+	}
 @media only screen and (min-width:150px) and (max-width:400px){
+	.fixed-menu a{
+		padding:1px 1px 1px;
+	}
+	.fixed-menu .aa-search-box{
+		width:100%;
+		float:left;
+	}
+	.fixed-menu .submenu
+	{
+		position: relative;
+		top:10px;
+		float:left;
+		width:80%;
+		margin-left:0px;
+		
+	}
+	.fixed-menu .fixedcard{
+		margin-top:10px;
+		float:right;
+		width:20%;
+		padding:1px 1px 3px;
+	}
 	
 	.affiliateform-container{
 		margin-top:20px;
@@ -2106,6 +2205,22 @@ width: 100%;
 }
 
 @media only screen and (min-width:400px) and (max-width:500px){
+	.fixed-menu .aa-search-box{
+		width:100%;
+		float:left;
+	}
+	.fixed-menu .submenu
+	{
+		position: relative;
+		top:10px;
+		float:left;
+		width:70%;
+	}
+	.fixed-menu .fixedcard{
+		margin-top:10px;
+		float:right;
+		width:30%;
+	}
 	.affiliateform-container{
 		margin-top:20px;
 		margin-bottom: 20px;
@@ -2461,6 +2576,22 @@ width: 100%;
 
 
 @media only screen and (min-width:500px) and (max-width:900px){
+	.fixed-menu .aa-search-box{
+		width:100%;
+		float:left;
+	}
+	.fixed-menu .submenu
+	{
+		position: relative;
+		top:10px;
+		float:left;
+		width:70%;
+	}
+	.fixed-menu .fixedcard{
+		margin-top:10px;
+		float:right;
+		width:30%;
+	}
 	.affiliateform-container{
 		margin-top:20px;
 		margin-bottom: 20px;

@@ -17,5 +17,5 @@ def  Generate_slug(instance,slug):
         if slug exist , call back the function, 
         until a unique slug id generated.
         """
-        return Generate_user_slug(instance,slug)
+        return Generate_slug(instance,slug)
     return slug_ck

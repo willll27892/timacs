@@ -81,7 +81,7 @@ class Product(models.Model):
     sl              = ((0,0),(20,20),(30,30),(35,35),(40,40),(45,45),(50,50),(60,60),(70,70),(80,80))
     created         = models.DateTimeField(auto_now_add=True,null=True)
     category        = models.ForeignKey(Category,on_delete=models.CASCADE,related_name="product_category",null=True)
-    subcategory     = models.ForeignKey(SubCategory,on_delete=models.CASCADE,related_name="product_subcategory")
+    subcategory     = models.ForeignKey(SubCategory,on_delete=models.CASCADE,related_name="product_subcategory",null=True)
     productname     = models.CharField(max_length=50,null=True)
     picone          = models.ImageField(upload_to="productimage",null=True)
     pictwo          = models.ImageField(upload_to="productimage",null=True)
@@ -327,5 +327,5 @@ class ProductRequest(models.Model):
     description = models.TextField(null=True)
     def __int__(self):
         return str(self.productname)
-        1,2,3,4,5,6,7,8,9,10
+      
 
