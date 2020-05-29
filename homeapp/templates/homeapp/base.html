@@ -79,9 +79,9 @@ hold product info, such as images and product  detail
         {% endif %}   
 
    <div class="submenu">
-    <a href="">Login</a>
-    <a href="">Register</a>
-    <a href="">Sell On TIMACS</a>
+    <a href="{% url 'homeapp:login' %}">Login</a>
+    <a href="{% url 'homeapp:shopper' %}">Register</a>
+    <a href="{% url 'homeapp:seller' %}">Sell On TIMACS</a>
   </div>
 
 </div>
