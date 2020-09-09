@@ -1742,9 +1742,13 @@ border-radius: 5px;
 	}
 	.fixed-menu a{
 		font-weight:400;
-		font-size:13px;
+		font-size:18px;
 		padding:5px 5px 5px;
+		color:navy;
+	}
+	.fixedcard a{
 		color:white;
+		font-size:13px;
 	}
 	.fixed-menu .aa-search-box{
 		width:50%;
@@ -2574,7 +2578,10 @@ width: 100%;
 	}
 }
 
-
+.related-product{
+	position:relative;
+	left:-10%;
+}
 @media only screen and (min-width:500px) and (max-width:900px){
 	.fixed-menu .aa-search-box{
 		width:100%;

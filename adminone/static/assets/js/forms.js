@@ -38,6 +38,7 @@ $('header').hide();
 }); 
 });
 
+
 //check if a div is in viewport
 $(document).ready(function(){
   $.fn.isInViewport = function() {

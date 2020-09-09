@@ -133,6 +133,7 @@ class TryPeriod(models.Model):
 this model is to save user status 
 if user  is premium
 '''
+
 class  Premium(models.Model):
     created = models.DateTimeField(auto_now_add=True,null=True)
     user    = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="premiump",null=True)

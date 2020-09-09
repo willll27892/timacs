@@ -3,7 +3,7 @@
   
   
 
-/* when user hovers on profic*/
+/* when user hovers on profy*/
 $(document).ready(function(){
 $('.displaypic').hover(function(){
 $('.displaypic .useraccount').fadeIn('fast');

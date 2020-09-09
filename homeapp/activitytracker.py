@@ -64,8 +64,8 @@ def  trackproducts(user,pdobjs,sessionid):
     and create a season tracker objects for popular 
     products
     '''
-    #filter all products width views creater than
-    # the given number of views from Popular
+    #filter all products with views creater than
+    # the given number of views from value given by admin in Popular model
     minviews= Popular.objects.all().last()
     if not minviews:
         minviews = Popular.objects.create()
@@ -77,7 +77,6 @@ def  trackproducts(user,pdobjs,sessionid):
             #get all the products in Activity object
             productlogs = activity.products.all()
             for product in pdobjs:
-                #check if tracker object has been created for product
                 if not product in productlogs:
                     Tracker.objects.create(productname=product.productname,productprice=product.pdprice,productstate=product.state,categoryname=product.category.name,subcategoryslug=product.subcategory.slug,state=product.state,productdisplay=product,session=sessionid) 
                     # create tracker object for popular product
