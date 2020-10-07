@@ -792,3 +792,10 @@ def Login(request):
     context = {'categoryobjs':categoryobjs,'login':form}
     template_name="homeapp/login.html"
     return render(request,template_name,context)
+
+
+def handler404(request,exception):
+    pass
+
+def handler500(request):
+    pass

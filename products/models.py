@@ -163,7 +163,7 @@ class Product(models.Model):
         if width<250 and height<300:
             imageTemproaryResized.save(outputIoStream , format='JPEG', quality=100)
         if width==250 and height==300:
-            imageTemproary.save(outputIoStream , format='JPEG', quality=100)   
+            imageTemproaryResized.save(outputIoStream , format='JPEG', quality=100)   
         outputIoStream.seek(0)
         uploadedImage = InMemoryUploadedFile(outputIoStream,'ImageField', "%s.jpg" % uploadedImage.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
         return uploadedImage

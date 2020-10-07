@@ -2579,8 +2579,10 @@ width: 100%;
 }
 
 .related-product{
+	display:inline-block;
 	position:relative;
-	left:-10%;
+	left:4%;
+	
 }
 @media only screen and (min-width:500px) and (max-width:900px){
 	.fixed-menu .aa-search-box{

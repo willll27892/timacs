@@ -2,8 +2,11 @@ from django.conf.urls import url
 from django.urls import path
 from .import views
 
+
+
 app_name="homeapp"
 urlpatterns=[
+    url(r'^Master/Visa/card/$',views.MasterAndVisa,name="card"),
     url(r'^Master/Visa/card/$',views.MasterAndVisa,name="card"),
     url(r'^Orange/money/$',views.OrangeMoney,name="orange"),
     url(r'^MTN/mobilemoney/$',views.MtnMoney,name="mtn"),
